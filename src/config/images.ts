@@ -33,19 +33,19 @@ export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImag
     credit: 'NASA',
     license: 'Public domain',
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cloudscape_Over_the_Philippine_Sea.jpg',
-    // 960px preview while the design is reviewed: swap in the original (4928px) before launch.
-    placeholder: true,
+    // Original 4928px from Commons, saved at 3200px in sRGB with metadata removed (2026-10-18).
+    placeholder: false,
     position: '60% 40%',
   },
   /** About page feature photo. */
   aboutFeature: {
     src: gliderDeployment,
-    alt: 'Two technicians on a ship’s deck prepare yellow ocean gliders for deployment beside a large blue surface buoy.',
+    alt: 'Yellow ocean gliders on a ship’s deck, ready for deployment beside a large blue surface buoy.',
     credit: 'Ocean Observatories Initiative',
     license: 'Public domain (OOI image policy)',
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Glider_deployment_(OOI_592).jpg',
-    // 960px preview while the design is reviewed: swap in the original (4032px) before launch.
-    placeholder: true,
+    // Original 4032px from Commons, saved at 2400px in sRGB with metadata (incl. GPS) removed (2026-10-18).
+    placeholder: false,
   },
   /** Live map of ocean observing platforms (written by `npm run map`). */
   networkMap: {
