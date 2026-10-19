@@ -4,7 +4,9 @@
 // See docs/IMAGERY_PLAN.md for the shot list and approved sources.
 import type { ImageMetadata } from 'astro';
 
-import templatePlaceholder from '~/assets/images/site/placeholder.jpg';
+import oceanFromIss from '~/assets/images/site/hero-ocean-from-iss.jpg';
+import gliderDeployment from '~/assets/images/site/about-glider-deployment.jpg';
+import networkMap from '~/assets/images/site/hero-network-map.jpg';
 
 export interface SiteImage {
   src: ImageMetadata;
@@ -23,20 +25,38 @@ export interface SiteImage {
   pendingPermission?: boolean;
 }
 
-export const IMAGES: Record<'homeHero' | 'spotlight', SiteImage> = {
-  /** Home hero: full-bleed behind left-aligned text. Wide (≥2400px) landscape, calm area on the left. */
+export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImage> = {
+  /** Home hero: full-bleed behind left-aligned text. */
   homeHero: {
-    src: templatePlaceholder,
-    alt: '',
-    license: 'Template placeholder',
+    src: oceanFromIss,
+    alt: 'The Philippine Sea seen from the International Space Station, with clouds over a sunlit ocean and the thin blue line of the atmosphere on the horizon.',
+    credit: 'NASA',
+    license: 'Public domain',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cloudscape_Over_the_Philippine_Sea.jpg',
+    // 960px preview while the design is reviewed: swap in the original (4928px) before launch.
+    placeholder: true,
+    position: '60% 40%',
+  },
+  /** About page feature photo. */
+  aboutFeature: {
+    src: gliderDeployment,
+    alt: 'Two technicians on a ship’s deck prepare yellow ocean gliders for deployment beside a large blue surface buoy.',
+    credit: 'Ocean Observatories Initiative',
+    license: 'Public domain (OOI image policy)',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Glider_deployment_(OOI_592).jpg',
+    // 960px preview while the design is reviewed: swap in the original (4032px) before launch.
     placeholder: true,
   },
-  /** Home spotlight tile: one clear subject (it crops tightly). */
-  spotlight: {
-    src: templatePlaceholder,
-    alt: '',
-    license: 'Template placeholder',
-    placeholder: true,
+  /** Live map of ocean observing platforms (written by `npm run map`). */
+  networkMap: {
+    src: networkMap,
+    alt: 'World map with thousands of dots across every ocean, each an observing platform such as an Argo float, drifting buoy or ship that reported its position in the last 30 days.',
+    credit: 'Data: OceanOPS (WMO-IOC); land: Natural Earth',
+    license: 'Rendered for this site from OceanOPS data',
+    sourceUrl: 'https://www.ocean-ops.org/board',
+    placeholder: false,
+    // OceanOPS publishes no reuse license: confirm with them before launch.
+    pendingPermission: true,
   },
 };
 

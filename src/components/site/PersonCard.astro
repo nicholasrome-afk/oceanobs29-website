@@ -1,0 +1,45 @@
+---
+// Committee member card (after Falling Walls' speaker grid: role label above
+// the name). Shows initials until a permitted photo is added.
+import Image from '~/components/common/Image.astro';
+import type { Person } from '~/data/committees';
+
+export interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+const initials = person.name
+  .split(/\s+/)
+  .filter((part) => /^[A-Z]/.test(part))
+  .map((part) => part[0])
+  .filter((_, i, all) => i === 0 || i === all.length - 1)
+  .join('');
+---
+
+<article class="flex h-full flex-col border-t-2 border-line pt-4">
+  {
+    person.photo ? (
+      <Image
+        src={person.photo}
+        alt=""
+        layout="none"
+        width={160}
+        height={160}
+        class="h-20 w-20 rounded-full object-cover"
+      />
+    ) : (
+      <span
+        class="flex h-20 w-20 items-center justify-center rounded-full bg-primary font-heading text-2xl font-bold text-white"
+        aria-hidden="true"
+      >
+        {initials}
+      </span>
+    )
+  }
+  <p class="eyebrow mt-4 min-h-[1rem] text-link">{person.role ?? ''}</p>
+  <h3 class="mt-1 text-lg leading-snug font-bold text-heading">{person.name}</h3>
+  <p class="mt-1 text-sm text-muted">
+    {person.affiliation}{person.country && <span class="block">{person.country}</span>}
+  </p>
+</article>

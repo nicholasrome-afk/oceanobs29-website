@@ -27,9 +27,9 @@ const H = Math.round((W * (LAT_N - LAT_S)) / 360);
 const x = (lon) => (((lon + 180) / 360) * W).toFixed(1);
 const y = (lat) => (((LAT_N - lat) / (LAT_N - LAT_S)) * H).toFixed(1);
 
-const BG = '#0A192F'; // abyss
-const LAND = '#13294B'; // deep
-const DOTS = ['#00A896', '#7FE0D3', '#E8EEF3', '#3CC7B4', '#AFC0D2', '#4FB3BF', '#C9F2EC', '#5E8DB8'];
+const BG = '#04162B'; // ink
+const LAND = '#0B2643'; // ink-raised
+const DOTS = ['#1CBAC9', '#5FD3DE', '#E6EEF3', '#8FE3EA', '#A9BDCC', '#3FA9D6', '#C9F2F5', '#6E8FB8'];
 
 // Only platforms that reported a position recently (≈ "operational").
 const WINDOW_DAYS = 30;
@@ -109,7 +109,7 @@ const graticule = [-60, -30, 0, 30, 60]
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="100%" height="100%" fill="${BG}"/>
   <path d="${graticule}" stroke="#E8EEF3" stroke-opacity="0.06" stroke-width="1" fill="none"/>
-  <path d="${landPath(land)}" fill="${LAND}" stroke="#2A4468" stroke-width="1"/>
+  <path d="${landPath(land)}" fill="${LAND}" stroke="#1D3A5C" stroke-width="1"/>
   ${networks
     .map(
       ({ coords, color }) =>

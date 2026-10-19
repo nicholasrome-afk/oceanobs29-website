@@ -6,6 +6,7 @@ import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
 import { ORG } from '~/config/org';
 import { footerData } from '~/navigation';
+import logoWhite from '~/assets/images/site/logo-oceanobs29-white.png';
 
 const year = new Date().getFullYear();
 ---
@@ -50,7 +51,7 @@ const year = new Date().getFullYear();
   <div class="bg-ink text-on-dark-muted">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-12 lg:px-6">
       <div class="md:col-span-5">
-        <p class="font-heading text-2xl font-extrabold tracking-tight text-on-dark">{ORG.shortName}</p>
+        <Image src={logoWhite} alt={ORG.name} layout="none" width={200} class="h-14 w-auto" />
         {ORG.status && <p class="mt-3 max-w-sm text-sm">{ORG.status}</p>}
         {
           ORG.contacts.length > 0 && (
@@ -68,6 +69,23 @@ const year = new Date().getFullYear();
                 ))}
               </ul>
             </>
+          )
+        }
+        {
+          ORG.social.length > 0 && (
+            <ul class="mt-6 flex gap-3">
+              {ORG.social.map(({ name, icon, href }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="inline-flex items-center gap-2 text-sm text-on-dark hover:text-white hover:underline"
+                  >
+                    <Icon name={icon} class="h-5 w-5" aria-hidden="true" />
+                    {name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           )
         }
       </div>

@@ -32,11 +32,17 @@ export const ORG = {
   /** Links on the right of the utility bar, besides the newsletter button. */
   utilityLinks: [] as { text: string; href: string }[],
   /** People listed in the footer (and on the Contact page). */
-  contacts: [] as { name: string; role?: string; email: string }[],
+  contacts: [{ name: 'General inquiries', email: 'info@oceanobs29.net' }] as {
+    name: string;
+    role?: string;
+    email: string;
+  }[],
   /** Heading above the contacts in the footer, e.g. "Secretariat". */
   contactsHeading: 'Contact',
   /** Logos for the light strip above the footer. Import images from ~/assets/images/site/. */
   footerLogos: [] as FooterLogo[],
   /** Optional bottom-right footer line, e.g. "Contributing to the UN Decade of …". */
   footerNote: { text: '', href: '' },
+  /** Social profiles. Carried over from the old site: confirm the LinkedIn address before launch. */
+  social: [{ name: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/in/oceanobs29/' }],
 };

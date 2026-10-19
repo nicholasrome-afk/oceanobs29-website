@@ -11,7 +11,7 @@ metadata:
   title:
     default: 'OceanObs’29'
     template: '%s — OceanObs’29'
-  description: 'TODO: one-sentence description of the organization.'
+  description: 'OceanObs’29 is a decadal forum bringing together the global ocean community to define priorities, strengthen coordination, and ensure ocean observing remains scientifically robust, societally relevant, and fit for the future.'
   robots:
     index: true
     follow: true

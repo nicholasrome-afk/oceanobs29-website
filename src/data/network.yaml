@@ -1,17 +1,4 @@
-# Partners and programmes shown as cards on the homepage.
-# `type` must match a group in HOME.network.groups (src/config/home.ts).
-# `scope` is the one-line tag on each card: draft it from the partner's own site and mark for review.
-# EXAMPLE ENTRIES: replace with the real list from the old site.
-
-- id: example-partner
-  name: Example Partner Organization
-  acronym: EPO
-  type: partner
-  scope: What this partner does, in five words
-  url: https://example.org/
-
-- id: example-programme
-  name: Example Programme
-  type: programme
-  scope: What this programme does, in five words
-  url: https://example.org/programme
+# Partners shown as cards on the Partners page and homepage.
+# None can be named yet (confirmed 2026-10-18). Add entries here once
+# partnerships are public; `type` must match a group in HOME.network.groups.
+[]

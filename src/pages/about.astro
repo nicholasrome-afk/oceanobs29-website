@@ -1,294 +1,245 @@
 ---
-import Features2 from '~/components/widgets/Features2.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Steps2 from '~/components/widgets/Steps2.astro';
-import Team from '~/components/widgets/Team.astro';
-import Timeline from '~/components/widgets/Timeline.astro';
+// About: vision, objectives, decadal legacy, governance and committees.
+// Words marked [old site] are copied from oceanobs29.net; [draft] were
+// written for review. Committee lists live in src/data/committees.ts.
+import { Icon } from 'astro-icon/components';
+
 import Layout from '~/layouts/PageLayout.astro';
+import Image from '~/components/common/Image.astro';
+import PageHeader from '~/components/site/PageHeader.astro';
+import SectionHead from '~/components/site/SectionHead.astro';
+import PersonCard from '~/components/site/PersonCard.astro';
+import PhotoCredit from '~/components/site/PhotoCredit.astro';
+
+import { ORG } from '~/config/org';
+import { HOME } from '~/config/home';
+import { IMAGES } from '~/config/images';
+import { ADVISORY_COMMITTEE, PROGRAM_COMMITTEE, COORDINATION_TEAM } from '~/data/committees';
 
 const metadata = {
-  title: 'About us',
+  title: 'About',
   description:
-    'About page demo built with AstroWind: hero, stats, feature grids and timelines ready to describe your company.',
+    'OceanObs’29 is the next in a series of international decadal conferences that guide the evolution of sustained, integrated ocean observing systems.',
 };
+
+// [old site: Process page] Committee roles. `status` [draft] from the old site's organization chart and FAQ.
+const structure = [
+  {
+    name: 'International Advisory Committee',
+    href: '#advisory-committee',
+    text: 'Provides high-level strategic guidance, keeping the conference vision aligned with global priorities in ocean observing and reflecting diverse geographic, disciplinary, and sectoral perspectives.',
+  },
+  {
+    name: 'Coordination Team',
+    href: '#coordination-team',
+    text: 'Integrates OceanObs’29 activities, supporting communication, alignment, and information flow among the committees, and consistency with the conference vision, timeline, and agreed processes.',
+  },
+  {
+    name: 'Program Committee',
+    href: '#program-committee',
+    text: 'Leads the intellectual development of OceanObs’29: shaping themes, guiding engagement activities, and overseeing synthesis leading up to the conference.',
+  },
+  {
+    name: 'ECOP Committee',
+    text: 'Supports engagement of early career ocean professionals across OceanObs’29, working with the Program Committee to integrate their perspectives into planning, participation, and outcomes.',
+  },
+  {
+    name: 'Sponsors Committee',
+    status: 'Being formed',
+    text: 'Coordinates engagement with sponsors and partners, aligning sponsor interests with the OceanObs’29 mission while maintaining the scientific integrity and independence of the program.',
+  },
+  {
+    name: 'Local Organizing Committee',
+    status: 'Expected 2027',
+    text: 'Supports venue-specific planning and logistics, coordinating with local partners and service providers for effective on-site delivery.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
-
-  <Hero
-    tagline="About us"
-    image={{
-      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Caos Image',
-    }}
+  <PageHeader
+    eyebrow="About"
+    title="What is OceanObs’29?"
+    intro="A decadal forum bringing together the global ocean community to define priorities, strengthen coordination, and ensure ocean observing remains scientifically robust, societally relevant, and fit for the future."
   >
-    <Fragment slot="title">
-      Elevate your online presence with our <br />
-      <span class="text-accent dark:text-white"> Beautiful Website Templates</span>
-    </Fragment>
+    <nav class="mt-10" aria-label="On this page">
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-on-dark-link">
+        <li><a class="hover:underline" href="#vision">Vision</a></li>
+        <li><a class="hover:underline" href="#legacy">Decadal legacy</a></li>
+        <li><a class="hover:underline" href="#governance">Governance</a></li>
+        <li><a class="hover:underline" href="#advisory-committee">Advisory Committee</a></li>
+        <li><a class="hover:underline" href="#program-committee">Program Committee</a></li>
+      </ul>
+    </nav>
+  </PageHeader>
 
-    <Fragment slot="subtitle">
-      Donec efficitur, ipsum quis congue luctus, mauris magna convallis mauris, eu auctor nisi lectus non augue. Donec
-      quis lorem non massa vulputate efficitur ac at turpis. Sed tincidunt ex a nunc convallis, et lobortis nisi tempus.
-      Suspendisse vitae nisi eget tortor luctus maximus sed non lectus.
-    </Fragment>
-  </Hero>
+  <!-- Vision and objectives [old site] -->
+  <section class="py-16 md:py-24" aria-labelledby="vision">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-12 lg:px-6">
+      <div class="lg:col-span-7">
+        <p class="eyebrow-bar text-muted">Vision</p>
+        <h2 id="vision" class="mt-3 scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
+          Observations that underpin how we understand and manage the ocean
+        </h2>
+        <p class="mt-6 text-lg text-default">
+          Ocean observations underpin research, operational services, and decision-making related to weather, climate,
+          marine resources, hazards, and environmental change. OceanObs’29 provides a structured forum to assess
+          progress, identify gaps, and chart a coordinated path forward.
+        </p>
+        <h3 class="mt-12 text-xl font-bold text-heading">Objectives</h3>
+        <p class="mt-2 text-muted">OceanObs’29 will:</p>
+        <ol class="mt-6 grid gap-px bg-line sm:grid-cols-2">
+          {
+            HOME.future.cards.map(({ icon, title, text }) => (
+              <li class="bg-white p-5 pl-0 sm:pr-6 sm:even:pl-6">
+                <Icon name={icon} class="h-7 w-7 text-primary" aria-hidden="true" />
+                <p class="mt-3 font-bold text-heading">{title}</p>
+                <p class="mt-1 text-muted">{text}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <figure class="relative self-start lg:col-span-5">
+        <Image
+          src={IMAGES.aboutFeature.src}
+          alt={IMAGES.aboutFeature.alt}
+          layout="none"
+          widths={[480, 960]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          class="aspect-[4/5] w-full rounded-[4px] object-cover"
+        />
+        <PhotoCredit image={IMAGES.aboutFeature} />
+      </figure>
+    </div>
+  </section>
 
-  <!-- Stats Widget ****************** -->
+  <!-- Decadal legacy [old site, years only] -->
+  <section class="bg-ink py-16 md:py-24" aria-labelledby="legacy">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="legacy"
+        dark
+        eyebrow="Decadal legacy"
+        title="Part of a series that has guided ocean observing since 1999"
+        intro="OceanObs’29 is the next in a series of international decadal conferences that guide the evolution of sustained, integrated ocean observing systems. Building on the legacy of OceanObs’99, ’09, and ’19, it will focus on aligning scientific ambition, technological innovation, and user needs across the global ocean observing enterprise."
+      />
+      <ol class="mt-12 grid grid-cols-2 gap-px bg-white/10 md:grid-cols-4">
+        {
+          HOME.vision.series.map(({ name, year, current }) => (
+            <li class:list={['p-6 md:p-8', current ? 'bg-ink-raised' : 'bg-ink']}>
+              <p
+                class:list={[
+                  'font-heading text-4xl font-extrabold md:text-5xl',
+                  current ? 'text-accent' : 'text-white/80',
+                ]}
+              >
+                {name.replace('OceanObs', '')}
+              </p>
+              <p class="mt-2 font-semibold text-on-dark">{name}</p>
+              <p class="text-sm text-on-dark-muted">{current ? 'Qingdao, China · 2029' : year}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
 
-  <Stats
-    title="Statistics about us"
-    stats={[
-      { title: 'Offices', amount: '4' },
-      { title: 'Employees', amount: '248' },
-      { title: 'Templates', amount: '12' },
-      { title: 'Awards', amount: '24' },
-    ]}
-  />
+  <!-- Governance [old site: Process page] -->
+  <section class="py-16 md:py-24" aria-labelledby="governance">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="governance"
+        eyebrow="Governance"
+        title="How OceanObs’29 is organized"
+        intro="OceanObs’29 is guided by a lightweight governance structure designed to support coordination, transparency, and broad community engagement throughout the planning and delivery of the conference. The structure balances strategic guidance, program development, sponsorship coordination, and local logistics, while maintaining flexibility as priorities evolve."
+      />
+      <ul class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {
+          structure.map(({ name, text, status, href }) => (
+            <li class="flex flex-col rounded-[4px] border border-line p-6">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-lg leading-snug font-bold text-heading">
+                  {href ? (
+                    <a href={href} class="underline-offset-4 hover:text-link hover:underline">
+                      {name}
+                    </a>
+                  ) : (
+                    name
+                  )}
+                </h3>
+                {status && (
+                  <span class="eyebrow shrink-0 rounded-[3px] bg-mist px-2 py-1 text-[0.6875rem] text-muted">
+                    {status}
+                  </span>
+                )}
+              </div>
+              <p class="mt-3 text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-  <!-- Features3 Widget ************** -->
+  <!-- International Advisory Committee [old site: description; list from committees-review.md] -->
+  <section class="bg-mist py-16 md:py-24" aria-labelledby="advisory-committee">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="advisory-committee"
+        eyebrow="Committee"
+        title="International Advisory Committee"
+        intro="The International Advisory Committee offers perspective on the conference vision, emerging priorities, and alignment with global ocean observing efforts, while maintaining a broad, international view of scientific, operational, and societal needs. It meets semi-annually, focusing on strategic reflection, guidance, and alignment rather than operational decisions."
+      />
+      <ul class="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+        {
+          ADVISORY_COMMITTEE.map((person) => (
+            <li>
+              <PersonCard person={person} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-  <Features3
-    title="Our templates"
-    subtitle="Etiam scelerisque, enim eget vestibulum luctus, nibh mauris blandit nulla, nec vestibulum risus justo ut enim. Praesent lacinia diam et ante imperdiet euismod."
-    columns={3}
-    isBeforeContent={true}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'Morbi faucibus luctus quam, sit amet aliquet felis tempor id. Cras augue massa, ornare quis dignissim a, molestie vel nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Vivamus porttitor, tortor convallis aliquam pretium, turpis enim consectetur elit, vitae egestas purus erat ac nunc nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Photography',
-        description:
-          'Duis sed lectus in nisl vehicula porttitor eget quis odio. Aliquam erat volutpat. Nulla eleifend nulla id sem fermentum.',
-        icon: 'tabler:template',
-      },
-    ]}
-  />
+  <!-- Program Committee [old site: description; list from committees-review.md] -->
+  <section class="py-16 md:py-24" aria-labelledby="program-committee">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="program-committee"
+        eyebrow="Committee"
+        title="Program Committee"
+        intro="The Program Committee provides scientific and strategic leadership for the conference, shaping its vision, defining scientific priorities and themes, and guiding community engagement so that OceanObs’29 reflects global diversity, scientific excellence, and long-term relevance. Early Career Ocean Professional participation is integrated throughout."
+      />
+      <ul class="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+        {
+          PROGRAM_COMMITTEE.map((person) => (
+            <li>
+              <PersonCard person={person} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    columns={3}
-    isAfterContent={true}
-    items={[
-      {
-        title: 'E-commerce',
-        description:
-          'Rutrum non odio at vehicula. Proin ipsum justo, dignissim in vehicula sit amet, dignissim id quam. Sed ac tincidunt sapien.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Blog',
-        description:
-          'Nullam efficitur volutpat sem sed fringilla. Suspendisse et enim eu orci volutpat laoreet ac vitae libero.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Business',
-        description:
-          'Morbi et elit finibus, facilisis justo ut, pharetra ipsum. Donec efficitur, ipsum quis congue luctus, mauris magna.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Suspendisse vitae nisi eget tortor luctus maximus sed non lectus. Cras malesuada pretium placerat. Nullam venenatis dolor a ante rhoncus.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Medical',
-        description:
-          'Vestibulum malesuada lacus id nibh posuere feugiat. Nam volutpat nulla a felis ultrices, id suscipit mauris congue. In hac habitasse platea dictumst.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus.',
-        icon: 'tabler:template',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'Colorful Image',
-    }}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Our values"
-    subtitle="Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus. Nulla facilisi. Vestibulum malesuada lacus."
-    items={[
-      {
-        title: 'Customer-centric approach',
-        description:
-          'Donec id nibh neque. Quisque et fermentum tortor. Fusce vitae dolor a mauris dignissim commodo. Ut eleifend luctus condimentum.',
-      },
-      {
-        title: 'Constant Improvement',
-        description:
-          'Phasellus laoreet fermentum venenatis. Vivamus dapibus pulvinar arcu eget mattis. Fusce eget mauris leo.',
-      },
-      {
-        title: 'Ethical Practices',
-        description:
-          'Vestibulum imperdiet libero et lectus molestie, et maximus augue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      },
-    ]}
-  />
-
-  <!-- Timeline Widget **************** -->
-
-  <Timeline
-    id="history"
-    tagline="Our story"
-    title="Achievements"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla, sed porttitor est nibh at nulla."
-    layout="alternate"
-    items={[
-      {
-        date: '2019',
-        title: 'The first template',
-        description: 'Nam malesuada urna in enim imperdiet tincidunt. Phasellus non tincidunt nisi, at elementum mi.',
-        icon: 'tabler:rocket',
-      },
-      {
-        date: '2021',
-        title: 'Global reach',
-        description:
-          'Cras semper nulla leo, eget laoreet erat cursus sed. Praesent faucibus massa in purus iaculis dictum.',
-        icon: 'tabler:globe',
-      },
-      {
-        date: '2023',
-        title: 'Positive customer feedback and reviews',
-        description:
-          'Phasellus lacinia cursus velit, eu malesuada magna pretium eu. Etiam aliquet tellus purus, blandit lobortis ex rhoncus vitae.',
-        icon: 'tabler:message-star',
-      },
-      {
-        date: '2026',
-        title: 'Awards and recognition as industry experts',
-        description: 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.',
-        icon: 'tabler:award',
-        highlight: true,
-      },
-    ]}
-  />
-
-  <!-- Team Widget ******************** -->
-
-  <Team
-    id="team"
-    tagline="The people"
-    title="Meet the team"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla."
-    members={[
-      {
-        name: 'Alicia Rivera',
-        role: 'Founder & CEO',
-        image: {
-          src: 'https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=930&q=80',
-          alt: 'Alicia Rivera',
-        },
-        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        socials: [
-          { icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/', ariaLabel: 'LinkedIn' },
-          { icon: 'tabler:brand-x', href: 'https://x.com/', ariaLabel: 'X' },
-        ],
-      },
-      {
-        name: 'Daniel Okafor',
-        role: 'Lead developer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-          alt: 'Daniel Okafor',
-        },
-        bio: 'Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla.',
-        socials: [{ icon: 'tabler:brand-github', href: 'https://github.com/', ariaLabel: 'GitHub' }],
-      },
-      {
-        name: 'Mei Tanaka',
-        role: 'Product designer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-          alt: 'Mei Tanaka',
-        },
-        bio: 'Sed porttitor est nibh at nulla. Cras semper nulla leo, eget laoreet erat.',
-        socials: [{ icon: 'tabler:brand-dribbble', href: 'https://dribbble.com/', ariaLabel: 'Dribbble' }],
-      },
-      {
-        name: 'Jonas Weber',
-        role: 'Customer success',
-        image: {
-          src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-          alt: 'Jonas Weber',
-        },
-        bio: 'Praesent faucibus massa in purus iaculis dictum.',
-        socials: [{ icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/', ariaLabel: 'LinkedIn' }],
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Our locations"
-    tagline="Find us"
-    columns={4}
-    items={[
-      {
-        title: 'EE.UU',
-        description: '1234 Lorem Ipsum St, 12345, Miami',
-      },
-      {
-        title: 'Spain',
-        description: '5678 Lorem Ipsum St, 56789, Madrid',
-      },
-      {
-        title: 'Australia',
-        description: '9012 Lorem Ipsum St, 90123, Sydney',
-      },
-      {
-        title: 'Brazil',
-        description: '3456 Lorem Ipsum St, 34567, São Paulo',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Technical Support"
-    tagline="Contact us"
-    columns={2}
-    items={[
-      {
-        title: 'Chat with us',
-        description:
-          'Integer luctus laoreet libero, auctor varius purus rutrum sit amet. Ut nec molestie nisi, quis eleifend mi.',
-        icon: 'tabler:messages',
-      },
-      {
-        title: 'Call us',
-        description:
-          'Mauris faucibus finibus orci, in posuere elit viverra non. In hac habitasse platea dictumst. Cras lobortis metus a hendrerit congue.',
-        icon: 'tabler:headset',
-      },
-    ]}
-  />
+  <!-- Coordination team and contact [old site: FAQ] -->
+  <section class="bg-ink py-16 md:py-20" aria-labelledby="coordination-team">
+    <div class="mx-auto flex max-w-7xl flex-col gap-8 px-4 md:flex-row md:items-end md:justify-between lg:px-6">
+      <div class="max-w-2xl">
+        <p class="eyebrow-bar text-on-dark-muted before:bg-accent">Coordination Team</p>
+        <h2 id="coordination-team" class="mt-3 scroll-mt-28 text-3xl font-bold tracking-tight text-white md:text-4xl">
+          {COORDINATION_TEAM.slice(0, -1).join(', ')} and {COORDINATION_TEAM.at(-1)}
+        </h2>
+        <p class="mt-4 text-lg text-on-dark-muted">
+          Questions sent to {ORG.contacts[0].email} are routed to the OceanObs’29 coordination team.
+        </p>
+      </div>
+      <a href={`mailto:${ORG.contacts[0].email}`} class="btn-site-accent shrink-0">
+        <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" />
+        {ORG.contacts[0].email}
+      </a>
+    </div>
+  </section>
 </Layout>

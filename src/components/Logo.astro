@@ -1,10 +1,8 @@
 ---
-// Text wordmark for organizations without a logo. If the site has a logo,
-// replace this with an <img> (SVG in public/ or src/assets/images/site/).
+// OceanObs’29 wordmark (PNG from the old site until an SVG is available).
+import Image from '~/components/common/Image.astro';
+import logo from '~/assets/images/site/logo-oceanobs29-color.png';
 import { ORG } from '~/config/org';
 ---
 
-<span class="flex flex-col self-center leading-none">
-  <span class="font-heading text-2xl font-extrabold tracking-tight text-heading">{ORG.shortName}</span>
-  <span class="eyebrow mt-1 hidden text-[0.625rem] text-muted sm:block">{ORG.name}</span>
-</span>
+<Image src={logo} alt={ORG.name} layout="none" width={180} class="h-9 w-auto self-center md:h-10" loading="eager" />
