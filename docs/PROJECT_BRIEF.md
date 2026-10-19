@@ -77,3 +77,12 @@ Two prominent calls to action in the homepage header: **Get Involved** and **Bec
 | `/oceanobs29-organization`        | About → governance                       |
 | `/ad-hoc-committee-1`             | About → International Advisory Committee |
 | `/ad-hoc-committee-1-1`           | About → Program Committee                |
+
+## Hosting and workflow (set up 2026-10-18)
+
+- **GitHub:** `nicholasrome-afk/oceanobs29-website` (public). `main` is protected by the "Protect main" ruleset: no deletions, no force pushes, changes only through a pull request (0 approvals required).
+- **Work happens on branches** (currently `site-build`), committed by Claude and pushed by the user with GitHub Desktop.
+- **Cloudflare Workers Builds:** Worker `oceanobs29-website` (name must match `wrangler.jsonc`).
+  - Production (`main`): https://oceanobs29-website.nicholas-rome.workers.dev
+  - Branch previews: `https://<branch>-oceanobs29-website.nicholas-rome.workers.dev`, built on every push to that branch.
+- Previews show Cloudflare's plain "Not found" for missing pages; production serves the site's own 404 page.
