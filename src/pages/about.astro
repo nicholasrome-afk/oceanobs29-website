@@ -22,7 +22,7 @@ const metadata = {
     'OceanObs’29 is the next in a series of international decadal conferences that guide the evolution of sustained, integrated ocean observing systems.',
 };
 
-// [old site: Process page] Committee roles. `status` [draft] from the old site's organization chart and FAQ.
+// [old site: Process page] Committee roles. `status` [deck: Planning update, Oct 2026, slide 3].
 const structure = [
   {
     name: 'International Advisory Committee',
@@ -41,18 +41,29 @@ const structure = [
   },
   {
     name: 'ECOP Committee',
+    status: 'Active · 2026',
     text: 'Supports engagement of early career ocean professionals across OceanObs’29, working with the Program Committee to integrate their perspectives into planning, participation, and outcomes.',
   },
   {
     name: 'Sponsors Committee',
-    status: 'Being formed',
+    status: 'Forming · early 2027',
     text: 'Coordinates engagement with sponsors and partners, aligning sponsor interests with the OceanObs’29 mission while maintaining the scientific integrity and independence of the program.',
   },
   {
     name: 'Local Organizing Committee',
-    status: 'Expected 2027',
+    status: 'Planned · H1 2028',
     text: 'Supports venue-specific planning and logistics, coordinating with local partners and service providers for effective on-site delivery.',
   },
+];
+
+// [deck: slide 3] The Program Committee's six working groups.
+const workingGroups = [
+  'Program Architecture',
+  'Community Publications',
+  'Communications',
+  'Strategic Partners & Resources',
+  'Indigenous & Under-represented Groups',
+  'ECOP Engagement',
 ];
 ---
 
@@ -114,7 +125,7 @@ const structure = [
     </div>
   </section>
 
-  <!-- Decadal legacy [old site, years only] -->
+  <!-- Decadal legacy [deck: slide 2] -->
   <section class="bg-ink py-16 md:py-24" aria-labelledby="legacy">
     <div class="mx-auto max-w-7xl px-4 lg:px-6">
       <SectionHead
@@ -126,8 +137,8 @@ const structure = [
       />
       <ol class="mt-12 grid grid-cols-2 gap-px bg-white/10 md:grid-cols-4">
         {
-          HOME.vision.series.map(({ name, year, current }) => (
-            <li class:list={['p-6 md:p-8', current ? 'bg-ink-raised' : 'bg-ink']}>
+          HOME.vision.series.map(({ name, place, size, legacy, url, current }) => (
+            <li class:list={['flex flex-col p-6 md:p-8', current ? 'bg-ink-raised' : 'bg-ink']}>
               <p
                 class:list={[
                   'font-heading text-4xl font-extrabold md:text-5xl',
@@ -137,7 +148,18 @@ const structure = [
                 {name.replace('OceanObs', '')}
               </p>
               <p class="mt-2 font-semibold text-on-dark">{name}</p>
-              <p class="text-sm text-on-dark-muted">{current ? 'Qingdao, China · 2029' : year}</p>
+              <p class="text-sm text-on-dark-muted">
+                {place} · {size}
+              </p>
+              <p class="mt-4 text-sm text-on-dark">{legacy}</p>
+              {url && (
+                <a
+                  href={url}
+                  class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-on-dark-link hover:underline"
+                >
+                  {name} website <Icon name="tabler:arrow-up-right" class="h-4 w-4" aria-hidden="true" />
+                </a>
+              )}
             </li>
           ))
         }
@@ -179,6 +201,19 @@ const structure = [
           ))
         }
       </ul>
+      <div class="mt-10 rounded-[4px] bg-mist p-6 md:p-8">
+        <h3 class="text-lg font-bold text-heading">Working groups</h3>
+        <p class="mt-2 text-muted">The Program Committee launched six working groups in May 2026.</p>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {
+            workingGroups.map((group) => (
+              <li class="rounded-[3px] border border-line bg-white px-3 py-1.5 text-sm font-semibold text-heading">
+                {group}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </section>
 

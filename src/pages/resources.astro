@@ -1,10 +1,139 @@
 ---
-// Placeholder until Phase 3. Contents listed from the project brief's site map.
-import SectionPlaceholder from '~/components/site/SectionPlaceholder.astro';
+// Publications & Resources. Sources: [deck] Planning update, Oct 2026 (slides 2, 9).
+// White papers, reports and outcomes are added here as they are published.
+import { Icon } from 'astro-icon/components';
+
+import Layout from '~/layouts/PageLayout.astro';
+import PageHeader from '~/components/site/PageHeader.astro';
+import SectionHead from '~/components/site/SectionHead.astro';
+
+import { HOME } from '~/config/home';
+
+const metadata = {
+  title: 'Publications & Resources',
+  description:
+    'Topical papers, community papers, policy briefs and synthesis papers from OceanObs’29, and the legacy of the decadal series.',
+};
+
+// [deck: slide 9] Four publication types proposed by the Community Publications working group (July 2026).
+const publications = [
+  {
+    when: 'Before the conference',
+    title: 'Topical papers',
+    count: '~150 papers',
+    text: 'Bottom-up updates and outlooks from observing networks, regional systems, modeling and forecasting, users, and emerging technologies, including the observing components of Ocean Decade Actions.',
+  },
+  {
+    when: 'Before the conference',
+    title: 'Community papers',
+    count: '~20 papers',
+    text: 'Top-down, review-style papers on shared priorities, cross-cutting challenges, and collaboration needs, with themes set by the Program Committee.',
+  },
+  {
+    when: 'After the conference',
+    title: 'Policy briefs',
+    count: 'Post-conference',
+    text: 'Concise summaries for policymakers and public audiences.',
+  },
+  {
+    when: 'After the conference',
+    title: 'Synthesis papers',
+    count: 'Post-conference',
+    text: 'A high-level record of conference outcomes: key achievements, agreed actions, and strategic directions.',
+  },
+];
+
+// [deck: slide 9]
+const schedule = [
+  { when: 'Early 2027', text: 'Abstract call opens (dates to be confirmed)' },
+  { when: 'Late 2028', text: 'Drafting complete' },
+  { when: 'October 2029', text: 'OceanObs’29' },
+  { when: 'After', text: 'Policy briefs and synthesis papers' },
+];
 ---
 
-<SectionPlaceholder
-  title="Publications & Resources"
-  intro="White papers, reports and outcomes from the OceanObs’29 process, alongside the archives of the decadal series."
-  willInclude={['White papers', 'Reports', 'Conference outcomes', 'Historical archives']}
-/>
+<Layout metadata={metadata}>
+  <PageHeader
+    eyebrow="Publications & Resources"
+    title="Community publications"
+    intro="OceanObs’29 publications connect bottom-up community input to the conference and its outcomes. White papers, reports and conference outcomes will be collected here as they are published."
+  />
+
+  <section class="py-16 md:py-24" aria-labelledby="publications">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="publications"
+        eyebrow="Proposed publications"
+        title="Four kinds of contribution"
+        intro="As proposed by the Community Publications working group (July 2026)."
+      />
+      <ul class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {
+          publications.map(({ when, title, count, text }) => (
+            <li class="flex flex-col rounded-[4px] border border-line p-6">
+              <p class="eyebrow text-link">{when}</p>
+              <h3 class="mt-3 text-xl font-bold text-heading">{title}</h3>
+              <p class="mt-1 font-heading text-sm font-bold text-muted">{count}</p>
+              <p class="mt-4 text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="mt-16 text-xl font-bold text-heading">Timeline</h3>
+      <ol
+        class="mt-6 grid gap-6 border-l-2 border-line pl-6 md:grid-cols-4 md:border-t-2 md:border-l-0 md:pt-6 md:pl-0"
+      >
+        {
+          schedule.map(({ when, text }) => (
+            <li>
+              <p class="font-heading text-lg font-extrabold text-primary">{when}</p>
+              <p class="mt-1 text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="mt-10 max-w-3xl text-muted">
+        Still to be decided: a single journal special issue or a multi-journal virtual issue. Publisher criteria include
+        open access, open review, and fee waivers for authors from the Global South and other underrepresented regions.
+      </p>
+    </div>
+  </section>
+
+  <!-- Historical archives [deck: slide 2] -->
+  <section class="bg-ink py-16 md:py-24" aria-labelledby="archives">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="archives"
+        dark
+        eyebrow="Historical archives"
+        title="Three decades of agenda-setting"
+        intro="Each OceanObs conference has helped reset priorities for the global ocean observing enterprise."
+      />
+      <ol class="mt-12 grid gap-px bg-white/10 md:grid-cols-3">
+        {
+          HOME.vision.series
+            .filter((c) => !c.current)
+            .map(({ name, place, size, legacy, url }) => (
+              <li class="flex flex-col bg-ink p-6 md:p-8">
+                <p class="font-heading text-4xl font-extrabold text-white/80">{name.replace('OceanObs', '')}</p>
+                <h3 class="mt-2 font-semibold text-on-dark">{name}</h3>
+                <p class="text-sm text-on-dark-muted">
+                  {place} · {size}
+                </p>
+                <p class="mt-4 text-on-dark">{legacy}</p>
+                {url && (
+                  <a
+                    href={url}
+                    class="mt-6 inline-flex items-center gap-1 self-start font-semibold text-on-dark-link hover:underline"
+                  >
+                    Visit the {name} website <Icon name="tabler:arrow-up-right" class="h-4 w-4" aria-hidden="true" />
+                  </a>
+                )}
+              </li>
+            ))
+        }
+      </ol>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,8 @@
+# Old Squarespace URLs (migration/urls.csv) -> new pages. 301 = permanent.
+/home                      /                             301
+/oceanobs29                /                             301
+/ad-hoc-committee-1-2      /about#governance             301
+/oceanobs29-organization   /about#governance             301
+/ad-hoc-committee-1        /about#advisory-committee     301
+/ad-hoc-committee-1-1      /about#program-committee      301
+/book-a-consultation       /                             301

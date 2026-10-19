@@ -72,19 +72,21 @@ const year = new Date().getFullYear();
           )
         }
         {
-          ORG.social.length > 0 && (
+          ORG.social.some((s) => s.href) && (
             <ul class="mt-6 flex gap-3">
-              {ORG.social.map(({ name, icon, href }) => (
-                <li>
-                  <a
-                    href={href}
-                    class="inline-flex items-center gap-2 text-sm text-on-dark hover:text-white hover:underline"
-                  >
-                    <Icon name={icon} class="h-5 w-5" aria-hidden="true" />
-                    {name}
-                  </a>
-                </li>
-              ))}
+              {ORG.social
+                .filter((s) => s.href)
+                .map(({ name, icon, href }) => (
+                  <li>
+                    <a
+                      href={href}
+                      class="inline-flex items-center gap-2 text-sm text-on-dark hover:text-white hover:underline"
+                    >
+                      <Icon name={icon} class="h-5 w-5" aria-hidden="true" />
+                      {name}
+                    </a>
+                  </li>
+                ))}
             </ul>
           )
         }

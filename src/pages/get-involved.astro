@@ -1,16 +1,198 @@
 ---
-// Placeholder until Phase 3. Contents listed from the project brief's site map.
-import SectionPlaceholder from '~/components/site/SectionPlaceholder.astro';
+// Get Involved. Sources: [old site] How to Engage; [deck] Planning update,
+// Oct 2026 (slides 3, 9, 10, 11); audience cards shared with the homepage (home.ts).
+import { Icon } from 'astro-icon/components';
+
+import Layout from '~/layouts/PageLayout.astro';
+import PageHeader from '~/components/site/PageHeader.astro';
+import SectionHead from '~/components/site/SectionHead.astro';
+
+import { ORG } from '~/config/org';
+import { HOME } from '~/config/home';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Get Involved',
+  description:
+    'OceanObs’29 is a community-driven process. Share your input on the vision, priorities, and the future of ocean observing beyond 2030.',
+};
+
+// [deck: slide 11]
+const questions = [
+  { title: 'Vision', text: 'What should OceanObs’29 accomplish for the next decade of ocean observing?' },
+  { title: 'Priorities', text: 'Which observing challenges and opportunities should most shape the agenda?' },
+  {
+    title: 'Beyond 2030',
+    text: 'How should the observing enterprise evolve to remain scientifically robust, societally relevant, and fit for the future?',
+  },
+];
+
+// [deck: slides 9 and 11]
+const ways = [
+  {
+    icon: 'tabler:file-text',
+    title: 'Contribute a topical paper',
+    when: 'Abstract call opens early 2027',
+    text: 'Bottom-up updates and outlooks from observing networks, regional systems, modeling and forecasting, users, and emerging technologies.',
+    link: { text: 'About the publications', href: getPermalink('/resources') },
+  },
+  {
+    icon: 'tabler:microphone-2',
+    title: 'Join town halls and side events',
+    when: 'Including at the 2028 UN Ocean Conference',
+    text: 'Community input and listening sessions, and targeted discussions on emerging challenges and opportunities.',
+    link: { text: 'News & events', href: getPermalink('/events') },
+  },
+  {
+    icon: 'tabler:mail',
+    title: 'Share your perspective',
+    when: 'Any time',
+    text: 'Your expertise, partnerships, and regional perspectives will shape the conference and its long-term impact.',
+    link: { text: ORG.contacts[0].email, href: `mailto:${ORG.contacts[0].email}` },
+  },
+];
+
+// [deck: slide 10] Draft Global Engagement Strategy. Caisey Myers has stepped down
+// as ECOP Co-Chair (2026-10-18), so the deck's co-chair line is not used.
+const inclusion = [
+  {
+    title: 'Indigenous leadership',
+    points: [
+      'Builds on the Aha Honua Coastal Indigenous Peoples’ Declaration from OceanObs’19',
+      'A proposed Indigenous Ocean Advisory Council, a first for the OceanObs series',
+      'Indigenous engagement integrated across the program, not a side topic',
+    ],
+  },
+  {
+    title: 'Early career professionals',
+    points: [
+      'ECOP Committee established in 2026, with members on six continents',
+      'ECOP perspectives built into program design, publications, and sessions',
+    ],
+  },
+  {
+    title: 'Equitable access',
+    points: [
+      'Tackling barriers such as visa restrictions, funding gaps, and language',
+      'Proposed travel support, visa assistance, and language access',
+      'Priority on participation from the Global South and Small Island Developing States',
+    ],
+  },
+  {
+    title: 'Regional and shared leadership',
+    points: [
+      'Proposed regional advisory boards and liaisons that build on existing networks',
+      'A university ambassador network to reach students and early career researchers',
+      'Metrics for regional participation, authorship, and leadership',
+    ],
+  },
+];
 ---
 
-<SectionPlaceholder
-  title="Get Involved"
-  intro="OceanObs’29 is designed as a community-driven process. Early career professionals, researchers, technologists, operational agencies, data providers, and end users are all encouraged to participate."
-  willInclude={[
-    'Community engagement and listening sessions',
-    'Working groups',
-    'Workshops',
-    'Calls for contributions',
-    'Early career opportunities',
-  ]}
-/>
+<Layout metadata={metadata}>
+  <PageHeader
+    eyebrow="Get Involved"
+    title="A community-driven process"
+    intro="Early career professionals, researchers, technologists, operational agencies, data providers, and end users are all encouraged to participate."
+  />
+
+  <!-- Questions [deck] -->
+  <section class="py-16 md:py-24" aria-labelledby="input">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="input"
+        eyebrow="We want your input"
+        title="Vision, priorities, and beyond 2030"
+        intro="The next phase will be shaped through community input, targeted discussions, and synthesis activities."
+      />
+      <ol class="mt-10 grid gap-px bg-line md:grid-cols-3">
+        {
+          questions.map(({ title, text }, i) => (
+            <li class="bg-white py-6 md:p-8 md:first:pl-0">
+              <p class="font-heading text-sm font-bold text-link" aria-hidden="true">
+                0{i + 1}
+              </p>
+              <h3 class="mt-3 font-heading text-2xl font-extrabold text-heading uppercase">{title}</h3>
+              <p class="mt-3 text-lg text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Ways to get involved [deck] -->
+  <section class="bg-ink py-16 md:py-24" aria-labelledby="ways">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead id="ways" dark eyebrow="Ways to get involved" title="Where to start" />
+      <ul class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          ways.map(({ icon, title, when, text, link }) => (
+            <li class="flex flex-col rounded-[4px] border border-white/10 bg-ink-raised p-6 md:p-8">
+              <Icon name={icon} class="h-8 w-8 text-accent" aria-hidden="true" />
+              <h3 class="mt-6 text-xl font-bold text-white">{title}</h3>
+              <p class="eyebrow mt-2 text-accent">{when}</p>
+              <p class="mt-4 text-on-dark-muted">{text}</p>
+              <a
+                href={link.href}
+                class="mt-6 inline-flex items-center gap-1.5 self-start font-semibold text-on-dark-link underline-offset-4 hover:underline md:mt-auto md:pt-6"
+              >
+                {link.text} <Icon name="tabler:arrow-right" class="h-4 w-4" aria-hidden="true" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Audiences [home.ts] -->
+  <section class="py-16 md:py-24" aria-labelledby="audiences">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead id="audiences" eyebrow="Who should take part" title="Every part of the observing community" />
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          HOME.involved.audiences.map(({ label, text }) => (
+            <li class="rounded-[4px] border-t-4 border-primary bg-mist p-6">
+              <h3 class="font-heading text-lg leading-tight font-extrabold text-heading uppercase">{label}</h3>
+              <p class="mt-3 text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Inclusion [deck: draft strategy] -->
+  <section class="bg-mist py-16 md:py-24" aria-labelledby="inclusion">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="inclusion"
+        eyebrow="Inclusion"
+        title="Designed into every part of OceanObs’29"
+        intro="From participation to co-design, and from consultation to shared leadership: the four pillars of the draft Global Engagement Strategy."
+      />
+      <ul class="mt-10 grid gap-4 md:grid-cols-2">
+        {
+          inclusion.map(({ title, points }) => (
+            <li class="rounded-[4px] bg-white p-6 md:p-8">
+              <h3 class="text-xl font-bold text-heading">{title}</h3>
+              <ul class="mt-4 space-y-2">
+                {points.map((point) => (
+                  <li class="flex gap-3 text-muted">
+                    <Icon name="tabler:point-filled" class="mt-1 h-4 w-4 shrink-0 text-link" aria-hidden="true" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-10 max-w-3xl font-heading text-xl font-semibold text-heading md:text-2xl">
+        Observational equity is a prerequisite for scientific completeness, operational resilience, and societal
+        relevance.
+      </p>
+    </div>
+  </section>
+</Layout>

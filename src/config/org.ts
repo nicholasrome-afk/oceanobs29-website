@@ -43,6 +43,9 @@ export const ORG = {
   footerLogos: [] as FooterLogo[],
   /** Optional bottom-right footer line, e.g. "Contributing to the UN Decade of …". */
   footerNote: { text: '', href: '' },
-  /** Social profiles. Carried over from the old site: confirm the LinkedIn address before launch. */
-  social: [{ name: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/in/oceanobs29/' }],
+  /**
+   * Social profiles. Entries with an empty `href` are hidden on the site.
+   * LinkedIn: a new OceanObs’29 account is being set up (2026-10-18); add its URL here.
+   */
+  social: [{ name: 'LinkedIn', icon: 'tabler:brand-linkedin', href: '' }],
 };

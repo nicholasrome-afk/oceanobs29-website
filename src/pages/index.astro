@@ -389,12 +389,14 @@ const structuredData = [
           ))
         }
         {
-          ORG.social.map(({ name, icon, href }) => (
-            <a href={href} class="btn-site-outline">
-              <Icon name={icon} class="h-4 w-4" aria-hidden="true" />
-              {name}
-            </a>
-          ))
+          ORG.social
+            .filter((s) => s.href)
+            .map(({ name, icon, href }) => (
+              <a href={href} class="btn-site-outline">
+                <Icon name={icon} class="h-4 w-4" aria-hidden="true" />
+                {name}
+              </a>
+            ))
         }
       </div>
     </div>

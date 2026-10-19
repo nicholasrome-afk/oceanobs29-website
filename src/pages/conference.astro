@@ -1,10 +1,155 @@
 ---
-// Placeholder until Phase 3. Contents listed from the project brief's site map.
-import SectionPlaceholder from '~/components/site/SectionPlaceholder.astro';
+// The Conference. Phase one of the site (2026–2027) shows what is known;
+// themes, program, venue, registration and travel arrive from 2028.
+// Sources: [deck] Planning update, Oct 2026 (slides 7–8); [old site] FAQ; [draft] Claude.
+import { Icon } from 'astro-icon/components';
+
+import Layout from '~/layouts/PageLayout.astro';
+import PageHeader from '~/components/site/PageHeader.astro';
+import SectionHead from '~/components/site/SectionHead.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'The Conference',
+  description: 'OceanObs’29 will convene in Qingdao, China, in October 2029.',
+};
+
+// [deck: slide 7, roadmap; slide 8, design requirement "roughly 3,000 participants"]
+const facts = [
+  { label: 'When', value: 'October 2029', note: 'Exact dates to be announced' },
+  { label: 'Where', value: 'Qingdao, China', note: 'Venue to be announced' },
+  { label: 'Who', value: '~3,000', note: 'Participants the program is being designed for' },
+];
+
+// [deck: slide 8] Draft intended outcomes, Program Architecture working group, July 2026.
+const outcomes = [
+  'An implementation plan for a core, sustained global ocean observing system',
+  'Concrete recommendations, with implementation pathways and the networks and organizations responsible for them',
+  'Inclusion of all end-user communities, with basic research as one of several groups that benefit',
+];
+
+// [deck: slide 8] Draft design requirements.
+const design = [
+  {
+    title: 'The full value chain',
+    text: 'From measurement, to coordination, processing and distribution, to end users, services and impact.',
+  },
+  {
+    title: 'Enabling conditions',
+    text: 'Capacity in the Global South and Small Island Developing States: maintenance, calibration, low-cost networks and sustained investment.',
+  },
+  {
+    title: 'More than presentations',
+    text: 'Town halls, workshops and round tables for roughly 3,000 participants.',
+  },
+  {
+    title: 'Inclusion throughout',
+    text: 'Underrepresented groups woven across the program, not confined to dedicated sessions.',
+  },
+];
+
+// [draft] from the project brief's site map: what this page will hold in 2028–2029.
+const comingLater = ['Themes and program', 'Venue', 'Registration', 'Travel and visa information'];
 ---
 
-<SectionPlaceholder
-  title="The Conference"
-  intro="OceanObs’29 will be held in Qingdao, China, in 2029. The exact dates will be confirmed once the Local Organizing Committee is established, which is expected in 2027."
-  willInclude={['Qingdao 2029', 'Themes and program', 'Venue', 'Registration', 'Travel information']}
-/>
+<Layout metadata={metadata}>
+  <PageHeader
+    eyebrow="The Conference"
+    title="OceanObs’29, Qingdao"
+    intro="OceanObs’29 will bring the global community together to define priorities, strengthen coordination, and guide the next phase of sustained, integrated ocean observing."
+  >
+    <dl class="mt-12 grid max-w-4xl gap-8 border-t border-white/15 pt-8 sm:grid-cols-3">
+      {
+        facts.map(({ label, value, note }) => (
+          <div>
+            <dt class="eyebrow text-on-dark-muted">{label}</dt>
+            <dd class="mt-2 font-heading text-3xl font-extrabold text-white md:text-4xl">{value}</dd>
+            <dd class="mt-1 text-sm text-on-dark-muted">{note}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </PageHeader>
+
+  <!-- Intended outcomes -->
+  <section class="py-16 md:py-24" aria-labelledby="outcomes">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-12 lg:px-6">
+      <div class="lg:col-span-5">
+        <SectionHead
+          id="outcomes"
+          eyebrow="Intended outcomes"
+          title="What OceanObs’29 should produce"
+          intro="Draft outcomes from the Program Architecture working group (July 2026). They will be refined with the community."
+        />
+      </div>
+      <ol class="grid gap-4 lg:col-span-7">
+        {
+          outcomes.map((text, i) => (
+            <li class="flex gap-5 rounded-[4px] border border-line p-6">
+              <span class="font-heading text-3xl font-extrabold text-primary" aria-hidden="true">
+                {i + 1}
+              </span>
+              <p class="text-lg text-default">{text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Design requirements -->
+  <section class="bg-mist py-16 md:py-24" aria-labelledby="design">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="design"
+        eyebrow="Designing the conference"
+        title="A forum built for working, not just listening"
+        intro="Draft design requirements from the Program Architecture working group."
+      />
+      <ul class="mt-10 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {
+          design.map(({ title, text }) => (
+            <li class="bg-white p-6 md:p-8">
+              <h3 class="text-lg font-bold text-heading">{title}</h3>
+              <p class="mt-3 text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Coming later -->
+  <section class="py-16 md:py-24" aria-labelledby="coming">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 lg:px-6">
+      <div>
+        <SectionHead
+          id="coming"
+          eyebrow="Coming as the conference approaches"
+          title="Program, venue and registration"
+          intro="Details will be published here once the Local Organizing Committee is in place (planned for the first half of 2028)."
+        />
+        <ul class="mt-6 space-y-3">
+          {
+            comingLater.map((item) => (
+              <li class="flex gap-3 text-lg text-default">
+                <Icon name="tabler:point-filled" class="mt-1.5 h-4 w-4 shrink-0 text-link" aria-hidden="true" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="self-end rounded-[4px] bg-ink p-8 text-on-dark">
+        <p class="eyebrow text-accent">Until then</p>
+        <p class="mt-3 text-lg">
+          The community process leading up to 2029 is open now: share input, join town halls, and contribute to the
+          topical papers.
+        </p>
+        <a href={getPermalink('/get-involved')} class="btn-site-accent mt-6">
+          Get involved <Icon name="tabler:arrow-right" class="h-4 w-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

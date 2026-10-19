@@ -26,13 +26,39 @@ export const HOME = {
     title: 'Why OceanObs’29 matters now',
     lead: 'Ocean observing faces increasing demands alongside growing constraints. At the same time, expectations for actionable, interoperable, and sustained data continue to rise.',
     body: 'OceanObs’29 is the next in a series of international decadal conferences that guide the evolution of sustained, integrated ocean observing systems. Building on the legacy of OceanObs’99, ’09, and ’19, it will focus on aligning scientific ambition, technological innovation, and user needs across the global ocean observing enterprise.',
-    /** The decadal series. [old site: years only] */
+    /** The decadal series. [deck: Planning update, Oct 2026, slide 2] */
     series: [
-      { name: 'OceanObs’99', year: '1999' },
-      { name: 'OceanObs’09', year: '2009' },
-      { name: 'OceanObs’19', year: '2019' },
-      { name: 'OceanObs’29', year: '2029', current: true },
-    ],
+      {
+        name: 'OceanObs’99',
+        year: '1999',
+        place: 'Saint-Raphaël, France',
+        size: '~300 attendees',
+        legacy: 'Galvanized the physical observing community',
+      },
+      {
+        name: 'OceanObs’09',
+        year: '2009',
+        place: 'Venice, Italy',
+        size: '~600 attendees',
+        legacy: 'Integrated, sustained observing: the Framework for Ocean Observing',
+      },
+      {
+        name: 'OceanObs’19',
+        year: '2019',
+        place: 'Honolulu, Hawaiʻi',
+        size: '1,500+ attendees',
+        legacy: 'Around 130 white papers and the integration of biological observing',
+        url: 'https://oceanobs19.net/',
+      },
+      {
+        name: 'OceanObs’29',
+        year: '2029',
+        place: 'Qingdao, China',
+        size: 'October 2029',
+        legacy: 'Priorities, coordination, and future readiness for the next decade',
+        current: true,
+      },
+    ] as { name: string; year: string; place: string; size: string; legacy: string; url?: string; current?: boolean }[],
   },
 
   future: {
@@ -92,28 +118,36 @@ export const HOME = {
     link: { text: 'Ways to get involved', href: '/get-involved' },
   },
 
-  /** "Toward 2029" timeline. [draft] from facts on the old site and the project brief. */
+  /** "Toward 2029" timeline. [deck: Planning update, Oct 2026, slides 2 and 7] Full roadmap: src/data/roadmap.ts. */
   timeline: {
     eyebrow: 'Toward 2029',
     title: 'The road to Qingdao',
     steps: [
-      { year: '2019', title: 'OceanObs’19', text: 'The previous conference in the decadal series.' },
+      {
+        year: '2019',
+        title: 'OceanObs’19',
+        text: 'Honolulu brings together more than 1,500 participants and around 130 white papers.',
+      },
       {
         year: '2026',
-        title: 'Community engagement begins',
-        text: 'The Program Committee and International Advisory Committee are in place, and the first community town hall is held at Ocean Sciences Meeting 2026.',
+        title: 'Launch',
+        text: 'Community town hall at OSM26, committees in place, six working groups launched, and the ECOP Committee established.',
         current: true,
       },
       {
         year: '2027',
-        title: 'Local Organizing Committee',
-        text: 'Expected to be established, and the conference dates confirmed.',
+        title: 'Community input',
+        text: 'The topical paper abstract call opens and the Sponsors Committee is formalized.',
       },
-      { year: '2029', title: 'OceanObs’29', text: 'The conference convenes in Qingdao, China.' },
       {
-        year: '2030',
-        title: 'Beyond the Ocean Decade',
-        text: 'Outcomes carry ocean observing into the decade after the UN Decade of Ocean Science (2021–2030).',
+        year: '2028',
+        title: 'Preparing the conference',
+        text: 'The Local Organizing Committee is formed, with a side event at the UN Ocean Conference.',
+      },
+      {
+        year: '2029',
+        title: 'OceanObs’29',
+        text: 'The conference convenes in Qingdao, China, in October, followed by policy briefs and synthesis papers.',
       },
     ],
   },

@@ -1,10 +1,125 @@
 ---
-// Placeholder until Phase 3. Contents listed from the project brief's site map.
-import SectionPlaceholder from '~/components/site/SectionPlaceholder.astro';
+// Partners. No partners can be named yet (2026-10-18). Sources: [deck] Planning
+// update, Oct 2026 (slides 2, 3); [draft] Claude (also used on the homepage, home.ts).
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+
+import Layout from '~/layouts/PageLayout.astro';
+import PageHeader from '~/components/site/PageHeader.astro';
+import SectionHead from '~/components/site/SectionHead.astro';
+import NetworkCard from '~/components/site/NetworkCard.astro';
+
+import { ORG } from '~/config/org';
+import { HOME } from '~/config/home';
+
+const metadata = {
+  title: 'Partners',
+  description: HOME.partner.text,
+};
+
+const partners = await getCollection('network');
+
+// [draft] Reasons to partner, built only from facts stated elsewhere on the site.
+const reasons = [
+  {
+    icon: 'tabler:world',
+    title: 'A global community',
+    text: 'Researchers, operational agencies, data providers, industry and end users from every ocean basin, working toward a shared plan.',
+  },
+  {
+    icon: 'tabler:timeline',
+    title: 'A process, not just an event',
+    text: 'Partnership supports the community work from 2026 through the conference in October 2029 and the outcomes that follow.',
+  },
+  {
+    icon: 'tabler:target-arrow',
+    title: 'The next decade of observing',
+    text: 'OceanObs conferences have reset priorities for the global ocean observing enterprise every ten years since 1999.',
+  },
+];
 ---
 
-<SectionPlaceholder
-  title="Partners"
-  intro="OceanObs’29 brings together the institutions, agencies and companies that build and use the global ocean observing system."
-  willInclude={['Institutional partners', 'Sponsors', 'Funding opportunities', 'Partnership information']}
-/>
+<Layout metadata={metadata}>
+  <PageHeader eyebrow="Partners" title="Become a partner" intro={HOME.partner.text}>
+    <a href={HOME.partner.contact.href} class="btn-site-accent mt-10">
+      <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" />
+      Request the partnership package
+    </a>
+  </PageHeader>
+
+  {
+    partners.length > 0 && (
+      <section class="py-16 md:py-24" aria-labelledby="our-partners">
+        <div class="mx-auto max-w-7xl px-4 lg:px-6">
+          <SectionHead id="our-partners" eyebrow="Partners" title="Our partners" />
+          <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {partners.map((item) => (
+              <li>
+                <NetworkCard item={item} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="py-16 md:py-24" aria-labelledby="why">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead id="why" eyebrow="Why partner" title="Support the next decade of ocean observing" />
+      <ul class="mt-10 grid gap-px bg-line md:grid-cols-3">
+        {
+          reasons.map(({ icon, title, text }) => (
+            <li class="bg-white py-6 md:p-8 md:first:pl-0">
+              <Icon name={icon} class="h-8 w-8 text-primary" aria-hidden="true" />
+              <h3 class="mt-6 text-xl font-bold text-heading">{title}</h3>
+              <p class="mt-3 text-muted">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Integrity and the Sponsors Committee [deck: slide 3] -->
+  <section class="bg-mist py-16 md:py-24" aria-labelledby="integrity">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-2 lg:px-6">
+      <div>
+        <p class="eyebrow-bar text-muted">How partnership works</p>
+        <h2 id="integrity" class="mt-3 text-3xl font-bold tracking-tight text-heading md:text-4xl">
+          Scientific direction stays with the community
+        </h2>
+        <p class="mt-6 text-lg text-default">
+          The Program Committee holds programmatic authority. Sponsors and host partners support delivery but do not set
+          scientific direction.
+        </p>
+      </div>
+      <div class="self-start rounded-[4px] bg-white p-6 md:p-8">
+        <p class="eyebrow text-link">Forming · early 2027</p>
+        <h3 class="mt-2 text-xl font-bold text-heading">Sponsors Committee</h3>
+        <p class="mt-3 text-muted">
+          Sponsor engagement, funding strategy, and partner relationships, co-chaired by Prof. Minhan Dai and an
+          international partner.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20" aria-labelledby="contact-partnerships">
+    <div class="mx-auto flex max-w-7xl flex-col gap-8 px-4 md:flex-row md:items-end md:justify-between lg:px-6">
+      <div class="max-w-2xl">
+        <h2 id="contact-partnerships" class="text-3xl font-bold tracking-tight text-heading md:text-4xl">
+          Talk to us about partnership
+        </h2>
+        <p class="mt-4 text-lg text-muted">
+          For institutional partnerships, sponsorship and funding opportunities, the coordination team can send the
+          partnership package and set up a conversation.
+        </p>
+      </div>
+      <a href={HOME.partner.contact.href} class="btn-site-primary shrink-0">
+        <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" />
+        {ORG.contacts[0].email}
+      </a>
+    </div>
+  </section>
+</Layout>

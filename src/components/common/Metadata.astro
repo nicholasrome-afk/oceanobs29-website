@@ -88,12 +88,18 @@ const mergedTwitter = merge(
     : {}
 );
 
+// Cloudflare Workers Builds sets WORKERS_CI_BRANCH. Branch previews must never
+// be indexed, whatever the page asks for; production (`main`) follows the page.
+const ciBranch = process.env.WORKERS_CI_BRANCH;
+const isPreviewBuild = Boolean(ciBranch) && ciBranch !== 'main';
+
 const seoProps: SEOProps = {
   title: title || METADATA?.title?.default || '',
   titleTemplate: ignoreTitleTemplate ? '%s' : METADATA?.title?.template || '%s',
   canonical: canonical,
-  noindex:
-    typeof robots?.index !== 'undefined'
+  noindex: isPreviewBuild
+    ? true
+    : typeof robots?.index !== 'undefined'
       ? !robots.index
       : typeof METADATA?.robots?.index !== 'undefined'
         ? !METADATA.robots.index
