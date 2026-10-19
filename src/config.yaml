@@ -18,9 +18,10 @@ metadata:
   openGraph:
     site_name: OceanObs’29
     images:
-      - url: '~/assets/images/default.png'
+      # Share card made from the hero photo and logo (2026-10-19).
+      - url: '~/assets/images/share-oceanobs29.jpg'
         width: 1200
-        height: 628
+        height: 630
     type: website
   twitter:
     cardType: summary_large_image
@@ -31,7 +32,8 @@ i18n:
 
 apps:
   blog:
-    isEnabled: true
+    # Off until the first real news post: turning it on publishes /news, its RSS feed and sitemap entries.
+    isEnabled: false
     postsPerPage: 8
 
     post:

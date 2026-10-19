@@ -33,6 +33,10 @@ const mapDate =
     new Date(mapMeta.retrieved)
   );
 
+// Legend: the four largest named networks, plus everything else, so the parts add up to the total.
+const mapLegend = mapMeta ? mapMeta.networks.filter((n) => n.name !== 'Other').slice(0, 4) : [];
+const mapOther = mapMeta ? mapMeta.total - mapLegend.reduce((sum, n) => sum + n.count, 0) : 0;
+
 const label = (n: { data: { acronym?: string; name: string } }) => n.data.acronym ?? n.data.name;
 const network = (await getCollection('network')).sort((a, b) => label(a).localeCompare(label(b)));
 
@@ -79,7 +83,6 @@ const structuredData = [
     >
     </div>
     <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-t from-ink to-transparent" aria-hidden="true"></div>
-    <PhotoCredit image={IMAGES.homeHero} />
     <div class="mx-auto max-w-7xl px-4 pt-20 pb-16 md:pt-32 md:pb-24 lg:px-6">
       <p
         class="inline-flex items-center gap-3 border border-accent/70 px-3 py-2 font-heading text-sm font-bold tracking-[0.14em] text-white uppercase"
@@ -129,6 +132,7 @@ const structuredData = [
         }
       </ol>
     </div>
+    <PhotoCredit image={IMAGES.homeHero} />
   </section>
 
   <!-- 2. The vision -->
@@ -176,15 +180,13 @@ const structuredData = [
               </span>
             </h2>
             <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-on-dark-muted" aria-label="Largest networks">
-              {mapMeta.networks
-                .filter((n) => n.name !== 'Other')
-                .slice(0, 4)
-                .map(({ name, count, color }) => (
-                  <li class="flex items-center gap-2">
-                    <span class="h-2.5 w-2.5 rounded-full" style={`background-color: ${color}`} aria-hidden="true" />
-                    {name}: {count.toLocaleString('en-GB')}
-                  </li>
-                ))}
+              {mapLegend.map(({ name, count, color }) => (
+                <li class="flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full" style={`background-color: ${color}`} aria-hidden="true" />
+                  {name}: {count.toLocaleString('en-GB')}
+                </li>
+              ))}
+              {mapOther > 0 && <li>Other platforms: {mapOther.toLocaleString('en-GB')}</li>}
             </ul>
             <p class="mt-5 text-xs text-on-dark-muted">
               Source:{' '}

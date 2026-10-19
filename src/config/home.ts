@@ -7,9 +7,9 @@
 
 export const HOME = {
   hero: {
-    /** Falling Walls-style label box above the headline. [old site: FAQ] */
+    /** Falling Walls-style label box above the headline. [old site: FAQ; deck: October] */
     place: 'Qingdao, China',
-    year: '2029',
+    year: 'October 2029',
     /** Headline in two weights (Slush-style): a lighter lead-in, then the emphasis. [old site] */
     headlineLead: 'Shaping the next decade of',
     headlineEmphasis: 'global ocean observing',
@@ -32,14 +32,14 @@ export const HOME = {
         name: 'OceanObs’99',
         year: '1999',
         place: 'Saint-Raphaël, France',
-        size: '~300 attendees',
+        size: 'About 300 attendees',
         legacy: 'Galvanized the physical observing community',
       },
       {
         name: 'OceanObs’09',
         year: '2009',
         place: 'Venice, Italy',
-        size: '~600 attendees',
+        size: 'About 600 attendees',
         legacy: 'Integrated, sustained observing: the Framework for Ocean Observing',
       },
       {
@@ -104,7 +104,7 @@ export const HOME = {
       },
       {
         label: 'Early career ocean professionals',
-        text: 'Early career perspectives are built into OceanObs’29 planning, from the Program Committee onward.',
+        text: 'Early career ocean professional (ECOP) perspectives are built into OceanObs’29 planning, from the Program Committee onward.',
       },
       {
         label: 'Operational agencies & data providers',
@@ -126,23 +126,23 @@ export const HOME = {
       {
         year: '2019',
         title: 'OceanObs’19',
-        text: 'Honolulu brings together more than 1,500 participants and around 130 white papers.',
+        text: 'Honolulu brought together more than 1,500 participants and produced around 130 white papers.',
       },
       {
         year: '2026',
         title: 'Launch',
-        text: 'Community town hall at OSM26, committees in place, six working groups launched, and the ECOP Committee established.',
+        text: 'A community town hall at Ocean Sciences Meeting 2026, the Program Committee and International Advisory Committee in place, six working groups launched, and the ECOP Committee established.',
         current: true,
       },
       {
         year: '2027',
         title: 'Community input',
-        text: 'The topical paper abstract call opens and the Sponsors Committee is formalized.',
+        text: 'The topical paper abstract call is planned to open (dates to be confirmed), and the Sponsors Committee to be formalized.',
       },
       {
         year: '2028',
         title: 'Preparing the conference',
-        text: 'The Local Organizing Committee is formed, with a side event at the UN Ocean Conference.',
+        text: 'The Local Organizing Committee is planned to form, with a planned side event at the UN Ocean Conference.',
       },
       {
         year: '2029',
@@ -158,14 +158,17 @@ export const HOME = {
     /** [draft] */
     text: 'OceanObs’29 brings together the institutions, agencies and companies that build and use the global ocean observing system. Partnership supports the community process leading to 2029 and the conference itself.',
     link: { text: 'Partnership opportunities', href: '/partners' },
-    contact: { text: 'Talk to us', href: 'mailto:info@oceanobs29.net?subject=OceanObs%E2%80%9929%20partnership' },
+    contact: {
+      text: 'Email us about partnership',
+      href: 'mailto:info@oceanobs29.net?subject=OceanObs%E2%80%9929%20partnership',
+    },
   },
 
   connect: {
     eyebrow: 'Stay connected',
     title: 'Questions, ideas, or want to take part?',
     /** [old site: footer] */
-    text: 'For questions or general inquiries, contact the OceanObs’29 coordination team.',
+    text: 'For questions or general inquiries, contact the OceanObs’29 Coordination Team.',
   },
 
   /** Partners section heading on the homepage, shown only once src/data/network.yaml has entries. */

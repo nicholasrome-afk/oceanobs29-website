@@ -29,7 +29,7 @@ For ocean-observing organizations, the hero can be a map we render ourselves ins
 
 **To refresh:** run `npm run map`, check the image, then commit both files. Monthly is plenty.
 
-**Permission:** OceanOPS marks the service "Copyright: OceanOPS" but publishes no reuse license. Because OceanOPS is the GOOS operational centre, ask them for a short written OK (template below). Then set `pendingPermission: false` on `homeHero` in `src/config/images.ts`. Until then, the build prints a reminder.
+**Permission:** OceanOPS marks the service "Copyright: OceanOPS" but publishes no reuse license. Because OceanOPS is the GOOS operational centre, ask them for a short written OK (template below). Then set `pendingPermission: false` on `networkMap` in `src/config/images.ts`. Until then, the build prints a reminder.
 
 > Subject: Using OceanOPS platform positions on the [organization] website
 >

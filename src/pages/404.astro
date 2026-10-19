@@ -1,23 +1,52 @@
 ---
-import Layout from '~/layouts/Layout.astro';
+// Not-found page inside the normal site layout (header, menu, footer).
+import { Icon } from 'astro-icon/components';
+
+import Layout from '~/layouts/PageLayout.astro';
+import PageHeader from '~/components/site/PageHeader.astro';
+
+import { ORG } from '~/config/org';
+import { headerData } from '~/navigation';
 import { getHomePermalink } from '~/utils/permalinks';
 
-const title = `Error 404`;
+const metadata = {
+  title: 'Page not found',
+  description: 'This page could not be found on the OceanObs’29 website.',
+  robots: { index: false, follow: true },
+};
 ---
 
-<Layout metadata={{ title }}>
-  <section class="flex items-center h-full p-16">
-    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-      <div class="max-w-md text-center">
-        <h2 class="mb-8 font-bold text-9xl">
-          <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
-        </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          But don't worry, you can find plenty of other things on our homepage.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
+<Layout metadata={metadata}>
+  <PageHeader
+    eyebrow="Error 404"
+    title="Page not found"
+    intro="The page you were looking for doesn’t exist or has moved. Pages from the previous OceanObs’29 website now live in the sections below."
+  />
+  <section class="py-16 md:py-20" aria-labelledby="where-next">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 lg:px-6">
+      <div>
+        <h2 id="where-next" class="text-2xl font-bold text-heading">Where to next</h2>
+        <ul class="mt-6 space-y-3">
+          <li>
+            <a href={getHomePermalink()} class="font-semibold text-link underline-offset-4 hover:underline">Home</a>
+          </li>
+          {
+            headerData.links.map(({ text, href }) => (
+              <li>
+                <a href={href} class="font-semibold text-link underline-offset-4 hover:underline">
+                  {text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="self-start rounded-[4px] bg-mist p-8">
+        <p class="text-lg text-default">Can’t find what you need? Email the Coordination Team.</p>
+        <a href={`mailto:${ORG.contacts[0].email}`} class="btn-site-primary mt-6">
+          <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" />
+          {ORG.contacts[0].email}
+        </a>
       </div>
     </div>
   </section>

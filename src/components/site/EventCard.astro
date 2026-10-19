@@ -20,9 +20,9 @@ const time = timeRange(event.data);
   {
     showDate && (
       <div class="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-[4px] bg-ink text-on-dark">
-        <span class="eyebrow text-[0.625rem] text-accent">{weekday(date)}</span>
+        <span class="eyebrow text-xs text-accent">{weekday(date)}</span>
         <span class="font-heading text-3xl leading-none font-extrabold">{dayOfMonth(date)}</span>
-        <span class="eyebrow text-[0.625rem] text-on-dark-muted">{monthShort(date)}</span>
+        <span class="eyebrow text-xs text-on-dark-muted">{monthShort(date)}</span>
       </div>
     )
   }
@@ -31,7 +31,7 @@ const time = timeRange(event.data);
       formats.length > 0 && (
         <ul class="mb-2 flex flex-wrap gap-1.5" aria-label="Format">
           {formats.map((f) => (
-            <li class="eyebrow rounded-full bg-primary/10 px-2.5 py-1 text-[0.625rem] text-link">{f}</li>
+            <li class="eyebrow rounded-full bg-primary/10 px-2.5 py-1 text-xs text-link">{f}</li>
           ))}
         </ul>
       )

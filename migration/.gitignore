@@ -3,3 +3,11 @@ raw/
 images/plouzane-1758197.jpg
 images/sea-2052650.jpg
 images/mountains-4387209_1920.jpg
+# Kept locally only (red-team review, 2026-10-19): committee headshots from the
+# old site (no recorded permission) and the leftover "Romeocean" template page.
+images/Screenshot-2026-01-29-at-12.10.28-PM.png
+images/Screenshot-2026-02-13-at-9.33.39-AM.png
+screenshots/ad-hoc-committee-1.png
+screenshots/ad-hoc-committee-1-1.png
+screenshots/home.png
+content/home.md

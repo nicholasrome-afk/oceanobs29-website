@@ -14,13 +14,9 @@ export const headerData = {
 };
 
 export const footerData = {
-  // Quick anchor links to the homepage sections.
-  homeSections: [
-    { text: 'The vision', href: getPermalink('/#vision') },
-    { text: 'Shaping the future', href: getPermalink('/#future') },
-    { text: 'Get involved', href: getPermalink('/#involved') },
-    { text: 'Toward 2029', href: getPermalink('/#timeline') },
-  ],
+  // Homepage-section shortcuts removed after the red-team review (labels didn't match
+  // the section headings, and "Get involved" pointed to two different places).
+  homeSections: [] as { text: string; href: string }[],
   sections: [
     {
       title: 'On this site',

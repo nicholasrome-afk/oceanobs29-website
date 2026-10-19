@@ -29,7 +29,9 @@ export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImag
   /** Home hero: full-bleed behind left-aligned text. */
   homeHero: {
     src: oceanFromIss,
-    alt: 'The Philippine Sea seen from the International Space Station, with clouds over a sunlit ocean and the thin blue line of the atmosphere on the horizon.',
+    // Decorative backdrop behind the headline, so screen readers skip it (red-team review, 2026-10-19).
+    // Description for reference: the Philippine Sea from the ISS, clouds over a sunlit ocean.
+    alt: '',
     credit: 'NASA',
     license: 'Public domain',
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cloudscape_Over_the_Philippine_Sea.jpg',

@@ -11,6 +11,8 @@ export interface Person {
   affiliation: string;
   country?: string;
   role?: string;
+  /** Override when automatic initials are wrong (surname particles such as Le, Van). */
+  initials?: string;
   photo?: ImageMetadata;
 }
 
@@ -70,7 +72,7 @@ export const PROGRAM_COMMITTEE: Person[] = [
     country: 'South Africa',
   },
   { name: 'Nathalie Hilmi', affiliation: 'Centre Scientifique de Monaco', country: 'Monaco' },
-  { name: 'Pierre-Yves Le Traon', affiliation: 'Mercator Ocean International', country: 'France' },
+  { name: 'Pierre-Yves Le Traon', initials: 'PL', affiliation: 'Mercator Ocean International', country: 'France' },
   { name: 'May-Ann Lim', affiliation: 'Access Partnership', country: 'Malaysia' },
   {
     name: 'Deanesh Ramsewak',
@@ -86,7 +88,7 @@ export const PROGRAM_COMMITTEE: Person[] = [
   { name: 'Eric Siegel', affiliation: 'Laridae Consulting' },
   { name: 'Toste Tanhua', affiliation: 'GEOMAR Helmholtz Centre for Ocean Research Kiel', country: 'Germany' },
   { name: 'Janice Trotte-Duha', affiliation: 'National Institute for Ocean Research (INPO)', country: 'Brazil' },
-  { name: 'Benjamin Van Mooy', affiliation: 'Woods Hole Oceanographic Institution', country: 'USA' },
+  { name: 'Benjamin Van Mooy', initials: 'BV', affiliation: 'Woods Hole Oceanographic Institution', country: 'USA' },
   {
     name: 'Yuntao Wang',
     affiliation: 'Second Institute of Oceanography, Ministry of Natural Resources',

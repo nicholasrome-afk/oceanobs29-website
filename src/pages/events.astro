@@ -18,7 +18,7 @@ import { getEvents, splitByTime, groupByConference, dayOfMonth, fullDate } from 
 
 const metadata = {
   title: 'News & Events',
-  description: `Announcements, planning milestones, workshops and events from ${ORG.name}.`,
+  description: `Planning milestones, workshops and events from ${ORG.name}.`,
 };
 
 const posts = await findLatestPosts({ count: 6 });
@@ -39,7 +39,7 @@ const dateSpan = (list: typeof events) => {
   <PageHeader
     eyebrow="News & Events"
     title="News & Events"
-    intro="Announcements, planning milestones, workshops and upcoming events on the road to OceanObs’29."
+    intro="Planning milestones, workshops and events on the road to OceanObs’29. Announcements will appear here as they are published."
   />
 
   <!-- News -->
@@ -93,10 +93,11 @@ const dateSpan = (list: typeof events) => {
         ) : (
           <div class="mt-8 flex flex-col gap-4 rounded-[4px] border border-dashed border-line bg-mist p-8 md:flex-row md:items-center md:justify-between">
             <p class="text-lg text-default">
-              No events are scheduled yet. Town halls and workshops will be listed here as they are announced.
+              No dated events are scheduled yet. Planned milestones are in the roadmap below, and town halls and
+              workshops will be listed here as they are announced.
             </p>
             <a href={`mailto:${ORG.contacts[0].email}`} class="btn-site-outline shrink-0">
-              <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" /> Ask the team
+              <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" /> Email the Coordination Team
             </a>
           </div>
         )
@@ -184,7 +185,17 @@ const dateSpan = (list: typeof events) => {
               )}
             </div>
             <div class="mt-8">
-              <DayFilter events={list} id={id} label={key} />
+              {new Set(list.map((e) => e.data.date.getTime())).size > 1 ? (
+                <DayFilter events={list} id={id} label={key} />
+              ) : (
+                <ul class="grid gap-4">
+                  {list.map((event) => (
+                    <li>
+                      <EventCard event={event} />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </section>

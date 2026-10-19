@@ -21,8 +21,16 @@ export const fullDate = (d: Date) => fmtFull.format(d);
 /** "Sat 21 Feb" */
 export const shortDay = (d: Date) => `${weekday(d)} ${dayOfMonth(d)} ${monthShort(d)}`;
 
-export const timeRange = ({ startTime, endTime }: DcoEvent['data']) =>
-  startTime && endTime ? `${startTime}–${endTime}` : (startTime ?? '');
+/** Short time-zone name on the event's date, e.g. "GMT" or "GMT+8", so international readers know the clock. */
+const zoneName = (date: Date, timeZone: string) =>
+  new Intl.DateTimeFormat('en-GB', { timeZone, timeZoneName: 'short' })
+    .formatToParts(new Date(date.getTime() + 12 * 3600 * 1000))
+    .find((p) => p.type === 'timeZoneName')?.value ?? timeZone;
+
+export const timeRange = ({ startTime, endTime, date, timezone }: DcoEvent['data']) => {
+  const range = startTime && endTime ? `${startTime}–${endTime}` : (startTime ?? '');
+  return range ? `${range} ${zoneName(date, timezone)}` : '';
+};
 
 /** Organizers minus the generic "partners" entry, which is shown as "+ partners". */
 export const splitOrganizers = (organizers: string[]) => {

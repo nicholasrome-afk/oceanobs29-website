@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Renders the homepage hero map: the latest positions of in situ ocean observing
-// platforms reported to OceanOPS (WMO-IOC), drawn in the DCO-OO palette over
+// platforms reported to OceanOPS (WMO-IOC), drawn in the OceanObs’29 palette over
 // Natural Earth land (public domain). Writes the image plus a small metadata
 // file (date, counts per network) that the hero uses for its caption.
 //
@@ -11,7 +11,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
 
 const OCEANOPS_QUERY = 'https://www.ocean-ops.org/arcgis/rest/services/OceanOPS/PtfLocations/MapServer/1/query';
-const LAND_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_land.geojson';
+// Pinned to a Natural Earth release so the land outline can't change underneath us.
+const LAND_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_110m_land.geojson';
 
 const args = process.argv.slice(2);
 const arg = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
@@ -48,7 +49,10 @@ const LABELS = {
 };
 
 async function getJson(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'DCO-OO website map renderer' } });
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'OceanObs29 website map renderer (oceanobs29.net)' },
+    signal: AbortSignal.timeout(60_000),
+  });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText} for ${url}`);
   return res.json();
 }

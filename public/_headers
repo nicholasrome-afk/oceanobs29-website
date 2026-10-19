@@ -1,2 +1,10 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+# Baseline security headers for every page (red-team review, 2026-10-19).
+# HSTS is added at launch, once the custom domain is live.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: frame-ancestors 'self'
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

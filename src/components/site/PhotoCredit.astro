@@ -1,6 +1,7 @@
 ---
 // Small credit label laid over the corner of a photo. Renders nothing when the
-// image has no known credit. The parent must be `relative`.
+// image has no known credit. The parent must be `relative`. Place it after the
+// section's content in the markup so screen readers reach the heading first.
 import type { SiteImage } from '~/config/images';
 
 export interface Props {
@@ -9,15 +10,17 @@ export interface Props {
 }
 
 const { image, class: className = 'right-3 bottom-3' } = Astro.props;
+const via = image.sourceUrl?.includes('wikimedia.org') ? ' via Wikimedia Commons' : '';
 ---
 
 {
   image.credit && (
-    <p class:list={['absolute z-10 rounded-[3px] bg-ink/75 px-2 py-0.5 text-[0.6875rem] text-on-dark', className]}>
+    <p class:list={['absolute z-10 rounded-[3px] bg-ink/75 px-2 py-0.5 text-xs text-on-dark', className]}>
       <span class="sr-only">Photo: </span>
       {image.sourceUrl ? (
         <a href={image.sourceUrl} class="hover:underline">
           {image.credit}
+          {via}
         </a>
       ) : (
         image.credit
