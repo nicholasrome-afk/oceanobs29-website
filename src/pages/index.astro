@@ -72,7 +72,12 @@ const structuredData = [
       style={IMAGES.homeHero.position ? `object-position: ${IMAGES.homeHero.position}` : undefined}
       class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
-    <div class="absolute inset-0 -z-10 bg-linear-to-r from-ink via-ink/80 to-ink/20" aria-hidden="true"></div>
+    <!-- Below 1280px an even 80% overlay (the clouds sit behind the text); wide screens: left-to-right gradient. Contrast-checked at 375/768/1024/1280/1440, 2026-10-18. -->
+    <div
+      class="absolute inset-0 -z-10 bg-ink/80 xl:bg-transparent xl:bg-linear-to-r xl:from-ink xl:via-ink/80 xl:to-ink/20"
+      aria-hidden="true"
+    >
+    </div>
     <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-t from-ink to-transparent" aria-hidden="true"></div>
     <PhotoCredit image={IMAGES.homeHero} />
     <div class="mx-auto max-w-7xl px-4 pt-20 pb-16 md:pt-32 md:pb-24 lg:px-6">
