@@ -46,6 +46,15 @@ export default defineConfig({
       subsets: ['latin'],
       fallbacks: ['sans-serif'],
     },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Manrope',
+      cssVariable: '--font-display',
+      weights: ['100 900'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['sans-serif'],
+    },
   ],
 
   integrations: [

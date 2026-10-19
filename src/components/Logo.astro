@@ -1,9 +1,10 @@
 ---
-import { SITE } from 'astrowind:config';
+// Text wordmark for organizations without a logo. If the site has a logo,
+// replace this with an <img> (SVG in public/ or src/assets/images/site/).
+import { ORG } from '~/config/org';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"
->
-  🚀 {SITE?.name}
+<span class="flex flex-col self-center leading-none">
+  <span class="font-heading text-2xl font-extrabold tracking-tight text-heading">{ORG.shortName}</span>
+  <span class="eyebrow mt-1 hidden text-[0.625rem] text-muted sm:block">{ORG.name}</span>
 </span>

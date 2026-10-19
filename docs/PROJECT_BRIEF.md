@@ -17,7 +17,7 @@ Over time the site should support: the vision for ocean observing; community eng
 
 ## Design references
 
-See `../reference/README.md` (outside the repo):
+See `~/Documents/Work/OceanObs'29/reference/README.md` (outside the repo):
 
 - **OceanX:** aesthetic. Ocean photography, expansive imagery, dramatic headlines, contemporary type, restrained palette.
 - **Falling Walls:** structure for a sophisticated international scientific conference (programs, participants, partners, related activities).
@@ -25,14 +25,14 @@ See `../reference/README.md` (outside the repo):
 
 ## Site map (main navigation)
 
-| Section | Content |
-|---|---|
-| About | Vision, objectives, history, decadal legacy, organizing committees |
-| The Conference | Qingdao 2029, themes, program, venue, registration, travel |
-| Get Involved | Community engagement, working groups, workshops, calls for contributions, early career opportunities |
-| Publications & Resources | White papers, reports, conference outcomes, historical archives |
-| News & Events | Announcements, planning milestones, workshops, upcoming events |
-| Partners | Institutional partners, sponsors, funding opportunities, partnership information |
+| Section                  | Content                                                                                              |
+| ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| About                    | Vision, objectives, history, decadal legacy, organizing committees                                   |
+| The Conference           | Qingdao 2029, themes, program, venue, registration, travel                                           |
+| Get Involved             | Community engagement, working groups, workshops, calls for contributions, early career opportunities |
+| Publications & Resources | White papers, reports, conference outcomes, historical archives                                      |
+| News & Events            | Announcements, planning milestones, workshops, upcoming events                                       |
+| Partners                 | Institutional partners, sponsors, funding opportunities, partnership information                     |
 
 Two prominent calls to action in the homepage header: **Get Involved** and **Become a Partner**.
 
@@ -53,7 +53,8 @@ Two prominent calls to action in the homepage header: **Get Involved** and **Bec
 - **No organizer or host organization** to name. Leave `ORG.status` empty, and don't credit a host anywhere.
 - **Program Committee co-chairs:** Fei Chai and Joanna Post.
 - **International Advisory Committee co-chairs:** Lixin Wu and Margaret Leinen.
-- **Committee membership:** the old site's screenshots are out of date. The source of truth is the contact list in the shared folder, being reviewed in `../committees-review.md`. Don't publish the ECOP Committee or headshots until that review is signed off.
+- **Committee membership:** the old site's screenshots are out of date. The final IAC (12) and Program Committee (21) lists are under "Resolved lists" in `~/Documents/Work/OceanObs'29/committees-review.md` (kept outside this public repo). Samuel Wang is on the Coordination Team, not the PC. **The ECOP Committee is on hold: don't publish its members.**
+- **Headshots:** the user wants photos on committee cards. The source and permission for each photo still need settling (see open items).
 - **Sponsors/partners:** none can be named yet. Partners pages show the opportunity ("Become a Partner"), not logos.
 - **Contact:** info@oceanobs29.net. The coordination team named on the old site: Fei Chai, Samuel Wang, Nick Rome.
 - **Decisions:** English only; 1–2 editors after launch (Keystatic or Pages CMS); move only DNS to Cloudflare at launch.
@@ -68,11 +69,11 @@ Two prominent calls to action in the homepage header: **Get Involved** and **Bec
 
 ## Old URL → new URL (redirects)
 
-| Old | New |
-|---|---|
-| `/home` | `/` |
-| `/oceanobs29` | `/` (duplicate of the homepage) |
-| `/ad-hoc-committee-1-2` (Process) | About → governance |
-| `/oceanobs29-organization` | About → governance |
-| `/ad-hoc-committee-1` | About → International Advisory Committee |
-| `/ad-hoc-committee-1-1` | About → Program Committee |
+| Old                               | New                                      |
+| --------------------------------- | ---------------------------------------- |
+| `/home`                           | `/`                                      |
+| `/oceanobs29`                     | `/` (duplicate of the homepage)          |
+| `/ad-hoc-committee-1-2` (Process) | About → governance                       |
+| `/oceanobs29-organization`        | About → governance                       |
+| `/ad-hoc-committee-1`             | About → International Advisory Committee |
+| `/ad-hoc-committee-1-1`           | About → Program Committee                |

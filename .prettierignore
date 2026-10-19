@@ -2,3 +2,5 @@ dist
 node_modules
 .github
 .changeset
+# Crawl archive of the old Squarespace site (reference only)
+migration/
