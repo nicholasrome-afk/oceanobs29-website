@@ -118,7 +118,10 @@ export const HOME = {
     link: { text: 'Ways to get involved', href: '/get-involved' },
   },
 
-  /** "Toward 2029" timeline. [deck: Planning update, Oct 2026, slides 2 and 7] Full roadmap: src/data/roadmap.ts. */
+  /**
+   * "Toward 2029" timeline. [deck: Planning update, Oct 2026, slides 2 and 7] Full roadmap: src/data/roadmap.ts.
+   * The "Now" marker is worked out from the build date (src/pages/index.astro), so it moves on by itself.
+   */
   timeline: {
     eyebrow: 'Toward 2029',
     title: 'The road to Qingdao',
@@ -132,7 +135,6 @@ export const HOME = {
         year: '2026',
         title: 'Launch',
         text: 'A community town hall at Ocean Sciences Meeting 2026, the Program Committee and International Advisory Committee in place, six working groups launched, and the ECOP Committee established.',
-        current: true,
       },
       {
         year: '2027',

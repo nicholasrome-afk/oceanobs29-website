@@ -45,6 +45,9 @@ const { upcoming, past } = splitByTime(events);
 const homeEvents = (upcoming.length ? upcoming : past).slice(0, 2);
 
 const posts = await findLatestPosts({ count: 3 });
+const buildYear = new Date().getFullYear();
+// Timeline "Now": the latest step whose year has started, as of the build date.
+const nowStepYear = HOME.timeline.steps.filter((step) => Number(step.year) <= buildYear).at(-1)?.year;
 const postDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 // Structured data built only from config.yaml and src/config/org.ts: keep it true.
@@ -313,23 +316,26 @@ const structuredData = [
       <SectionHead id="timeline" eyebrow={HOME.timeline.eyebrow} title={HOME.timeline.title} />
       <ol class="mt-12 grid gap-8 md:grid-cols-5 md:gap-0">
         {
-          HOME.timeline.steps.map(({ year, title, text, current }) => (
-            <li class="relative border-l-2 border-line pl-6 md:border-t-2 md:border-l-0 md:pt-8 md:pr-6 md:pl-0">
-              <span
-                class:list={[
-                  'absolute top-1 -left-[7px] h-3 w-3 rounded-full md:-top-[7px] md:left-0',
-                  current ? 'bg-primary ring-4 ring-primary/20' : 'bg-line',
-                ]}
-                aria-hidden="true"
-              />
-              <p class:list={['font-heading text-3xl font-extrabold', current ? 'text-primary' : 'text-heading']}>
-                {year}
-                {current && <span class="eyebrow ml-2 align-middle text-link">Now</span>}
-              </p>
-              <h3 class="mt-2 text-lg font-bold text-heading">{title}</h3>
-              <p class="mt-2 text-sm text-muted">{text}</p>
-            </li>
-          ))
+          HOME.timeline.steps.map(({ year, title, text }) => {
+            const current = year === nowStepYear;
+            return (
+              <li class="relative border-l-2 border-line pl-6 md:border-t-2 md:border-l-0 md:pt-8 md:pr-6 md:pl-0">
+                <span
+                  class:list={[
+                    'absolute top-1 -left-[7px] h-3 w-3 rounded-full md:-top-[7px] md:left-0',
+                    current ? 'bg-primary ring-4 ring-primary/20' : 'bg-line',
+                  ]}
+                  aria-hidden="true"
+                />
+                <p class:list={['font-heading text-3xl font-extrabold', current ? 'text-primary' : 'text-heading']}>
+                  {year}
+                  {current && <span class="eyebrow ml-2 align-middle text-link">Now</span>}
+                </p>
+                <h3 class="mt-2 text-lg font-bold text-heading">{title}</h3>
+                <p class="mt-2 text-sm text-muted">{text}</p>
+              </li>
+            );
+          })
         }
       </ol>
     </div>

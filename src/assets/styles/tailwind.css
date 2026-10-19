@@ -190,7 +190,8 @@
    kept in sync on client-side navigations). Override --aw-color-link in
    CustomStyles.astro to change the colour. */
 #header nav .aw-link-active {
-  @apply text-link;
+  /* Underline as well as colour, so the current page isn't shown by colour alone. */
+  @apply text-link underline decoration-2 underline-offset-8;
 }
 
 .dd *:first-child {

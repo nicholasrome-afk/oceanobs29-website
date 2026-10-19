@@ -25,6 +25,9 @@ export interface SiteImage {
   pendingPermission?: boolean;
 }
 
+// Not in the registry because it is not shown on any page: the social share card
+// src/assets/images/share-oceanobs29.jpg (set in src/config.yaml, openGraph.images)
+// is derived from the homeHero photo (NASA, public domain) plus the OceanObs’29 logo.
 export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImage> = {
   /** Home hero: full-bleed behind left-aligned text. */
   homeHero: {

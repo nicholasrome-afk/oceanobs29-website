@@ -46,7 +46,7 @@ export const ROADMAP: { year: string; items: Milestone[] }[] = [
       { when: 'First half', text: 'Third Program Committee meeting, Africa or South America', done: false },
       {
         when: 'First half',
-        text: 'Local Organizing Committee formalized, with a professional conference organizer',
+        text: 'Local Organizing Committee formalized, with a professional conference organizer (planned)',
         done: false,
       },
       { when: 'Aug', text: 'UN Ocean Conference, Republic of Korea: planned OceanObs’29 side event', done: false },
