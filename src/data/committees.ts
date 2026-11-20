@@ -3,8 +3,25 @@
 // listed: its members haven't been announced yet.
 //
 // `photo` is optional: cards show initials until a photo with the person's
-// permission is added (import it from ~/assets/images/people/).
+// permission is added in src/assets/images/people/ as `<prefix>-<name-slug>.jpg`.
+//
+// Program Committee photos (pc-*.jpg): cropped from the previous OceanObs’29
+// website's committee graphic, about 300px square. Permission to republish them
+// was confirmed by the project lead on 2026-11-20. Benjamin Van Mooy and Dina
+// Eparkhina joined later and have no photo yet (their cards show initials).
 import type { ImageMetadata } from 'astro';
+
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/images/people/*.jpg', { eager: true });
+const slug = (name: string) =>
+  name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+/** The photo for a person, if a file `<prefix>-<name-slug>.jpg` exists. */
+const photoFor = (prefix: string, name: string) =>
+  photos[`../assets/images/people/${prefix}-${slug(name)}.jpg`]?.default;
 
 export interface Person {
   name: string;
@@ -95,7 +112,7 @@ export const PROGRAM_COMMITTEE: Person[] = [
     country: 'China',
   },
   { name: 'Meixun Zhao', affiliation: 'Laoshan Laboratory', country: 'China' },
-];
+].map((person) => ({ ...person, photo: photoFor('pc', person.name) }));
 
 /** Named on the old site's FAQ. */
 export const COORDINATION_TEAM = ['Fei Chai', 'Samuel Wang', 'Nick Rome'];

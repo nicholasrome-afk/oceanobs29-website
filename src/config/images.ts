@@ -7,6 +7,7 @@ import type { ImageMetadata } from 'astro';
 import oceanFromIss from '~/assets/images/site/hero-ocean-from-iss.jpg';
 import gliderDeployment from '~/assets/images/site/about-glider-deployment.jpg';
 import networkMap from '~/assets/images/site/hero-network-map.jpg';
+import heroVideoPoster from '~/assets/images/site/hero-video-poster.jpg';
 
 export interface SiteImage {
   src: ImageMetadata;
@@ -29,7 +30,7 @@ export interface SiteImage {
 // src/assets/images/share-oceanobs29.jpg (set in src/config.yaml, openGraph.images)
 // is derived from the homeHero photo (NASA, public domain) plus the OceanObs’29 logo.
 export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImage> = {
-  /** Home hero: full-bleed behind left-aligned text. */
+  /** Basis of the social share card (the homepage hero itself is now HERO_VIDEO below). */
   homeHero: {
     src: oceanFromIss,
     // Decorative backdrop behind the headline, so screen readers skip it (red-team review, 2026-10-19).
@@ -63,6 +64,20 @@ export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImag
     // OceanOPS publishes no reuse license: confirm with them before launch.
     pendingPermission: true,
   },
+};
+
+/**
+ * Homepage hero video: an original OceanObs’29 production (no third-party rights), added 2026-11-20.
+ * Source: "OceanObs29 Hero_optimized.mp4" (1920×1080 H.264, 35 s, no audio, 8.8 MB, fast-start).
+ * The file lives in public/video/ so it is served as-is. The poster is the 29-second frame, shown
+ * before the video loads and instead of it for reduced-motion or data-saver visitors.
+ */
+export const HERO_VIDEO = {
+  src: '/video/oceanobs29-hero.mp4',
+  type: 'video/mp4',
+  poster: heroVideoPoster,
+  credit: 'OceanObs’29',
+  license: 'Original work by OceanObs’29',
 };
 
 if (import.meta.env.PROD) {

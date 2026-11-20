@@ -11,12 +11,12 @@ import StructuredData from '~/components/common/StructuredData.astro';
 import SectionHead from '~/components/site/SectionHead.astro';
 import EventCard from '~/components/site/EventCard.astro';
 import NetworkCard from '~/components/site/NetworkCard.astro';
-import PhotoCredit from '~/components/site/PhotoCredit.astro';
 
 import { SITE, I18N } from 'astrowind:config';
 import { ORG } from '~/config/org';
 import { HOME } from '~/config/home';
-import { IMAGES } from '~/config/images';
+import { IMAGES, HERO_VIDEO } from '~/config/images';
+import { getImage } from 'astro:assets';
 import { findLatestPosts } from '~/utils/blog';
 import { getPermalink } from '~/utils/permalinks';
 import { getEvents, splitByTime } from '~/utils/events';
@@ -46,6 +46,7 @@ const homeEvents = (upcoming.length ? upcoming : past).slice(0, 2);
 
 const posts = await findLatestPosts({ count: 3 });
 const buildYear = new Date().getFullYear();
+const heroPoster = await getImage({ src: HERO_VIDEO.poster, width: 1920, format: 'webp' });
 // Timeline "Now": the latest step whose year has started, as of the build date.
 const nowStepYear = HOME.timeline.steps.filter((step) => Number(step.year) <= buildYear).at(-1)?.year;
 const postDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
@@ -66,19 +67,26 @@ const structuredData = [
 <Layout metadata={metadata}>
   <StructuredData slot="head" schema={structuredData} />
 
-  <!-- 1. Hero: full-bleed ocean image, two-weight headline, place/year label, two calls to action -->
+  <!-- 1. Hero: full-bleed background video (poster frame until it plays), headline, place/date label, two calls to action -->
   <section class="relative isolate overflow-hidden bg-ink" aria-labelledby="hero-heading">
-    <Image
-      src={IMAGES.homeHero.src}
-      alt={IMAGES.homeHero.alt}
-      layout="none"
-      loading="eager"
-      fetchpriority="high"
-      widths={[768, 1280, 1920, 2880]}
-      sizes="100vw"
-      style={IMAGES.homeHero.position ? `object-position: ${IMAGES.homeHero.position}` : undefined}
+    <!--
+      Decorative background video, hidden from assistive technology. It never autoplays from markup:
+      the script below starts it only when the visitor hasn't asked for reduced motion or data saving,
+      and then reveals the Pause/Play button (WCAG 2.2.2). Without JavaScript the poster frame shows.
+    -->
+    <video
       class="absolute inset-0 -z-10 h-full w-full object-cover"
-    />
+      poster={heroPoster.src}
+      muted
+      loop
+      playsinline
+      preload="none"
+      aria-hidden="true"
+      tabindex="-1"
+      data-hero-video
+    >
+      <source src={HERO_VIDEO.src} type={HERO_VIDEO.type} />
+    </video>
     <!-- Below 1280px an even 80% overlay (the clouds sit behind the text); wide screens: left-to-right gradient. Contrast-checked at 375/768/1024/1280/1440, 2026-10-18. -->
     <div
       class="absolute inset-0 -z-10 bg-ink/80 xl:bg-transparent xl:bg-linear-to-r xl:from-ink xl:via-ink/80 xl:to-ink/20"
@@ -135,8 +143,54 @@ const structuredData = [
         }
       </ol>
     </div>
-    <PhotoCredit image={IMAGES.homeHero} />
+    <button
+      type="button"
+      class="absolute right-3 bottom-3 z-10 inline-flex min-h-11 items-center gap-2 rounded-[4px] bg-ink/75 px-3 text-sm font-semibold text-white hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      data-hero-video-toggle
+      hidden
+    >
+      <Icon name="tabler:player-pause-filled" class="h-4 w-4" aria-hidden="true" data-icon-pause />
+      <Icon name="tabler:player-play-filled" class="hidden h-4 w-4" aria-hidden="true" data-icon-play />
+      <span data-label>Pause video</span>
+    </button>
   </section>
+
+  <script>
+    // Start the hero video only when appropriate, and wire up the Pause/Play button.
+    // Runs on first load and after client-side navigations back to the homepage.
+    const setupHeroVideo = () => {
+      const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+      const button = document.querySelector<HTMLButtonElement>('[data-hero-video-toggle]');
+      if (!video || !button || video.dataset.ready) return;
+      video.dataset.ready = 'true';
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+      if (reduceMotion || saveData) return; // poster frame only
+
+      const update = () => {
+        const playing = !video.paused;
+        button.querySelector('[data-label]')!.textContent = playing ? 'Pause video' : 'Play video';
+        button.querySelector('[data-icon-pause]')?.classList.toggle('hidden', !playing);
+        button.querySelector('[data-icon-play]')?.classList.toggle('hidden', playing);
+      };
+      video.addEventListener('play', update);
+      video.addEventListener('pause', update);
+      button.addEventListener('click', () => (video.paused ? video.play() : video.pause()));
+
+      video.preload = 'auto';
+      video
+        .play()
+        .then(() => {
+          button.hidden = false;
+          update();
+        })
+        .catch(() => {
+          /* Autoplay refused (e.g. low-power mode): keep the poster frame, no button. */
+        });
+    };
+    document.addEventListener('astro:page-load', setupHeroVideo);
+  </script>
 
   <!-- 2. The vision -->
   <section class="py-16 md:py-24" aria-labelledby="vision">
