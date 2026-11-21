@@ -5,8 +5,9 @@
 // `photo` is optional: cards show initials until a photo with the person's
 // permission is added in src/assets/images/people/ as `<prefix>-<name-slug>.jpg`.
 //
-// Program Committee photos (pc-*.jpg): cropped from the previous OceanObs’29
-// website's committee graphic, about 300px square. Permission to republish them
+// Program Committee (pc-*.jpg) and International Advisory Committee (iac-*.jpg)
+// photos: cropped from the previous OceanObs’29 website's committee graphics,
+// about 270–330px square. Permission to republish them
 // was confirmed by the project lead on 2026-11-20. Benjamin Van Mooy and Dina
 // Eparkhina joined later and have no photo yet (their cards show initials).
 import type { ImageMetadata } from 'astro';
@@ -64,7 +65,7 @@ export const ADVISORY_COMMITTEE: Person[] = [
   { name: 'Paul Seaton', affiliation: 'Fugro', country: 'Australia' },
   { name: 'John Siddorn', affiliation: 'National Oceanography Centre', country: 'UK' },
   { name: 'Jyotika Virmani', affiliation: 'Schmidt Ocean Institute', country: 'USA' },
-];
+].map((person) => ({ ...person, photo: photoFor('iac', person.name) }));
 
 export const PROGRAM_COMMITTEE: Person[] = [
   { name: 'Fei Chai', role: 'Co-Chair', affiliation: 'Fujian-OI / XMU', country: 'China' },
