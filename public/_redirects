@@ -6,3 +6,13 @@
 /ad-hoc-committee-1        /about#advisory-committee     301
 /ad-hoc-committee-1-1      /about#program-committee      301
 /book-a-consultation       /                             301
+# Trailing-slash variants of the old URLs (the rules above match exact paths only).
+/home/                     /                             301
+/oceanobs29/               /                             301
+/ad-hoc-committee-1-2/     /about#governance             301
+/oceanobs29-organization/  /about#governance             301
+/ad-hoc-committee-1/       /about#advisory-committee     301
+/ad-hoc-committee-1-1/     /about#program-committee      301
+/book-a-consultation/      /                             301
+# Old Squarespace sitemap -> Astro's sitemap index (Search Console may still request it).
+/sitemap.xml               /sitemap-index.xml            301

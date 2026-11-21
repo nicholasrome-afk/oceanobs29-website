@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://www.oceanobs29.net/sitemap-index.xml
