@@ -188,4 +188,9 @@ export const HOME = {
  */
 export const CONFERENCES: Record<string, { name: string; place?: string; programmeUrl?: string }> = {
   OSM26: { name: 'Ocean Sciences Meeting 2026', place: 'Glasgow, Scotland' },
+  AGU26: {
+    name: 'AGU Annual Meeting 2026',
+    place: 'San Francisco, California',
+    programmeUrl: 'https://studio.m-anage.com/agu/agu26/meetingapp.cgi/Home/0',
+  },
 };
