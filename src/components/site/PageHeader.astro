@@ -1,0 +1,48 @@
+---
+// Dark page header for inner pages: eyebrow, H1 and intro, with an optional
+// full-bleed photo behind (same treatment as the homepage hero, smaller).
+import Image from '~/components/common/Image.astro';
+import PhotoCredit from '~/components/site/PhotoCredit.astro';
+import type { SiteImage } from '~/config/images';
+
+export interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  image?: SiteImage;
+}
+
+const { eyebrow, title, intro, image } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-ink" aria-labelledby="page-heading">
+  {
+    image && (
+      <>
+        <Image
+          src={image.src}
+          alt={image.alt}
+          layout="none"
+          loading="eager"
+          widths={[768, 1280, 1920]}
+          sizes="100vw"
+          style={image.position ? `object-position: ${image.position}` : undefined}
+          class="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 -z-10 bg-linear-to-r from-ink via-ink/85 to-ink/30" aria-hidden="true" />
+        <PhotoCredit image={image} />
+      </>
+    )
+  }
+  <div class="mx-auto max-w-7xl px-4 pt-20 pb-16 md:pt-28 md:pb-20 lg:px-6">
+    <p class="eyebrow-bar text-on-dark-muted before:bg-accent">{eyebrow}</p>
+    <h1
+      id="page-heading"
+      class="mt-5 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight text-white md:text-6xl"
+    >
+      {title}
+    </h1>
+    {intro && <p class="mt-6 max-w-2xl text-lg text-on-dark md:text-xl">{intro}</p>}
+    <slot />
+  </div>
+</section>

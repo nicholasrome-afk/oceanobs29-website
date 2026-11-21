@@ -1,9 +1,8 @@
 ---
-import { SITE } from 'astrowind:config';
+// OceanObs’29 wordmark (PNG from the old site until an SVG is available).
+import Image from '~/components/common/Image.astro';
+import logo from '~/assets/images/site/logo-oceanobs29-color.png';
+import { ORG } from '~/config/org';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"
->
-  🚀 {SITE?.name}
-</span>
+<Image src={logo} alt={ORG.name} layout="none" width={180} class="h-9 w-auto self-center md:h-10" loading="eager" />

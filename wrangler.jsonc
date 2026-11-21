@@ -1,13 +1,25 @@
-// Cloudflare Workers configuration for the "Deploy to Cloudflare" button in the
-// README. The site is fully static, so the
-// Worker only serves the `dist/` folder as assets; no adapter is needed.
-// Docs: https://developers.cloudflare.com/workers/static-assets/
+// Cloudflare Workers configuration. The site is fully static: the `dist/` folder
+// is served as assets and no adapter is needed. The small Worker in worker/index.js
+// runs only for /video/* so Safari gets the byte ranges it needs to play MP4.
+// `name` must match the Worker's name in the Cloudflare dashboard, or Workers
+// Builds fails. Docs: https://developers.cloudflare.com/workers/static-assets/
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "astrowind",
+  "name": "oceanobs29-website",
   "compatibility_date": "2026-09-01",
+  "main": "./worker/index.js",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // Only these paths reach the Worker; everything else is served directly.
+    "run_worker_first": ["/video/*"],
     "not_found_handling": "404-page",
+    // Serve /events (not /events/) to match Astro's `trailingSlash: false`
+    // links and canonical URLs, without a redirect on every page.
+    "html_handling": "drop-trailing-slash",
   },
+  // Required by `wrangler preview` (Worker Previews, used for non-production
+  // branch builds). Empty is fine: assets and settings above are shared.
+  // Docs: https://developers.cloudflare.com/workers/previews/configuration/
+  "previews": {},
 }

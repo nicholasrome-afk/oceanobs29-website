@@ -92,10 +92,11 @@ const persistKey = `header-${Array.from(
           <Logo />
         </a>
         <div class="flex items-center lg:hidden">
-          <ToggleMenu />
+          <ToggleMenu controls="main-nav" />
         </div>
       </div>
       <nav
+        id="main-nav"
         class="items-center w-full lg:w-auto hidden lg:flex lg:mx-5 text-default overflow-y-auto overflow-x-hidden lg:overflow-visible lg:justify-self-center"
         aria-label="Main navigation"
       >
@@ -140,6 +141,7 @@ const persistKey = `header-${Array.from(
                       { 'aw-link-active': isActive(href) },
                     ]}
                     href={href}
+                    aria-current={isActive(href) ? 'page' : undefined}
                   >
                     {text}
                   </a>
@@ -215,7 +217,13 @@ const persistKey = `header-${Array.from(
       this.updateActiveLinks();
       document.addEventListener('astro:page-load', this.onPageLoad);
 
+      // While the full-screen mobile menu is open, everything behind it is made
+      // inert so keyboard focus can't land on hidden content (WCAG 2.4.11).
+      const behindMenu = () => document.querySelectorAll<HTMLElement>('main, footer, body > a[href="#main"]');
+      const setBehindInert = (inert: boolean) => behindMenu().forEach((el) => (el.inert = inert));
+
       const closeMenu = () => {
+        setBehindInert(false);
         toggle?.classList.remove('expanded');
         toggle?.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('overflow-hidden');
@@ -234,6 +242,15 @@ const persistKey = `header-${Array.from(
         header?.classList.toggle('bg-page');
         nav?.classList.toggle('hidden');
         lastChild?.classList.toggle('hidden');
+        setBehindInert(expanded);
+      });
+
+      // Escape closes the mobile menu and returns focus to the menu button.
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && toggle?.classList.contains('expanded')) {
+          closeMenu();
+          toggle.focus();
+        }
       });
 
       // Close the mobile menu when a nav link is clicked.
@@ -298,7 +315,10 @@ const persistKey = `header-${Array.from(
         // would light up everywhere; only path links can be "the current page".
         const isPathLink =
           url.origin === window.location.origin && !url.hash && !a.getAttribute('href')?.startsWith('#');
-        a.classList.toggle('aw-link-active', isPathLink && norm(url.pathname) === current);
+        const isCurrent = isPathLink && norm(url.pathname) === current;
+        a.classList.toggle('aw-link-active', isCurrent);
+        if (isCurrent) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
       });
     }
   }
