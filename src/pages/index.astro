@@ -6,7 +6,6 @@ import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 
 import Layout from '~/layouts/PageLayout.astro';
-import Image from '~/components/common/Image.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import SectionHead from '~/components/site/SectionHead.astro';
 import EventCard from '~/components/site/EventCard.astro';
@@ -15,27 +14,13 @@ import NetworkCard from '~/components/site/NetworkCard.astro';
 import { SITE, I18N } from 'astrowind:config';
 import { ORG } from '~/config/org';
 import { HOME } from '~/config/home';
-import { IMAGES, HERO_VIDEO } from '~/config/images';
+import { HERO_VIDEO } from '~/config/images';
 import { getImage } from 'astro:assets';
 import { findLatestPosts } from '~/utils/blog';
 import { getPermalink } from '~/utils/permalinks';
 import { getEvents, splitByTime } from '~/utils/events';
 
 const metadata = { title: `${ORG.name}: Shaping the next decade of global ocean observing`, ignoreTitleTemplate: true };
-
-// Live data under the map (written by `npm run map`, see docs/IMAGERY_PLAN.md).
-type MapMeta = { retrieved: string; total: number; networks: { name: string; count: number; color: string }[] };
-const mapFiles = import.meta.glob<{ default: MapMeta }>('../data/network-map.json', { eager: true });
-const mapMeta = Object.values(mapFiles)[0]?.default;
-const mapDate =
-  mapMeta &&
-  new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
-    new Date(mapMeta.retrieved)
-  );
-
-// Legend: the four largest named networks, plus everything else, so the parts add up to the total.
-const mapLegend = mapMeta ? mapMeta.networks.filter((n) => n.name !== 'Other').slice(0, 4) : [];
-const mapOther = mapMeta ? mapMeta.total - mapLegend.reduce((sum, n) => sum + n.count, 0) : 0;
 
 const label = (n: { data: { acronym?: string; name: string } }) => n.data.acronym ?? n.data.name;
 const network = (await getCollection('network')).sort((a, b) => label(a).localeCompare(label(b)));
@@ -67,101 +52,146 @@ const structuredData = [
 <Layout metadata={metadata}>
   <StructuredData slot="head" schema={structuredData} />
 
-  <!-- 1. Hero: full-bleed background video (poster frame until it plays), headline, place/date label, two calls to action -->
-  <section class="relative isolate overflow-hidden bg-ink" aria-labelledby="hero-heading">
-    <!--
-      Decorative background video, hidden from assistive technology. It never autoplays from markup:
-      the script below starts it only when the visitor hasn't asked for reduced motion or data saving,
-      and then reveals the Pause/Play button (WCAG 2.2.2). Without JavaScript the poster frame shows.
-    -->
-    <video
-      class="absolute inset-0 -z-10 h-full w-full object-cover"
-      poster={heroPoster.src}
-      muted
-      loop
-      playsinline
-      preload="none"
-      aria-hidden="true"
-      tabindex="-1"
-      data-hero-video
-    >
-      <source src={HERO_VIDEO.src} type={HERO_VIDEO.type} />
-    </video>
-    <!-- Below 1280px an even 80% overlay (the clouds sit behind the text); wide screens: left-to-right gradient. Contrast-checked at 375/768/1024/1280/1440, 2026-10-18. -->
-    <div
-      class="absolute inset-0 -z-10 bg-ink/80 xl:bg-transparent xl:bg-linear-to-r xl:from-ink xl:via-ink/80 xl:to-ink/20"
-      aria-hidden="true"
-    >
+  <!--
+    1. Hero, after OceanX: the background video is pinned (`sticky`) while the headline scrolls up over it,
+    then a short clear stretch of video shows before the page carries on. The video plays once and stops on
+    its end card (the OceanObs’29 logo); the headline then fades so the logo shows on its own, and comes back
+    as soon as the visitor scrolls, presses a key, tabs in, or presses Replay. Visitors who ask for reduced
+    motion or data saving get the still poster frame, no pinning and no fading.
+  -->
+  <section class="relative isolate bg-ink motion-reduce:overflow-hidden" aria-labelledby="hero-heading" data-hero>
+    <!-- Decorative video layer, hidden from assistive technology. The script below starts the video. -->
+    <div class="sticky top-0 h-svh overflow-hidden motion-reduce:static" aria-hidden="true">
+      <video
+        class="h-full w-full object-cover"
+        poster={heroPoster.src}
+        muted
+        playsinline
+        preload="none"
+        tabindex="-1"
+        data-hero-video
+      >
+        <source src={HERO_VIDEO.src} type={HERO_VIDEO.type} />
+      </video>
     </div>
-    <div class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-t from-ink to-transparent" aria-hidden="true"></div>
-    <div class="mx-auto max-w-7xl px-4 pt-20 pb-16 md:pt-32 md:pb-24 lg:px-6">
-      <p
-        class="inline-flex items-center gap-3 border border-accent/70 px-3 py-2 font-heading text-sm font-bold tracking-[0.14em] text-white uppercase"
-      >
-        <span>{HOME.hero.place}</span>
-        <span class="h-4 w-px bg-accent" aria-hidden="true"></span>
-        <span class="text-accent">{HOME.hero.year}</span>
-      </p>
-      <h1
-        id="hero-heading"
-        class="mt-8 max-w-5xl text-4xl leading-[1.02] tracking-tight text-white uppercase sm:text-5xl md:text-6xl lg:text-7xl"
-      >
-        <span class="block font-light text-on-dark">{HOME.hero.headlineLead}</span>
-        <span class="block font-extrabold">{HOME.hero.headlineEmphasis}</span>
-      </h1>
-      <p class="mt-8 max-w-2xl text-lg text-on-dark md:text-xl">{HOME.hero.intro}</p>
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a href={getPermalink(HOME.hero.primary.href)} class="btn-site-accent">
-          {HOME.hero.primary.text}
-          <Icon name="tabler:arrow-right" class="h-4 w-4" aria-hidden="true" />
-        </a>
-        <a href={getPermalink(HOME.hero.secondary.href)} class="btn-site-outline-light">{HOME.hero.secondary.text}</a>
-      </div>
 
-      <!-- The decadal series, as a stat row -->
-      <ol
-        class="mt-16 grid max-w-3xl grid-cols-4 border-t border-white/15 pt-6"
-        aria-label="The OceanObs conference series"
-      >
-        {
-          HOME.vision.series.map(({ name, year, current }) => (
-            <li>
-              <p
-                class:list={[
-                  'font-heading text-2xl font-extrabold md:text-4xl',
-                  current ? 'text-accent' : 'text-white/80',
-                ]}
+    <!-- overflow-clip keeps the shade inside the hero (it would otherwise show under the header on phones). -->
+    <div class="relative -mt-[100svh] overflow-clip">
+      <!-- First screen: clear video above, headline at the bottom. -->
+      <div class="flex min-h-[calc(100svh-var(--hero-header,4.5rem))] flex-col justify-end">
+        <div
+          class="hero-fade relative pt-10 transition-opacity duration-1000 motion-reduce:transition-none"
+          data-hero-fade
+        >
+          <!--
+            Shade behind the text only (it moves with the text, so contrast holds while scrolling); it fades in
+            over 10rem above the text and out below it. Below 1280px an even 75% shade; wide screens: a left-to-right gradient.
+            Contrast-checked over 9 video frames at 375/768/1024/1280/1440 (2026-11-21, docs/QA_REPORT.md).
+          -->
+          <div
+            class="hero-shade absolute inset-x-0 -top-40 -bottom-24 bg-ink/75 xl:bg-transparent xl:bg-linear-to-r xl:from-ink/90 xl:via-ink/75 xl:via-60% xl:to-ink/15"
+            aria-hidden="true"
+          >
+          </div>
+          <div class="relative mx-auto max-w-7xl px-4 pb-16 md:pb-20 lg:px-6">
+            <p
+              class="inline-flex items-center gap-3 border border-accent/70 bg-ink/70 px-3 py-2 font-heading text-sm font-bold tracking-[0.14em] text-white uppercase"
+            >
+              <span>{HOME.hero.place}</span>
+              <span class="h-4 w-px bg-accent" aria-hidden="true"></span>
+              <span class="text-accent">{HOME.hero.year}</span>
+            </p>
+            <h1
+              id="hero-heading"
+              class="mt-8 max-w-5xl text-4xl leading-[1.02] tracking-tight text-white uppercase sm:text-5xl md:text-6xl lg:text-7xl"
+            >
+              <span class="block font-light text-on-dark">{HOME.hero.headlineLead}</span>
+              <span class="block font-extrabold">{HOME.hero.headlineEmphasis}</span>
+            </h1>
+            <p class="mt-8 max-w-2xl text-lg text-on-dark md:text-xl">{HOME.hero.intro}</p>
+            <div class="mt-10 flex flex-wrap gap-3">
+              <a href={getPermalink(HOME.hero.primary.href)} class="btn-site-accent">
+                {HOME.hero.primary.text}
+                <Icon name="tabler:arrow-right" class="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a href={getPermalink(HOME.hero.secondary.href)} class="btn-site-outline-light"
+                >{HOME.hero.secondary.text}</a
               >
-                {name.replace('OceanObs', '')}
-              </p>
-              <p class="mt-1 text-xs tracking-[0.08em] text-on-dark-muted uppercase">
-                <span class="sr-only">{name}, </span>
-                {year}
-              </p>
-            </li>
-          ))
-        }
-      </ol>
+            </div>
+
+            <!-- The decadal series, as a stat row -->
+            <ol
+              class="mt-12 grid max-w-3xl grid-cols-4 border-t border-white/15 pt-6"
+              aria-label="The OceanObs conference series"
+            >
+              {
+                HOME.vision.series.map(({ name, year, current }) => (
+                  <li>
+                    <p
+                      class:list={[
+                        'font-heading text-2xl font-extrabold md:text-4xl',
+                        current ? 'text-accent' : 'text-white/80',
+                      ]}
+                    >
+                      {name.replace('OceanObs', '')}
+                    </p>
+                    <p class="mt-1 text-xs tracking-[0.08em] text-on-dark-muted uppercase">
+                      <span class="sr-only">{name}, </span>
+                      {year}
+                    </p>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Clear stretch: the pinned video shows without text before the next section. -->
+      <div class="h-[50svh] motion-reduce:hidden" aria-hidden="true"></div>
     </div>
-    <button
-      type="button"
-      class="absolute right-3 bottom-3 z-10 inline-flex min-h-11 items-center gap-2 rounded-[4px] bg-ink/75 px-3 text-sm font-semibold text-white hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      data-hero-video-toggle
-      hidden
-    >
-      <Icon name="tabler:player-pause-filled" class="h-4 w-4" aria-hidden="true" data-icon-pause />
-      <Icon name="tabler:player-play-filled" class="hidden h-4 w-4" aria-hidden="true" data-icon-play />
-      <span data-label>Pause video</span>
-    </button>
+
+    <!-- Pause / Play / Replay, pinned to the bottom-right corner while the hero is on screen (WCAG 2.2.2). -->
+    <div class="pointer-events-none sticky bottom-0 z-10 -mt-17 flex h-17 items-end justify-end p-3">
+      <button
+        type="button"
+        class="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-[4px] bg-ink/75 px-3 text-sm font-semibold text-white hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        data-hero-video-toggle
+        hidden
+      >
+        <Icon name="tabler:player-pause-filled" class="h-4 w-4" aria-hidden="true" data-icon="pause" />
+        <Icon name="tabler:player-play-filled" class="hidden h-4 w-4" aria-hidden="true" data-icon="play" />
+        <Icon name="tabler:refresh" class="hidden h-4 w-4" aria-hidden="true" data-icon="replay" />
+        <span data-label>Pause video</span>
+      </button>
+    </div>
   </section>
 
+  <style>
+    /* Shade fades in above the text and out below it, instead of hard edges. */
+    .hero-shade {
+      mask-image: linear-gradient(to bottom, transparent, #000 10rem, #000 calc(100% - 8rem), transparent);
+    }
+    /* Video finished on the logo: hide the headline and its shade until the visitor interacts. */
+    [data-hero][data-ended] .hero-fade {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* Keyboard users tabbing in always see what they are focused on. */
+    [data-hero][data-ended] .hero-fade:focus-within {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+
   <script>
-    // Start the hero video only when appropriate, and wire up the Pause/Play button.
+    // Hero video: start it only when appropriate, wire up Pause/Play/Replay, and when it ends on the
+    // logo, fade the headline until the visitor scrolls, presses a key, taps the hero or tabs in.
     // Runs on first load and after client-side navigations back to the homepage.
     const setupHeroVideo = () => {
+      const hero = document.querySelector<HTMLElement>('[data-hero]');
       const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
       const button = document.querySelector<HTMLButtonElement>('[data-hero-video-toggle]');
-      if (!video || !button || video.dataset.ready) return;
+      if (!hero || !video || !button || video.dataset.ready) return;
       video.dataset.ready = 'true';
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -169,14 +199,39 @@ const structuredData = [
       if (reduceMotion || saveData) return; // poster frame only
 
       const update = () => {
-        const playing = !video.paused;
-        button.querySelector('[data-label]')!.textContent = playing ? 'Pause video' : 'Play video';
-        button.querySelector('[data-icon-pause]')?.classList.toggle('hidden', !playing);
-        button.querySelector('[data-icon-play]')?.classList.toggle('hidden', playing);
+        const state = video.ended ? 'replay' : video.paused ? 'play' : 'pause';
+        const labels = { pause: 'Pause video', play: 'Play video', replay: 'Replay video' };
+        button.querySelector('[data-label]')!.textContent = labels[state];
+        button.querySelectorAll<SVGElement>('[data-icon]').forEach((icon) => {
+          icon.classList.toggle('hidden', icon.dataset.icon !== state);
+        });
       };
+
+      const showText = () => {
+        delete hero.dataset.ended;
+        removeEventListener('scroll', showText);
+        removeEventListener('keydown', showText);
+        hero.removeEventListener('pointerdown', showText);
+      };
+      video.addEventListener('ended', () => {
+        update();
+        hero.dataset.ended = 'true';
+        addEventListener('scroll', showText, { passive: true });
+        addEventListener('keydown', showText);
+        hero.addEventListener('pointerdown', showText);
+      });
+      hero.addEventListener('focusin', showText);
+
       video.addEventListener('play', update);
       video.addEventListener('pause', update);
-      button.addEventListener('click', () => (video.paused ? video.play() : video.pause()));
+      button.addEventListener('click', () => {
+        if (video.ended) {
+          showText();
+          video.currentTime = 0;
+        }
+        if (video.paused) video.play();
+        else video.pause();
+      });
 
       video.preload = 'auto';
       video
@@ -213,50 +268,6 @@ const structuredData = [
       </div>
     </div>
   </section>
-
-  <!-- Expansive data image: the observing system as it is today -->
-  {
-    mapMeta && (
-      <section class="relative bg-ink" aria-labelledby="map-heading">
-        <figure>
-          <Image
-            src={IMAGES.networkMap.src}
-            alt={IMAGES.networkMap.alt}
-            layout="none"
-            widths={[768, 1280, 1920, 2880]}
-            sizes="100vw"
-            class="h-auto w-full"
-          />
-          <figcaption class="mx-auto max-w-7xl px-4 pt-6 pb-12 md:pb-16 lg:px-6">
-            <h2 id="map-heading" class="max-w-3xl text-on-dark">
-              <span class="block font-heading text-5xl font-extrabold text-white md:text-7xl">
-                {mapMeta.total.toLocaleString('en-GB')}
-              </span>
-              <span class="mt-2 block text-lg md:text-xl">
-                ocean observing platforms reported a position in the 30 days to {mapDate}.
-              </span>
-            </h2>
-            <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-on-dark-muted" aria-label="Largest networks">
-              {mapLegend.map(({ name, count, color }) => (
-                <li class="flex items-center gap-2">
-                  <span class="h-2.5 w-2.5 rounded-full" style={`background-color: ${color}`} aria-hidden="true" />
-                  {name}: {count.toLocaleString('en-GB')}
-                </li>
-              ))}
-              {mapOther > 0 && <li>Other platforms: {mapOther.toLocaleString('en-GB')}</li>}
-            </ul>
-            <p class="mt-5 text-xs text-on-dark-muted">
-              Source:{' '}
-              <a class="underline underline-offset-2 hover:text-on-dark" href={IMAGES.networkMap.sourceUrl}>
-                OceanOPS (WMO-IOC)
-              </a>
-              . Land: Natural Earth.
-            </p>
-          </figcaption>
-        </figure>
-      </section>
-    )
-  }
 
   <!-- 3. Shaping the future: four visual cards -->
   <section class="bg-mist py-16 md:py-24" aria-labelledby="future">

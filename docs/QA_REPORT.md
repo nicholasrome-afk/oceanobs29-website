@@ -33,11 +33,19 @@ Pages tested: `/`, `/about`, `/conference`, `/get-involved`, `/resources`, `/par
 
 Fixes 1–4 were verified on a local production build. The Lighthouse scores above came from the preview before these fixes; none of the fixes should lower them.
 
+## Hero video update (2026-11-21)
+
+The homepage hero changed: the video is pinned while the headline scrolls over it (after OceanX), plays once and stops on its logo end card (the headline fades until the visitor scrolls, presses a key, tabs in or presses Replay), and the dark overlay now sits only behind the text and moves with it. The OceanOPS map section was removed from the homepage.
+
+- **Contrast:** 1,063 measurements of every hero text element over 9 video frames (1–33 s), at 375, 768, 1024, 1280 and 1440px, at scroll 0 and 350px: all pass. Lowest: 5.2:1 for small text (need 4.5) and 4.7:1 for the teal ’29 (need 3). The place/date label has its own dark backing, since it sits highest over the video.
+- **axe-core 4.10:** no violations on the homepage at 320, 375 and 1440px, with and without reduced motion.
+- **Reduced motion / data saver:** no video, no pinning, no fading; the poster frame shows. No sideways scrolling at 320px.
+
 ## Known items (not blocking)
 
 - **Mobile homepage speed (93).** On simulated slow 4G, the largest element (the headline) appears at 2.8s, just over Google's 2.5s "good" line. Most of the delay is the page waiting for its stylesheet and web fonts before drawing text. Options if it matters later: preload the heading font, or inline the critical CSS.
-- **Tightest contrast margin.** The teal ’29 in the hero at 1280px measures 3.3:1 against the 3:1 large-text minimum. It passes, but swapping the hero photo could change this, so re-run the check if that happens.
-- **OceanOPS map.** Reuse permission has not been confirmed yet (`pendingPermission` in `src/config/images.ts`).
+- **Hero contrast depends on the video.** All hero text passes over the current video (see above). If the video is replaced, re-run the contrast check.
+- **OceanOPS map.** No longer shown (removed 2026-11-21), so its reuse permission no longer blocks launch. The script and files remain if it comes back.
 - **News.** There are no posts yet, so the News sections stay hidden until the first one.
 
 ## How to re-run

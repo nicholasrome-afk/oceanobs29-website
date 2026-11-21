@@ -6,7 +6,6 @@ import type { ImageMetadata } from 'astro';
 
 import oceanFromIss from '~/assets/images/site/hero-ocean-from-iss.jpg';
 import gliderDeployment from '~/assets/images/site/about-glider-deployment.jpg';
-import networkMap from '~/assets/images/site/hero-network-map.jpg';
 import heroVideoPoster from '~/assets/images/site/hero-video-poster.jpg';
 
 export interface SiteImage {
@@ -29,7 +28,7 @@ export interface SiteImage {
 // Not in the registry because it is not shown on any page: the social share card
 // src/assets/images/share-oceanobs29.jpg (set in src/config.yaml, openGraph.images)
 // is derived from the homeHero photo (NASA, public domain) plus the OceanObs’29 logo.
-export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImage> = {
+export const IMAGES: Record<'homeHero' | 'aboutFeature', SiteImage> = {
   /** Basis of the social share card (the homepage hero itself is now HERO_VIDEO below). */
   homeHero: {
     src: oceanFromIss,
@@ -53,18 +52,10 @@ export const IMAGES: Record<'homeHero' | 'aboutFeature' | 'networkMap', SiteImag
     // Original 4032px from Commons, saved at 2400px in sRGB with metadata (incl. GPS) removed (2026-10-18).
     placeholder: false,
   },
-  /** Live map of ocean observing platforms (written by `npm run map`). */
-  networkMap: {
-    src: networkMap,
-    alt: 'World map with thousands of dots across every ocean, each an observing platform such as an Argo float, drifting buoy or ship that reported its position in the last 30 days.',
-    credit: 'Data: OceanOPS (WMO-IOC); land: Natural Earth',
-    license: 'Rendered for this site from OceanOPS data',
-    sourceUrl: 'https://www.ocean-ops.org/board',
-    placeholder: false,
-    // OceanOPS publishes no reuse license: confirm with them before launch.
-    pendingPermission: true,
-  },
 };
+
+// The OceanOPS network map (hero-network-map.jpg, `npm run map`) was removed from the
+// homepage on 2026-11-21 at the project lead's request; the script and files remain unused.
 
 /**
  * Homepage hero video: an original OceanObs’29 production (no third-party rights), added 2026-11-20.
