@@ -9,7 +9,9 @@
 // photos: cropped from the previous OceanObs’29 website's committee graphics,
 // about 270–330px square. Permission to republish them
 // was confirmed by the project lead on 2026-11-20. Benjamin Van Mooy and Dina
-// Eparkhina joined later and have no photo yet (their cards show initials).
+// Eparkhina joined later: their photos come from slide 5 of the project's
+// "20260817_OceanObs29_General" deck, which the project lead says they approved
+// for this use (2026-11-21).
 import type { ImageMetadata } from 'astro';
 
 const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/images/people/*.jpg', { eager: true });
