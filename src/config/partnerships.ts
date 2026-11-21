@@ -1,3 +1,14 @@
+import { ORG } from './org';
+
+const email = ORG.contacts[0].email;
+const subject = 'OceanObs’29 funding conversation';
+
+export const fundingContact = {
+  label: 'Talk with us about funding',
+  email,
+  href: `mailto:${email}?subject=${encodeURIComponent(subject)}`,
+};
+
 export const opportunities = {
   outreach: {
     title: 'Outreach and communications',
@@ -5,10 +16,10 @@ export const opportunities = {
     description: 'Help share planning updates and findings through accessible design, translation and outreach.',
   },
   participation: {
-    title: 'Early-career participation',
+    title: 'Regional and early-career participation',
     support: 'Targeted funding',
     description:
-      'Help early-career ocean professionals and others with limited travel support take part in meetings and consultations.',
+      'Help early-career ocean professionals and people from underrepresented regions take part through supported consultations, accessible materials and participation funding.',
   },
   dialogues: {
     title: 'Regional dialogues',
@@ -16,15 +27,22 @@ export const opportunities = {
     description: 'Help convene regional discussions so more communities can contribute to the ocean observing roadmap.',
   },
   papers: {
-    title: 'Community papers',
+    title: 'Scientific synthesis',
     support: 'Targeted funding',
     description:
-      'Support editorial coordination and help share findings from community papers with the wider ocean observing community.',
+      'Bring existing evidence together and turn priority gaps into questions for the OceanObs’29 community papers.',
   },
   coordination: {
-    title: 'Program coordination',
-    support: 'Pooled support',
-    description: 'Help fund staff to coordinate committees, follow up on decisions and keep the planning work moving.',
+    title: 'First phase of the 2040 roadmap',
+    support: 'Program funding',
+    description:
+      'Support the 2027 consultations, scientific synthesis and preparation for the OceanObs’29 community papers.',
+  },
+  applications: {
+    title: 'Practical uses of ocean data',
+    support: 'Targeted funding',
+    description:
+      'Bring forecast teams, observing networks and industry practitioners together to document where better data could improve a real decision.',
   },
   tools: {
     title: 'Tools and technical expertise',
@@ -44,7 +62,7 @@ export const profiles = {
   sponsor: {
     label: 'Sponsors',
     name: 'a program sponsor',
-    opportunities: ['outreach', 'participation', 'dialogues'],
+    opportunities: ['outreach', 'participation', 'dialogues', 'applications', 'coordination'],
     goals: {
       'Public recognition': 'Acknowledgment in materials for the specific activity you support, where appropriate.',
       'Community engagement':
@@ -56,7 +74,7 @@ export const profiles = {
   foundation: {
     label: 'Foundations',
     name: 'a foundation',
-    opportunities: ['participation', 'papers', 'coordination'],
+    opportunities: ['coordination', 'papers', 'participation'],
     goals: {
       'Measurable impact':
         'Agree on measures that fit the grant, such as how many people took part, which regions they represented or how broadly findings were shared.',
@@ -68,7 +86,7 @@ export const profiles = {
   company: {
     label: 'Private companies',
     name: 'a private company',
-    opportunities: ['tools', 'dialogues', 'outreach'],
+    opportunities: ['applications', 'coordination', 'dialogues', 'outreach', 'tools'],
     goals: {
       'Applying our expertise': 'Identify a specific need your team can help meet and agree on the scope and timing.',
       'Cross-sector exchange':
@@ -95,5 +113,3 @@ export const profiles = {
 >;
 
 export type ProfileKey = keyof typeof profiles;
-
-export const contributionRanges = ['$25,000–$49,999', '$50,000–$149,999', '$150,000–$299,999', '$300,000+'];
