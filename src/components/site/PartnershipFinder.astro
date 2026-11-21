@@ -1,0 +1,172 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import SectionHead from '~/components/site/SectionHead.astro';
+import { HOME } from '~/config/home';
+import { ORG } from '~/config/org';
+import { contributionRanges, opportunities, profiles } from '~/config/partnerships';
+
+const fieldClass =
+  'mt-2 block min-h-11 w-full rounded-sm border border-line bg-page px-3 py-2 text-base font-normal text-default';
+const initial = opportunities.outreach;
+const email = ORG.contacts[0].email;
+---
+
+<section
+  id="partnership-finder"
+  class="scroll-mt-8 border-t border-line py-16 md:py-24"
+  aria-labelledby="partner-fit-heading"
+>
+  <div class="mx-auto max-w-7xl px-4 lg:px-6">
+    <SectionHead
+      id="partner-fit-heading"
+      eyebrow="Partnership opportunities"
+      title="Find your partnership fit"
+      intro="Choose what you’d like to support and what matters most to your organization."
+    />
+
+    <aw-partnership-finder class="mt-8 block" data-email={email} hidden>
+      <form>
+        <fieldset class="grid min-w-0 grid-cols-2 overflow-hidden rounded-sm border border-line md:grid-cols-4">
+          <legend class="sr-only">Partner type</legend>
+          {
+            Object.entries(profiles).map(([key, profile]) => (
+              <label class="block">
+                <input class="peer sr-only" type="radio" name="profile" value={key} checked={key === 'sponsor'} />
+                <span class="flex h-full min-h-12 cursor-pointer items-center justify-center border-b-2 border-transparent px-2 py-2.5 text-center text-sm font-semibold hover:bg-mist peer-checked:border-link peer-checked:bg-mist peer-checked:text-link peer-focus-visible:outline-2 peer-focus-visible:-outline-offset-2 peer-focus-visible:outline-link">
+                  {profile.label}
+                </span>
+              </label>
+            ))
+          }
+        </fieldset>
+
+        <div class="mt-5 grid items-start gap-5 md:grid-cols-2 lg:gap-8">
+          <div class="grid min-w-0 gap-4 rounded-sm border border-line p-4 sm:p-6">
+            <label class="block text-sm font-semibold">
+              What would you like to support?
+              <select name="opportunity" class={fieldClass}>
+                {profiles.sponsor.opportunities.map((key) => <option value={key}>{opportunities[key].title}</option>)}
+              </select>
+            </label>
+            <label class="block text-sm font-semibold">
+              What matters most to your organization?
+              <select name="priority" class={fieldClass}>
+                {Object.keys(profiles.sponsor.goals).map((priority) => <option>{priority}</option>)}
+              </select>
+            </label>
+            <label class="block text-sm font-semibold" data-range-field>
+              Indicative contribution in USD (optional)
+              <select name="range" class={fieldClass}>
+                <option value="">To discuss</option>
+                {contributionRanges.map((range) => <option>{range}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <div class="min-w-0 rounded-sm border border-line bg-mist p-4 sm:p-6">
+            <div aria-live="polite" aria-atomic="true">
+              <p class="eyebrow-bar text-muted" data-support>{initial.support}</p>
+              <h3 class="mt-3 text-2xl font-bold tracking-tight text-heading" data-title>{initial.title}</h3>
+              <p class="mt-2 text-muted" data-description>{initial.description}</p>
+              <h4 class="mt-5 border-t border-line pt-4 font-bold text-heading">What we can discuss</h4>
+              <p class="mt-1 text-muted" data-benefit>{profiles.sponsor.goals['Public recognition']}</p>
+            </div>
+
+            <details class="mt-5">
+              <summary class="btn-site-primary cursor-pointer list-none">
+                <Icon name="tabler:mail" class="size-4" aria-hidden="true" />
+                Draft a partnership inquiry
+              </summary>
+              <label class="mt-4 block text-sm font-semibold">
+                Your inquiry draft
+                <textarea name="inquiry" class={fieldClass} rows="7" readonly></textarea>
+              </label>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <a href={HOME.partner.contact.href} class="btn-site-primary" data-email-draft>Open email draft</a>
+                <button class="btn-site-outline" type="button" data-select-inquiry>Select inquiry text</button>
+              </div>
+            </details>
+          </div>
+        </div>
+      </form>
+      <p class="mt-4 text-sm text-muted">
+        These opportunities support the OceanObs’29 planning program. Partnership terms and recognition are agreed
+        together.
+      </p>
+    </aw-partnership-finder>
+
+    <noscript>
+      <p class="mt-6 text-muted">
+        <a class="font-semibold text-link underline" href={HOME.partner.contact.href}>Email the Coordination Team</a> to discuss
+        opportunities for your organization.
+      </p>
+    </noscript>
+  </div>
+</section>
+
+<script>
+  import { opportunities, profiles, type OpportunityKey, type ProfileKey } from '~/config/partnerships';
+
+  class PartnershipFinder extends HTMLElement {
+    connectedCallback() {
+      if (!this.hidden) return;
+
+      const form = this.querySelector('form')!;
+      const opportunity = form.elements.namedItem('opportunity') as HTMLSelectElement;
+      const priority = form.elements.namedItem('priority') as HTMLSelectElement;
+      const range = form.elements.namedItem('range') as HTMLSelectElement;
+      const draft = form.elements.namedItem('inquiry') as HTMLTextAreaElement;
+      const rangeField = this.querySelector<HTMLElement>('[data-range-field]')!;
+      const emailDraft = this.querySelector<HTMLAnchorElement>('[data-email-draft]')!;
+      const subject = 'OceanObs’29 partnership inquiry';
+      const selections = new Map<ProfileKey, { opportunity: string; priority: string; range: string }>();
+      let profile: ProfileKey = 'sponsor';
+
+      const render = () => {
+        const audience = profiles[profile];
+        const selected = opportunities[opportunity.value as OpportunityKey];
+        const goals: Record<string, string> = audience.goals;
+        rangeField.hidden = selected.support === 'In-kind support';
+        this.querySelector('[data-support]')!.textContent = selected.support;
+        this.querySelector('[data-title]')!.textContent = selected.title;
+        this.querySelector('[data-description]')!.textContent = selected.description;
+        this.querySelector('[data-benefit]')!.textContent = goals[priority.value];
+
+        const contribution =
+          !rangeField.hidden && range.value ? ` Our indicative contribution is ${range.value} USD.` : '';
+        const body = `Hello OceanObs’29 team,\n\nWe’re reaching out as ${audience.name} to discuss ${selected.support.toLowerCase()} for ${selected.title.toLowerCase()}.${contribution}\n\nOur priority is ${priority.value.toLowerCase()}. Could we arrange a short briefing to discuss what a partnership might involve?\n\nThank you,\n[Name and organization]`;
+        draft.value = `Subject: ${subject}\n\n${body}`;
+        emailDraft.href = `mailto:${this.dataset.email}?${new URLSearchParams({ subject, body: body.replaceAll('\n', '\r\n') }).toString().replaceAll('+', '%20')}`;
+        selections.set(profile, { opportunity: opportunity.value, priority: priority.value, range: range.value });
+      };
+
+      form.addEventListener('change', ({ target }) => {
+        if (target instanceof HTMLInputElement && target.name === 'profile') {
+          profile = target.value as ProfileKey;
+          const audience = profiles[profile];
+          const saved = selections.get(profile);
+          opportunity.replaceChildren(
+            ...audience.opportunities.map((key) => new Option(opportunities[key].title, key))
+          );
+          priority.replaceChildren(...Object.keys(audience.goals).map((label) => new Option(label, label)));
+          if (saved) {
+            opportunity.value = saved.opportunity;
+            priority.value = saved.priority;
+          }
+          range.value = saved?.range ?? '';
+        }
+        render();
+      });
+      this.querySelector('[data-select-inquiry]')!.addEventListener('click', () => {
+        draft.focus();
+        draft.select();
+      });
+      form.addEventListener('submit', (event) => event.preventDefault());
+      render();
+      this.hidden = false;
+    }
+  }
+
+  if (!customElements.get('aw-partnership-finder')) customElements.define('aw-partnership-finder', PartnershipFinder);
+</script>

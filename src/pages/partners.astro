@@ -8,6 +8,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import PageHeader from '~/components/site/PageHeader.astro';
 import SectionHead from '~/components/site/SectionHead.astro';
 import NetworkCard from '~/components/site/NetworkCard.astro';
+import PartnershipFinder from '~/components/site/PartnershipFinder.astro';
 
 import { ORG } from '~/config/org';
 import { HOME } from '~/config/home';
@@ -41,10 +42,16 @@ const reasons = [
 
 <Layout metadata={metadata}>
   <PageHeader eyebrow="Partners" title="Become a partner" intro={HOME.partner.text}>
-    <a href={HOME.partner.contact.href} class="btn-site-accent mt-10">
-      <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" />
-      Email us about partnership
-    </a>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href="#partnership-finder" class="btn-site-accent">
+        Explore partnership options
+        <Icon name="tabler:arrow-down" class="h-4 w-4" aria-hidden="true" />
+      </a>
+      <a href={HOME.partner.contact.href} class="btn-site-outline-light">
+        <Icon name="tabler:mail" class="h-4 w-4" aria-hidden="true" />
+        Email us about partnership
+      </a>
+    </div>
   </PageHeader>
 
   {
@@ -80,6 +87,8 @@ const reasons = [
       </ul>
     </div>
   </section>
+
+  <PartnershipFinder />
 
   <!-- Integrity and the Sponsors Committee [deck: slide 3] -->
   <section class="bg-mist py-16 md:py-24" aria-labelledby="integrity">
