@@ -24,7 +24,8 @@ export const ROADMAP: { year: string; items: Milestone[] }[] = [
       { when: 'May', text: 'Hong Kong: first Program Committee meeting; six working groups launched', done: true },
       { when: 'Jul', text: 'Program Committee meeting: draft Terms of Reference and working group plans', done: true },
       { when: 'Aug', text: 'Early Career Ocean Professionals (ECOP) Committee established', done: true },
-      { when: 'Dec', text: 'ECOP strategy meeting, Xiamen (proposed)', done: false },
+      // Dates and venue confirmed in the ECOP Committee minutes, 29 Oct 2026.
+      { when: 'Dec 14–18', text: 'ECOP leadership training workshop and committee meeting, Xiamen', done: false },
     ],
   },
   {
@@ -34,7 +35,8 @@ export const ROADMAP: { year: string; items: Milestone[] }[] = [
       { when: 'Early', text: 'Topical paper abstract call opens (dates to be confirmed)', done: false },
       {
         when: 'Apr 7–9',
-        text: 'UN Ocean Decade Conference, Rio de Janeiro: engagement opportunity',
+        // ECOP input: [ECOP minutes, 29 Oct 2026].
+        text: 'UN Ocean Decade Conference, Rio de Janeiro: engagement opportunity, with ECOP input planned',
         done: false,
       },
       { when: 'Second half', text: 'Second Program Committee meeting, Europe or North America', done: false },
