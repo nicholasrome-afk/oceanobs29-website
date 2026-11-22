@@ -1,6 +1,7 @@
 ---
 // Get Involved, rewritten 2026-11-22 per the website update brief: open routes first (email, events), the
-// paper route marked Pending, a short "who should take part" paragraph and a short participation statement.
+// paper route marked Pending, and a short participation statement (the "Who should take part?" section was
+// removed the same day at the project lead's request).
 // Draft schedules, proposed councils, schemes, networks and travel/visa/language support were removed until
 // a public mechanism is agreed. Copy: [brief] unless marked [draft] (written by Claude for review).
 import { Icon } from 'astro-icon/components';
@@ -67,37 +68,13 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
             <span class="eyebrow rounded-[3px] border border-line bg-mist px-2 py-1 text-xs text-muted">Pending</span>
           </h3>
           <p class="mt-3 text-default">The OceanObs’29 publications process is still being developed.</p>
-          <a
-            href={`${getPermalink('/resources')}#publications`}
-            class="mt-6 inline-flex items-center gap-1.5 self-start font-semibold text-link underline-offset-4 hover:underline md:mt-auto"
-          >
-            Publication updates <Icon name="tabler:arrow-right" class="h-4 w-4" aria-hidden="true" />
-          </a>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- Who should take part [brief] -->
-  <section class="bg-mist py-16 md:py-20" aria-labelledby="audiences">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-12 lg:px-6">
-      <div class="lg:col-span-5">
-        <p class="eyebrow-bar text-muted">Who</p>
-        <h2 id="audiences" class="mt-3 scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
-          Who should take part?
-        </h2>
-      </div>
-      <p class="text-lg text-default lg:col-span-7">
-        We welcome people working in ocean research and observing operations, engineers and data providers, early career
-        ocean professionals, and people who use ocean information in policy, industry and communities. Indigenous
-        peoples and local knowledge holders can share priorities and approaches grounded in their own knowledge and
-        practice.
-      </p>
-    </div>
-  </section>
-
   <!-- Participation and access [brief] -->
-  <section class="py-16 md:py-20" aria-labelledby="inclusion">
+  <section class="bg-mist py-16 md:py-20" aria-labelledby="inclusion">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-12 lg:px-6">
       <div class="lg:col-span-5">
         <p class="eyebrow-bar text-muted">Access</p>
@@ -107,7 +84,7 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
       </div>
       <div class="lg:col-span-7">
         <p class="text-lg text-default">
-          OceanObs’29 welcomes input from across regions and career stages, including people who face travel, cost or
+          OceanObs’29 welcomes input from across regions and career stages, including people who face travel, cost, or
           language barriers. The <a class={linkClass} href={`${getPermalink('/about')}#ecop-committee`}
             >Early Career Ocean Professionals Committee</a
           > brings early career perspectives into planning. Share any participation barriers or suggestions with the <a

@@ -37,7 +37,7 @@ const structure = [
   },
   {
     name: 'Early Career Ocean Professionals (ECOP) Committee',
-    id: 'ecop-committee',
+    href: '#ecop-committee',
     // [ECOP minutes, 29 Oct 2026] Four co-chairs; members in Africa, the Americas, Asia and Europe.
     // Names are held until the co-chairs agree to be listed.
     text: 'Brings early career ocean professionals into OceanObs’29 planning, participation, and outcomes. Its four Co-Chairs link it directly to the Program Committee, and its members work across Africa, the Americas, Asia, and Europe.',
@@ -70,6 +70,7 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
         <li><a class="hover:underline" href="#ocean-decade">UN Ocean Decade</a></li>
         <li><a class="hover:underline" href="#governance">How it’s organized</a></li>
         <li><a class="hover:underline" href="#program-committee">Program Committee</a></li>
+        <li><a class="hover:underline" href="#ecop-committee">ECOP Committee</a></li>
         <li><a class="hover:underline" href="#advisory-committee">Advisory Committee</a></li>
         <li><a class="hover:underline" href="#coordination-team">Coordination Team</a></li>
       </ul>
@@ -162,8 +163,42 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
     </div>
   </section>
 
+  <!--
+    ECOP Committee (added 2026-11-22 at the project lead's request). Facts from the ECOP Committee minutes
+    (29 Oct 2026) and the planning roadmap (established Aug 2026). Stage 1 of the agreed plan: no names until the
+    four Co-Chairs agree to be listed; then the full list after announcement, with consent.
+  -->
+  <section class="bg-mist py-16 md:py-24" aria-labelledby="ecop-committee">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <SectionHead
+        id="ecop-committee"
+        eyebrow="Committee"
+        title="Early Career Ocean Professionals Committee"
+        intro="The Early Career Ocean Professionals (ECOP) Committee brings early career ocean professionals into OceanObs’29 planning, participation, and outcomes."
+      />
+      <dl class="mt-10 grid max-w-5xl gap-px bg-line sm:grid-cols-3">
+        <div class="bg-white p-6">
+          <dt class="eyebrow text-xs text-muted">Established</dt>
+          <dd class="mt-2 text-lg text-default">2026</dd>
+        </div>
+        <div class="bg-white p-6">
+          <dt class="eyebrow text-xs text-muted">Leadership</dt>
+          <dd class="mt-2 text-lg text-default">
+            Four Co-Chairs, who link the committee directly to the Program Committee
+          </dd>
+        </div>
+        <div class="bg-white p-6">
+          <dt class="eyebrow text-xs text-muted">Members</dt>
+          <dd class="mt-2 text-lg text-default">
+            Early career ocean professionals across Africa, the Americas, Asia, and Europe
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
   <!-- International Advisory Committee [old site: description; list from committees-review.md] -->
-  <section class="bg-mist py-16 md:py-24" aria-labelledby="advisory-committee">
+  <section class="py-16 md:py-24" aria-labelledby="advisory-committee">
     <div class="mx-auto max-w-7xl px-4 lg:px-6">
       <SectionHead
         id="advisory-committee"
@@ -192,7 +227,9 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
           Coordination Team
         </h2>
         <p class="mt-4 text-xl text-on-dark">
-          {COORDINATION_TEAM.slice(0, -1).join(', ')} and {COORDINATION_TEAM.at(-1)}
+          {COORDINATION_TEAM.slice(0, -1).join(', ')}{COORDINATION_TEAM.length > 2 ? ',' : ''} and {
+            COORDINATION_TEAM.at(-1)
+          }
         </p>
         <p class="mt-2 text-lg text-on-dark-muted">
           Questions sent to {ORG.contacts[0].email} are routed to the OceanObs’29 Coordination Team.

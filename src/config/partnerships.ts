@@ -19,7 +19,7 @@ export const opportunities = {
     title: 'Accessible materials and outreach',
     support: 'Targeted funding',
     description:
-      'Help share planning updates and findings through accessible design, translation and community outreach.',
+      'Help share planning updates and findings through accessible design, translation, and community outreach.',
   },
   participation: {
     title: 'Regional and early career participation',
@@ -36,17 +36,17 @@ export const opportunities = {
     title: 'Better use of ocean data',
     support: 'Targeted funding',
     description:
-      'Bring forecast teams, observing networks and practitioners together to document where better data could improve a real decision.',
+      'Bring forecast teams, observing networks, and practitioners together to document where better data could improve a real decision.',
   },
   tools: {
     title: 'Tools and technical expertise',
     support: 'In-kind support',
-    description: 'Offer tools or staff time for data visualization, virtual participation or communications.',
+    description: 'Offer tools or staff time for data visualization, virtual participation, or communications.',
   },
   services: {
     title: 'Meeting and access support',
     support: 'In-kind support',
-    description: 'Offer meeting space, accessibility services or staff time for a specific activity.',
+    description: 'Offer meeting space, accessibility services, or staff time for a specific activity.',
   },
 };
 
@@ -71,8 +71,8 @@ export const profiles = {
     opportunities: ['participation', 'dialogues', 'applications', 'outreach'],
     goals: {
       'Measurable impact':
-        'Measures that fit the grant, such as how many people took part, which regions they represented or how broadly findings were shared.',
-      'Grant scope and reporting': 'The work, milestones and reporting schedule, shaped around your grant priorities.',
+        'Measures that fit the grant, such as how many people took part, which regions they represented, or how broadly findings were shared.',
+      'Grant scope and reporting': 'The work, milestones, and reporting schedule, shaped around your grant priorities.',
       'Public access to findings':
         'Which findings or materials could be shared publicly and how they could reach the people who will use them.',
     },

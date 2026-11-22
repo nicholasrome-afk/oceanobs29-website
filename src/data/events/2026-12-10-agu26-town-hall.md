@@ -16,6 +16,7 @@ organizers: ['OceanObs’29']
 conference: 'AGU26'
 # Official TH43J listing in the AGU26 online program (resolves, checked 2026-11-22).
 link: 'https://studio.m-anage.com/agu/agu26/meetingapp.cgi/Session/282866'
+logo: agu26
 linkText: 'View the AGU26 town hall'
 summary: 'Join an in-person discussion on observing gaps and the decisions better data could support. Bring an example from your region or area of work.'
 ---

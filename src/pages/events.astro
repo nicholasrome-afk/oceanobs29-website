@@ -19,7 +19,7 @@ import { getEvents, splitByTime } from '~/utils/events';
 const metadata = {
   title: 'News & Events',
   // [draft]
-  description: `Upcoming events where you can discuss ocean observing priorities, past ${ORG.name} events and selected planning updates.`,
+  description: `Upcoming events where you can discuss ocean observing priorities, past ${ORG.name} events, and selected planning updates.`,
 };
 
 const posts = await findLatestPosts({ count: 6 });
@@ -32,7 +32,7 @@ const { upcoming, past } = splitByTime(await getEvents());
   <PageHeader
     eyebrow="News & Events"
     title="News & Events"
-    intro="Upcoming events where you can discuss observing priorities, past OceanObs’29 events and selected planning updates."
+    intro="Upcoming events where you can discuss observing priorities, past OceanObs’29 events, and selected planning updates."
   />
 
   <!-- News -->

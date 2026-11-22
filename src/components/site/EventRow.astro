@@ -1,9 +1,12 @@
 ---
-// Compact dated event row (website update brief, 2026-11-22): date, event type, title, location and one
-// action, readable in that order on a phone. `compact` (Home) keeps date, type, title and location only,
-// with the title linking to the event on News & Events.
+// Compact dated event row (website update brief, 2026-11-22): date, event type, title, location, the
+// event's logo if it has one (EVENT_LOGOS in src/config/images.ts), and one action, readable in that order
+// on a phone. `compact` (Home) keeps date, type, title, location, and logo, with the title linking to the
+// event on News & Events.
 // Rows in an upcoming list carry `data-ends`; UpcomingGuard hides any that has ended since the last build.
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { EVENT_LOGOS } from '~/config/images';
 import { dateLabel, timeRange, endsAt, eventAnchor, type DcoEvent } from '~/utils/events';
 import { getPermalink } from '~/utils/permalinks';
 
@@ -21,6 +24,10 @@ const time = timeRange(data);
 const label =
   data.label ?? (kind === 'external' ? 'External event' : kind === 'planning' ? 'Planning meeting' : 'Event');
 const isoDate = data.date.toISOString().slice(0, 10);
+const logo = data.logo ? EVENT_LOGOS[data.logo] : undefined;
+// Home rows show logos at 80% size.
+const logoHeight = logo ? Math.round(logo.height * (compact ? 0.8 : 1)) : 0;
+const logoPadding = logo ? Math.round(logo.padding * (compact ? 0.8 : 1)) : 0;
 const titleHref = compact ? `${getPermalink('/events')}#${eventAnchor(event)}` : undefined;
 ---
 
@@ -73,17 +80,32 @@ const titleHref = compact ? `${getPermalink('/events')}#${eventAnchor(event)}` :
     {!compact && summary && <p class="mt-3 max-w-3xl text-default">{summary}</p>}
   </div>
   {
-    !compact && link && (
-      <p class="mt-3 md:mt-0 md:pt-6">
-        <a
-          href={link}
-          class="inline-flex items-center gap-1.5 font-semibold text-link underline-offset-4 hover:underline"
-        >
-          {linkText ?? 'Event details'}
-          <Icon name="tabler:arrow-up-right" class="h-4 w-4 shrink-0" aria-hidden="true" />
-          <span class="sr-only">: {title}</span>
-        </a>
-      </p>
+    (logo || (!compact && link)) && (
+      <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 md:mt-0 md:flex-col md:items-end md:justify-between">
+        {logo && (
+          <span class="inline-block bg-white" style={`padding: ${logoPadding}px`}>
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              height={logoHeight}
+              width={Math.round((logo.src.width / logo.src.height) * logoHeight)}
+              densities={[1, 2]}
+              class="block w-auto"
+              style={`height: ${logoHeight}px`}
+            />
+          </span>
+        )}
+        {!compact && link && (
+          <a
+            href={link}
+            class="inline-flex items-center gap-1.5 font-semibold text-link underline-offset-4 hover:underline"
+          >
+            {linkText ?? 'Event details'}
+            <Icon name="tabler:arrow-up-right" class="h-4 w-4 shrink-0" aria-hidden="true" />
+            <span class="sr-only">: {title}</span>
+          </a>
+        )}
+      </div>
     )
   }
 </article>

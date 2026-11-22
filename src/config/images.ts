@@ -6,6 +6,9 @@ import type { ImageMetadata } from 'astro';
 
 import oceanFromIss from '~/assets/images/site/hero-ocean-from-iss.jpg';
 import heroVideoPoster from '~/assets/images/site/hero-video-poster.jpg';
+import aguLogo from '~/assets/images/logos/agu26-annual-meeting.png';
+import oceanDecadeLogo from '~/assets/images/logos/ocean-decade-2021-2030.png';
+import workshopCover from '~/assets/images/site/workshop-summary-2026-cover.jpg';
 
 export interface SiteImage {
   src: ImageMetadata;
@@ -79,3 +82,40 @@ if (import.meta.env.PROD) {
     console.warn(`[images] Reuse permission still to be confirmed for: ${pending.join(', ')}`);
   }
 }
+
+/**
+ * Logos shown beside events (the `logo` field on an event in src/data/events). Added 2026-11-22 at the
+ * project lead's request. Show them unaltered, full colour, on white, with clear space around them.
+ */
+export const EVENT_LOGOS = {
+  /** Supplied by the project lead (2026-11-22), as provided by AGU for the 2026 Annual Meeting. */
+  agu26: {
+    src: aguLogo,
+    alt: 'AGU Annual Meeting, 7–11 December 2026, San Francisco, CA',
+    /** Display height in px; width follows the artwork. */
+    height: 56,
+    padding: 0,
+  },
+  /**
+   * Official full-colour Ocean Decade logo, rendered unaltered from the UN Ocean Decade Brand Toolkit
+   * (UNESCO-IOC, 2024, p. 19). Toolkit rules: full colour, no borders or effects, never altered, on white,
+   * with a clear margin the height of the "0" in "2030" (about 11% of the logo height). Non-UN use needs
+   * UNESCO-IOC approval or an endorsed Decade Action, and the logo may only identify Decade-related events.
+   */
+  'ocean-decade': {
+    src: oceanDecadeLogo,
+    alt: 'UN Decade of Ocean Science for Sustainable Development 2021–2030',
+    height: 112,
+    padding: 12,
+  },
+} satisfies Record<string, { src: ImageMetadata; alt: string; height: number; padding: number }>;
+
+export type EventLogoKey = keyof typeof EVENT_LOGOS;
+
+/** Cover of the Program Committee workshop summary (rendered from page 1 of the report's PDF). */
+export const WORKSHOP_SUMMARY = {
+  cover: workshopCover,
+  coverAlt:
+    'Cover of the workshop summary: Program Committee members on stage at the inauguration and appointment ceremony.',
+  href: '/docs/oceanobs29-program-committee-workshop-summary-2026.pdf',
+};

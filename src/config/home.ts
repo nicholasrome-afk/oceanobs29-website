@@ -16,7 +16,7 @@ export const HOME = {
     headlineEmphasis: 'global ocean observing',
     /** [brief] */
     intro:
-      'OceanObs’29 brings together the people who collect, share and use ocean observations to set priorities for the next decade.',
+      'OceanObs’29 brings together the people who collect, share, and use ocean observations to set priorities for the next decade.',
     primary: { text: 'Get involved', href: '/get-involved' },
     secondary: { text: 'Become a partner', href: '/partners' },
   },
@@ -29,7 +29,7 @@ export const HOME = {
 
   /**
    * One short science example. [brief] Sources: OceanGliders Community White Paper (Frontiers in Marine
-   * Science, 2019, doi:10.3389/fmars.2019.00422). More examples: /resources#white-paper-examples.
+   * Science, 2019, doi:10.3389/fmars.2019.00422).
    */
   science: {
     eyebrow: 'Why it matters',

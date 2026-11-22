@@ -12,5 +12,5 @@ location: 'Forth (SEC), Glasgow, Scotland'
 organizers: ['OceanObs’29']
 conference: 'OSM26'
 # The old site linked to an AGU session page (agu.confex.com) that no longer resolves (checked 2026-10-18).
-summary: 'An open forum to share the emerging vision and planning approach for OceanObs’29, hear community perspectives on priorities and challenges for ocean observing, and identify opportunities for coordination, innovation and collective impact.'
+summary: 'An open forum to share the emerging vision and planning approach for OceanObs’29, hear community perspectives on priorities and challenges for ocean observing, and identify opportunities for coordination, innovation, and collective impact.'
 ---

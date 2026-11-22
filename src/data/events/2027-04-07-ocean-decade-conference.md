@@ -11,6 +11,7 @@ label: 'External event'
 formats: ['Conference']
 location: 'Rio de Janeiro, Brazil'
 link: 'https://oceandecade-conference.com/en/'
+logo: ocean-decade
 linkText: 'Visit the conference website'
-summary: 'The conference brings together the Ocean Decade community to share progress and discuss priorities beyond 2030, including ocean observations, data and services.'
+summary: 'The conference brings together the Ocean Decade community to share progress and discuss priorities beyond 2030, including ocean observations, data, and services.'
 ---

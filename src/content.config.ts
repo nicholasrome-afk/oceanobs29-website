@@ -101,6 +101,8 @@ const eventCollection = defineCollection({
     kind: z.enum(['hosted', 'external', 'planning']).default('hosted'),
     /** Event type shown above the title, e.g. "OceanObs’29 town hall at AGU26 Annual Meeting" or "External event". */
     label: z.string().optional(),
+    /** Logo shown beside the event: a key of EVENT_LOGOS in src/config/images.ts. */
+    logo: z.enum(['agu26', 'ocean-decade']).optional(),
     /** Text of the one action link, e.g. "View the AGU26 town hall". */
     linkText: z.string().optional(),
     startTime: time.optional(),
