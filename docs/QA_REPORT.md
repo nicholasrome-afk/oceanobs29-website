@@ -41,6 +41,23 @@ The homepage hero changed: the video is pinned while the headline scrolls over i
 - **axe-core 4.10:** no violations on the homepage at 320, 375 and 1440px, with and without reduced motion.
 - **Reduced motion / data saver:** no video, no pinning, no fading; the poster frame shows. No sideways scrolling at 320px.
 
+## Editorial update (2026-11-22)
+
+All seven pages were revised per the website update brief (`oceanobs29-website-update-instructions.md`), tested on a local dev build:
+
+- **axe-core 4.10:** 0 violations on all 7 pages at 1440px and 390px (one footer finding, an email link not underlined inside a line of text, was fixed).
+- **Hero contrast** (hero text moved: place/date label and series strip removed): 333 measurements over 9 video frames at 375–1440px, scroll 0 and 350px: all pass. Lowest 8.8:1 for body text, 6.4:1 for the headline.
+- **Layout:** no horizontal scroll at 390px; no skipped heading levels; skip link is the first Tab stop; phone menu opens with Enter and shows all 6 links.
+- **Links:** every internal link and `#anchor` in the build resolves, including the old Squarespace redirects.
+- **Stale facts:** the built HTML (copy, titles, descriptions, Open Graph) has no October date, ~3,000 figure, abstract call, paper counts, 2040 roadmap or "Other organizations"; Qingdao appears once in Conference body copy (plus one committee affiliation).
+- **Partnership tool:** keyboard-tested at 390px for Sponsors, Foundations and Private companies: each has its own options, result text and email draft; switching back restores earlier choices.
+- **Upcoming events:** an event leaves the Home and News & Events upcoming lists when it ends in its own time zone (tested by faking the clock at 13:59 and 14:01 PST on 10 Dec 2026, and after Rio). It moves into Past events at the next build.
+
+### Follow-up revision (2026-11-22, project lead's requests)
+
+- **Changes:** ECOP Committee section added after the Program Committee on About (no names yet). Removed: Conference logistics section, Get Involved "Who should take part?", Resources publication-updates note and white-paper examples. Program Committee workshop summary (PDF) added at the top of Resources. AGU26 Annual Meeting logo beside the AGU town hall and the Ocean Decade logo beside the 2027 Ocean Decade Conference (Home and News & Events). Oxford comma applied throughout.
+- **Checks:** axe 0 violations on all 7 pages at 1440 and 390px; no horizontal scroll; all internal links, anchors, and the PDF resolve; a scan of visible text, titles, and descriptions found no remaining list without a serial comma (except the official name "Indonesian Agency for Meteorology, Climatology and Geophysics", left as the agency writes it).
+
 ## Known items (not blocking)
 
 - **Mobile homepage speed (93).** On simulated slow 4G, the largest element (the headline) appears at 2.8s, just over Google's 2.5s "good" line. Most of the delay is the page waiting for its stylesheet and web fonts before drawing text. Options if it matters later: preload the heading font, or inline the critical CSS.

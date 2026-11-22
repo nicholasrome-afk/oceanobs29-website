@@ -1,0 +1,111 @@
+---
+// Compact dated event row (website update brief, 2026-11-22): date, event type, title, location, the
+// event's logo if it has one (EVENT_LOGOS in src/config/images.ts), and one action, readable in that order
+// on a phone. `compact` (Home) keeps date, type, title, location, and logo, with the title linking to the
+// event on News & Events.
+// Rows in an upcoming list carry `data-ends`; UpcomingGuard hides any that has ended since the last build.
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { EVENT_LOGOS } from '~/config/images';
+import { dateLabel, timeRange, endsAt, eventAnchor, type DcoEvent } from '~/utils/events';
+import { getPermalink } from '~/utils/permalinks';
+
+export interface Props {
+  event: DcoEvent;
+  compact?: boolean;
+  upcoming?: boolean;
+  headingLevel?: 'h3' | 'h4';
+}
+
+const { event, compact = false, upcoming = false, headingLevel: H = 'h3' } = Astro.props;
+const data = event.data;
+const { title, location, link, linkText, summary, scheduleNote, kind } = data;
+const time = timeRange(data);
+const label =
+  data.label ?? (kind === 'external' ? 'External event' : kind === 'planning' ? 'Planning meeting' : 'Event');
+const isoDate = data.date.toISOString().slice(0, 10);
+const logo = data.logo ? EVENT_LOGOS[data.logo] : undefined;
+// Home rows show logos at 80% size.
+const logoHeight = logo ? Math.round(logo.height * (compact ? 0.8 : 1)) : 0;
+const logoPadding = logo ? Math.round(logo.padding * (compact ? 0.8 : 1)) : 0;
+const titleHref = compact ? `${getPermalink('/events')}#${eventAnchor(event)}` : undefined;
+---
+
+<article
+  id={compact ? undefined : eventAnchor(event)}
+  class="grid scroll-mt-28 gap-x-8 gap-y-1 border-t border-line py-6 md:grid-cols-[11rem_1fr_auto]"
+  data-ends={upcoming ? endsAt(data).toISOString() : undefined}
+>
+  <p class="font-heading text-base font-extrabold text-heading md:pt-0.5">
+    <time datetime={isoDate}>{dateLabel(data)}</time>
+  </p>
+  <div class="min-w-0">
+    <p class:list={['eyebrow text-xs', kind === 'external' ? 'text-muted' : 'text-link']}>{label}</p>
+    <H class="mt-1.5 text-lg leading-snug font-bold text-heading md:text-xl">
+      {
+        titleHref ? (
+          <a href={titleHref} class="underline-offset-4 hover:text-link hover:underline">
+            {title}
+          </a>
+        ) : (
+          title
+        )
+      }
+    </H>
+    <dl class="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
+      {
+        location && (
+          <div class="flex items-center gap-1.5">
+            <dt>
+              <Icon name="tabler:map-pin" class="h-4 w-4" aria-hidden="true" />
+              <span class="sr-only">Location</span>
+            </dt>
+            <dd>{location}</dd>
+          </div>
+        )
+      }
+      {
+        !compact && time && (
+          <div class="flex items-center gap-1.5">
+            <dt>
+              <Icon name="tabler:clock" class="h-4 w-4" aria-hidden="true" />
+              <span class="sr-only">Time</span>
+            </dt>
+            <dd>{time}</dd>
+          </div>
+        )
+      }
+    </dl>
+    {!compact && scheduleNote && <p class="mt-1 text-sm text-muted">{scheduleNote}</p>}
+    {!compact && summary && <p class="mt-3 max-w-3xl text-default">{summary}</p>}
+  </div>
+  {
+    (logo || (!compact && link)) && (
+      <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 md:mt-0 md:flex-col md:items-end md:justify-between">
+        {logo && (
+          <span class="inline-block bg-white" style={`padding: ${logoPadding}px`}>
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              height={logoHeight}
+              width={Math.round((logo.src.width / logo.src.height) * logoHeight)}
+              densities={[1, 2]}
+              class="block w-auto"
+              style={`height: ${logoHeight}px`}
+            />
+          </span>
+        )}
+        {!compact && link && (
+          <a
+            href={link}
+            class="inline-flex items-center gap-1.5 font-semibold text-link underline-offset-4 hover:underline"
+          >
+            {linkText ?? 'Event details'}
+            <Icon name="tabler:arrow-up-right" class="h-4 w-4 shrink-0" aria-hidden="true" />
+            <span class="sr-only">: {title}</span>
+          </a>
+        )}
+      </div>
+    )
+  }
+</article>

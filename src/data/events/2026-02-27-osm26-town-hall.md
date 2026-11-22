@@ -5,10 +5,12 @@ date: 2026-02-27
 startTime: '12:45'
 endTime: '13:45'
 timezone: Europe/London
+kind: hosted
+label: 'OceanObs’29 town hall at Ocean Sciences Meeting 2026'
 formats: ['Town Hall']
 location: 'Forth (SEC), Glasgow, Scotland'
 organizers: ['OceanObs’29']
 conference: 'OSM26'
 # The old site linked to an AGU session page (agu.confex.com) that no longer resolves (checked 2026-10-18).
-summary: 'An open forum to share the emerging vision and planning approach for OceanObs’29, hear community perspectives on priorities and challenges for ocean observing, and identify opportunities for coordination, innovation and collective impact.'
+summary: 'An open forum to share the emerging vision and planning approach for OceanObs’29, hear community perspectives on priorities and challenges for ocean observing, and identify opportunities for coordination, innovation, and collective impact.'
 ---

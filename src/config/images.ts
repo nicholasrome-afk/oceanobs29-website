@@ -5,8 +5,10 @@
 import type { ImageMetadata } from 'astro';
 
 import oceanFromIss from '~/assets/images/site/hero-ocean-from-iss.jpg';
-import gliderDeployment from '~/assets/images/site/about-glider-deployment.jpg';
 import heroVideoPoster from '~/assets/images/site/hero-video-poster.jpg';
+import aguLogo from '~/assets/images/logos/agu26-annual-meeting.png';
+import oceanDecadeLogo from '~/assets/images/logos/ocean-decade-2021-2030.png';
+import workshopCover from '~/assets/images/site/workshop-summary-2026-cover.jpg';
 
 export interface SiteImage {
   src: ImageMetadata;
@@ -28,8 +30,11 @@ export interface SiteImage {
 // Not in the registry because it is not shown on any page: the social share card
 // src/assets/images/share-oceanobs29.jpg (set in src/config.yaml, openGraph.images)
 // is derived from the homeHero photo (NASA, public domain) plus the OceanObs’29 logo.
-export const IMAGES: Record<'homeHero' | 'aboutFeature', SiteImage> = {
-  /** Basis of the social share card (the homepage hero itself is now HERO_VIDEO below). */
+export const IMAGES: Record<'homeHero', SiteImage> = {
+  /**
+   * Basis of the social share card (the homepage hero itself is now HERO_VIDEO below). No longer shown on
+   * the Partners page (removed 2026-11-22, website update brief).
+   */
   homeHero: {
     src: oceanFromIss,
     // Decorative backdrop behind the headline, so screen readers skip it (red-team review, 2026-10-19).
@@ -42,18 +47,10 @@ export const IMAGES: Record<'homeHero' | 'aboutFeature', SiteImage> = {
     placeholder: false,
     position: '60% 40%',
   },
-  /** About page feature photo. */
-  aboutFeature: {
-    src: gliderDeployment,
-    alt: 'Yellow ocean gliders on a ship’s deck, ready for deployment beside a large blue surface buoy.',
-    credit: 'Ocean Observatories Initiative',
-    license: 'Public domain (OOI image policy)',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Glider_deployment_(OOI_592).jpg',
-    // Original 4032px from Commons, saved at 2400px in sRGB with metadata (incl. GPS) removed (2026-10-18).
-    placeholder: false,
-  },
 };
 
+// The OOI glider photo (About page) was removed with its credit on 2026-11-22 (website update brief);
+// add approved documentary photos through a shared image register first (see docs/IMAGERY_PLAN.md).
 // The OceanOPS network map (hero-network-map.jpg, `npm run map`) was removed from the
 // homepage on 2026-11-21 at the project lead's request; the script and files remain unused.
 
@@ -85,3 +82,44 @@ if (import.meta.env.PROD) {
     console.warn(`[images] Reuse permission still to be confirmed for: ${pending.join(', ')}`);
   }
 }
+
+/**
+ * Logos shown beside events (the `logo` field on an event in src/data/events). Added 2026-11-22 at the
+ * project lead's request. Show them unaltered, full colour, on white, with clear space around them.
+ */
+export const EVENT_LOGOS = {
+  /** Supplied by the project lead (2026-11-22), as provided by AGU for the 2026 Annual Meeting. */
+  agu26: {
+    src: aguLogo,
+    alt: 'AGU Annual Meeting, 7–11 December 2026, San Francisco, CA',
+    /** Display height in px; width follows the artwork. */
+    height: 56,
+    padding: 0,
+  },
+  /**
+   * Official full-colour Ocean Decade logo, rendered unaltered from the UN Ocean Decade Brand Toolkit
+   * (UNESCO-IOC, 2024, p. 19). Toolkit rules: full colour, no borders or effects, never altered, on white,
+   * with a clear margin the height of the "0" in "2030" (about 11% of the logo height). Non-UN use needs
+   * UNESCO-IOC approval or an endorsed Decade Action, and the logo may only identify Decade-related events.
+   * APPROVAL: the Ocean Decade Coordination Team (UNESCO-IOC) approved OceanObs’29's use of the logo on
+   * related promotional materials by email on 15 April 2025, as the conference is part of the Decade
+   * Implementation Plan (DIP) mandate, and asked that the Branding Guidelines be followed. The approval
+   * email is held by the project lead.
+   */
+  'ocean-decade': {
+    src: oceanDecadeLogo,
+    alt: 'UN Decade of Ocean Science for Sustainable Development 2021–2030',
+    height: 112,
+    padding: 12,
+  },
+} satisfies Record<string, { src: ImageMetadata; alt: string; height: number; padding: number }>;
+
+export type EventLogoKey = keyof typeof EVENT_LOGOS;
+
+/** Cover of the Program Committee workshop summary (rendered from page 1 of the report's PDF). */
+export const WORKSHOP_SUMMARY = {
+  cover: workshopCover,
+  coverAlt:
+    'Cover of the workshop summary: Program Committee members on stage at the inauguration and appointment ceremony.',
+  href: '/docs/oceanobs29-program-committee-workshop-summary-2026.pdf',
+};
