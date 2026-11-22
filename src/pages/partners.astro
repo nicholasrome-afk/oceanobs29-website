@@ -37,7 +37,6 @@ const discuss = [
 
 <Layout metadata={metadata}>
   <PageHeader
-    eyebrow="Partners"
     title="Partner with OceanObs’29"
     intro="Help bring observing teams, researchers, and data users together to identify the measurements and services communities need. We welcome conversations about funding, technical expertise, and practical support for participation."
   >
@@ -57,8 +56,7 @@ const discuss = [
   <section class="py-16 md:py-20" aria-labelledby="why">
     <div class="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-12 lg:px-6">
       <div class="lg:col-span-5">
-        <p class="eyebrow-bar text-muted">Why partner</p>
-        <h2 id="why" class="mt-3 scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
+        <h2 id="why" class="scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
           What support can make possible
         </h2>
       </div>
@@ -75,7 +73,7 @@ const discuss = [
     partners.length > 0 && (
       <section class="py-16 md:py-24" aria-labelledby="our-partners">
         <div class="mx-auto max-w-7xl px-4 lg:px-6">
-          <SectionHead id="our-partners" eyebrow="Partners" title="Our partners" />
+          <SectionHead id="our-partners" title="Our partners" />
           <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {partners.map((item) => (
               <li>

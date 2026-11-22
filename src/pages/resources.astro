@@ -59,7 +59,6 @@ const linkClass = 'inline-flex items-center gap-1.5 font-semibold text-link unde
 
 <Layout metadata={metadata}>
   <PageHeader
-    eyebrow="Publications & Resources"
     title="Publications & Resources"
     intro="Read the summary of the first OceanObs’29 Program Committee workshop, and the community white papers, synthesis, and conference statements from OceanObs’19."
   />
@@ -70,7 +69,7 @@ const linkClass = 'inline-flex items-center gap-1.5 font-semibold text-link unde
   -->
   <section class="py-16 md:py-20" aria-labelledby="planning-resources">
     <div class="mx-auto max-w-7xl px-4 lg:px-6">
-      <SectionHead id="planning-resources" eyebrow="OceanObs’29" title="OceanObs’29 planning resources" />
+      <SectionHead id="planning-resources" title="OceanObs’29 planning resources" />
       <article class="mt-8 grid max-w-4xl gap-6 border-t border-line pt-8 sm:grid-cols-[10rem_1fr] sm:gap-8">
         <a href={getPermalink(WORKSHOP_SUMMARY.href)} class="block self-start" tabindex="-1" aria-hidden="true">
           <Image
@@ -101,7 +100,7 @@ const linkClass = 'inline-flex items-center gap-1.5 font-semibold text-link unde
   <!-- OceanObs’19 publications and outcomes [brief] -->
   <section class="bg-mist py-16 md:py-20" aria-labelledby="archives">
     <div class="mx-auto max-w-7xl px-4 lg:px-6">
-      <SectionHead id="archives" eyebrow="OceanObs’19" title="OceanObs’19 publications and outcomes" />
+      <SectionHead id="archives" title="OceanObs’19 publications and outcomes" />
       <ul class="mt-8 max-w-4xl border-b border-line">
         {
           core.map(({ title, text, link }) => (

@@ -12,17 +12,17 @@ Both lists matched exactly.
 
 ## Records and what happens to each
 
-| Type | Name | Value | TTL (Squarespace) | At Cloudflare |
-| --- | --- | --- | --- | --- |
-| A | @ | 198.185.159.144 | 4 h | Copy, DNS only (grey cloud) until cutover; delete at cutover |
-| A | @ | 198.185.159.145 | 4 h | Same |
-| A | @ | 198.49.23.144 | 4 h | Same |
-| A | @ | 198.49.23.145 | 4 h | Same |
-| CNAME | www | ext-sq.squarespace.com | 4 h | Copy, DNS only until cutover; delete at cutover |
-| MX | @ | 1 smtp.google.com | 30 min | **Copy exactly and keep.** Mail for info@oceanobs29.net (Google Workspace) |
-| TXT | @ | google-site-verification=b1s3vVo6cWVQS7Q2pFMDx9-LbNugUIvkYB3X8kBjfGA | 30 min | Copy and keep (Google Search Console) |
-| CNAME | _domainconnect | _domainconnect.domains.squarespace.com | 1 h | Don't copy (Squarespace setup helper) |
-| HTTPS (TYPE65) | www | Squarespace's | – | Don't copy (old host's record) |
+| Type           | Name           | Value                                                                | TTL (Squarespace) | At Cloudflare                                                              |
+| -------------- | -------------- | -------------------------------------------------------------------- | ----------------- | -------------------------------------------------------------------------- |
+| A              | @              | 198.185.159.144                                                      | 4 h               | Copy, DNS only (grey cloud) until cutover; delete at cutover               |
+| A              | @              | 198.185.159.145                                                      | 4 h               | Same                                                                       |
+| A              | @              | 198.49.23.144                                                        | 4 h               | Same                                                                       |
+| A              | @              | 198.49.23.145                                                        | 4 h               | Same                                                                       |
+| CNAME          | www            | ext-sq.squarespace.com                                               | 4 h               | Copy, DNS only until cutover; delete at cutover                            |
+| MX             | @              | 1 smtp.google.com                                                    | 30 min            | **Copy exactly and keep.** Mail for info@oceanobs29.net (Google Workspace) |
+| TXT            | @              | google-site-verification=b1s3vVo6cWVQS7Q2pFMDx9-LbNugUIvkYB3X8kBjfGA | 30 min            | Copy and keep (Google Search Console)                                      |
+| CNAME          | _domainconnect | _domainconnect.domains.squarespace.com                               | 1 h               | Don't copy (Squarespace setup helper)                                      |
+| HTTPS (TYPE65) | www            | Squarespace's                                                        | –                 | Don't copy (old host's record)                                             |
 
 No AAAA or CAA records exist.
 

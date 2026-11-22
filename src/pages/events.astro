@@ -30,7 +30,6 @@ const { upcoming, past } = splitByTime(await getEvents());
 
 <Layout metadata={metadata}>
   <PageHeader
-    eyebrow="News & Events"
     title="News & Events"
     intro="Upcoming events where you can discuss observing priorities, past OceanObs’29 events, and selected planning updates."
   />
@@ -40,7 +39,7 @@ const { upcoming, past } = splitByTime(await getEvents());
     posts.length > 0 && (
       <section class="py-16 md:py-20" aria-labelledby="news">
         <div class="mx-auto max-w-7xl px-4 lg:px-6">
-          <SectionHead id="news" eyebrow="News" title="Announcements" />
+          <SectionHead id="news" title="Announcements" />
           <ul class="mt-10 grid border-t border-line md:grid-cols-3 md:border-t-0">
             {posts.map((post, i) => (
               <li
@@ -73,7 +72,7 @@ const { upcoming, past } = splitByTime(await getEvents());
   <!-- Upcoming events -->
   <section class="py-16 md:py-20" aria-labelledby="upcoming">
     <div class="mx-auto max-w-7xl px-4 lg:px-6">
-      <SectionHead id="upcoming" eyebrow="What’s next" title="Upcoming events" />
+      <SectionHead id="upcoming" title="Upcoming events" />
       <div class="mt-8">
         <UpcomingEvents events={upcoming} />
       </div>
@@ -85,7 +84,7 @@ const { upcoming, past } = splitByTime(await getEvents());
     past.length > 0 && (
       <section class="bg-mist py-16 md:py-20" aria-labelledby="past">
         <div class="mx-auto max-w-7xl px-4 lg:px-6">
-          <SectionHead id="past" eyebrow="Archive" title="Past events" />
+          <SectionHead id="past" title="Past events" />
           <ul class="mt-8 border-b border-line">
             {past.map((event) => (
               <li>
@@ -103,7 +102,7 @@ const { upcoming, past } = splitByTime(await getEvents());
     PLANNING_UPDATES.length > 0 && (
       <section class="py-16 md:py-20" aria-labelledby="milestones">
         <div class="mx-auto max-w-7xl px-4 lg:px-6">
-          <SectionHead id="milestones" eyebrow="Planning" title="Selected planning updates" />
+          <SectionHead id="milestones" title="Selected planning updates" />
           <ol class="mt-8 max-w-4xl border-b border-line">
             {PLANNING_UPDATES.map(({ when, text, link }) => (
               <li class="grid gap-x-8 gap-y-1 border-t border-line py-5 md:grid-cols-[11rem_1fr]">

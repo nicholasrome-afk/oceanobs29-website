@@ -32,7 +32,6 @@ export const HOME = {
    * Science, 2019, doi:10.3389/fmars.2019.00422).
    */
   science: {
-    eyebrow: 'Why it matters',
     title: 'Why ocean observations matter',
     text: 'Heat below the ocean surface can influence how a tropical storm develops. Autonomous gliders measure temperature through the upper ocean and can send those observations to forecast centers. OceanObs’19 contributors identified storm forecasting as a use for sustained glider observations. Where would better coverage make the biggest difference?',
     link: { text: 'OceanObs’19 observing research', href: '/resources#archives' },
