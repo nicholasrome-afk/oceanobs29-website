@@ -72,3 +72,12 @@ The tools were installed in a temporary folder outside the repo (Lighthouse 13.5
 - axe: inject `axe.min.js` with `puppeteer-core` and run with tags `wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice` at 1440 and 375px.
 - Lighthouse: `npx lighthouse <url> --chrome-flags="--headless=new"` for mobile, and the same with `--preset=desktop`.
 - Redirects: `curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" <preview>/ad-hoc-committee-1`.
+
+## Homepage revision (2026-11-22, later)
+
+- Below the hero video: four new sections with text supplied by the project lead (OceanObs’29 intro, Why
+  ocean observing matters, What a global conference makes possible with OceanObs’99/’09/’19 cards, Help
+  shape the next decade). Upcoming Events moved below them; the old "Why ocean observations matter" glider
+  section was removed.
+- All four source links return 200 (2026-11-22). The OceanObs’09 Framework PDF is only served over http.
+- axe: 0 violations on the homepage at 1440px and 390px; no horizontal overflow; headings H1 → H2 → H3.
