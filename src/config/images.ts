@@ -5,7 +5,6 @@
 import type { ImageMetadata } from 'astro';
 
 import oceanFromIss from '~/assets/images/site/hero-ocean-from-iss.jpg';
-import gliderDeployment from '~/assets/images/site/about-glider-deployment.jpg';
 import heroVideoPoster from '~/assets/images/site/hero-video-poster.jpg';
 
 export interface SiteImage {
@@ -28,8 +27,11 @@ export interface SiteImage {
 // Not in the registry because it is not shown on any page: the social share card
 // src/assets/images/share-oceanobs29.jpg (set in src/config.yaml, openGraph.images)
 // is derived from the homeHero photo (NASA, public domain) plus the OceanObs’29 logo.
-export const IMAGES: Record<'homeHero' | 'aboutFeature', SiteImage> = {
-  /** Basis of the social share card (the homepage hero itself is now HERO_VIDEO below). */
+export const IMAGES: Record<'homeHero', SiteImage> = {
+  /**
+   * Basis of the social share card (the homepage hero itself is now HERO_VIDEO below). No longer shown on
+   * the Partners page (removed 2026-11-22, website update brief).
+   */
   homeHero: {
     src: oceanFromIss,
     // Decorative backdrop behind the headline, so screen readers skip it (red-team review, 2026-10-19).
@@ -42,18 +44,10 @@ export const IMAGES: Record<'homeHero' | 'aboutFeature', SiteImage> = {
     placeholder: false,
     position: '60% 40%',
   },
-  /** About page feature photo. */
-  aboutFeature: {
-    src: gliderDeployment,
-    alt: 'Yellow ocean gliders on a ship’s deck, ready for deployment beside a large blue surface buoy.',
-    credit: 'Ocean Observatories Initiative',
-    license: 'Public domain (OOI image policy)',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Glider_deployment_(OOI_592).jpg',
-    // Original 4032px from Commons, saved at 2400px in sRGB with metadata (incl. GPS) removed (2026-10-18).
-    placeholder: false,
-  },
 };
 
+// The OOI glider photo (About page) was removed with its credit on 2026-11-22 (website update brief);
+// add approved documentary photos through a shared image register first (see docs/IMAGERY_PLAN.md).
 // The OceanOPS network map (hero-network-map.jpg, `npm run map`) was removed from the
 // homepage on 2026-11-21 at the project lead's request; the script and files remain unused.
 

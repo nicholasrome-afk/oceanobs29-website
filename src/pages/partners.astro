@@ -1,4 +1,8 @@
 ---
+// Partners, rewritten 2026-11-22 per the website update brief: text-led hero (no NASA image), a short "what
+// support can make possible" paragraph, the partnership tool, needs and benefits, then the contact route with
+// the scientific-direction statement. The dated 2027 / 2040 campaign and the OceanObs’19 track record were
+// removed (the papers and synthesis are on /resources). Copy: [brief] unless marked [draft].
 import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 
@@ -8,93 +12,62 @@ import SectionHead from '~/components/site/SectionHead.astro';
 import NetworkCard from '~/components/site/NetworkCard.astro';
 import PartnershipFinder from '~/components/site/PartnershipFinder.astro';
 
-import { IMAGES } from '~/config/images';
-import { fundingContact, opportunities } from '~/config/partnerships';
+import { partnershipContact } from '~/config/partnerships';
 
 const metadata = {
   title: 'Partner with OceanObs’29',
+  // [draft]
   description:
-    'Help shape ocean observing through 2040. Support scientific synthesis, global participation and practical uses of ocean data in 2027.',
+    'Partner with OceanObs’29 to support participation, accessible materials and better use of ocean data, and find a partnership fit for your organization.',
 };
 
 const partners = await getCollection('network');
-const supportOptions = [
-  { icon: 'tabler:files', ...opportunities.papers },
-  { icon: 'tabler:world', ...opportunities.participation },
-  { icon: 'tabler:chart-line', ...opportunities.applications },
+
+const helpWith = [
+  'Support accessible materials, translation and community outreach.',
+  'Make it easier for regional participants and early career ocean professionals to join discussions.',
+  'Contribute staff expertise, tools or meeting support for a specific activity.',
+];
+const discuss = [
+  'A contribution suited to your organization’s expertise and goals.',
+  'How the supported activity and its reach could be reported.',
+  'Appropriate acknowledgment of your contribution.',
 ];
 ---
 
 <Layout metadata={metadata}>
   <PageHeader
-    eyebrow="Partner with OceanObs’29"
-    title="Help shape ocean observing through 2040"
-    intro="Ocean observations help communities anticipate coastal flooding, improve forecasts and understand how the ocean is changing. OceanObs’29 builds on the UN Ocean Decade’s progress to set priorities for the next decade of ocean observing."
-    image={IMAGES.homeHero}
+    eyebrow="Partners"
+    title="Partner with OceanObs’29"
+    intro="Help bring observing teams, researchers and data users together to identify the measurements and services communities need. We welcome conversations about funding, technical expertise and practical support for participation."
   >
     <div class="mt-8 flex flex-wrap gap-3">
-      <a href={fundingContact.href} class="btn-site-accent">
+      <a href={partnershipContact.href} class="btn-site-accent">
         <Icon name="tabler:mail" class="size-4" aria-hidden="true" />
-        {fundingContact.label}
+        {partnershipContact.label}
       </a>
-      <a href="#support-in-2027" class="btn-site-outline-light">
-        Explore the 2027 work
+      <a href="#partner-fit-heading" class="btn-site-outline-light">
+        Explore partnership options
         <Icon name="tabler:arrow-down" class="size-4" aria-hidden="true" />
       </a>
     </div>
   </PageHeader>
 
-  <section id="support-in-2027" class="scroll-mt-24 py-16 md:py-24" aria-labelledby="why">
-    <div class="mx-auto max-w-7xl px-4 lg:px-6">
-      <h2 id="why" class="scroll-mt-24 text-3xl font-bold tracking-tight text-heading md:text-4xl">
-        What your support makes possible in 2027
-      </h2>
-      <p class="mt-4 max-w-3xl text-lg text-muted">
-        With partner support, the first phase will bring observing teams, scientists and data users together to identify
-        gaps and develop questions for the OceanObs’29 community papers. One question they could tackle is where better
-        measurements or faster data sharing would make the biggest difference for coastal flood forecasts.
+  <!-- What support can make possible [draft, from the topics already in the tool] -->
+  <section class="py-16 md:py-20" aria-labelledby="why">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-12 lg:px-6">
+      <div class="lg:col-span-5">
+        <p class="eyebrow-bar text-muted">Why partner</p>
+        <h2 id="why" class="mt-3 scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
+          What support can make possible
+        </h2>
+      </div>
+      <p class="text-lg text-default lg:col-span-7">
+        Partner support can help more people take part in setting priorities for ocean observing. Topics for discussion
+        include accessible materials and translation, regional discussions that bring in more communities, and work that
+        shows where better ocean data could improve real decisions. The Coordination Team can talk through what fits
+        your organization.
       </p>
-      <ul class="mt-8 grid gap-4 md:grid-cols-3">
-        {
-          supportOptions.map(({ icon, title, description }) => (
-            <li class="rounded-sm border border-line bg-page p-6 md:p-8">
-              <Icon name={icon} class="size-8 text-primary" aria-hidden="true" />
-              <h3 class="mt-5 text-xl font-bold text-heading">{title}</h3>
-              <p class="mt-3 text-muted">{description}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section class="bg-mist py-14 md:py-20" aria-labelledby="track-record">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 md:gap-16 lg:px-6">
-      <div>
-        <h2 id="track-record" class="text-2xl font-bold tracking-tight text-heading md:text-3xl">
-          What OceanObs’19 produced
-        </h2>
-        <p class="mt-4 text-lg text-default">
-          OceanObs’19 brought together about 1,500 participants. Its 128 community white papers informed a synthesis of
-          priorities for ocean observing.
-        </p>
-        <a
-          href="https://oceanobs19.net/outcomes/community-white-papers"
-          class="mt-5 inline-flex items-center gap-2 font-semibold text-link underline-offset-4 hover:underline"
-        >
-          Read the community papers and synthesis
-          <Icon name="tabler:arrow-up-right" class="size-4 shrink-0" aria-hidden="true" />
-        </a>
-      </div>
-      <div class="border-t border-line pt-8 md:border-t-0 md:border-l md:pt-0 md:pl-8 lg:pl-12">
-        <h2 id="integrity" class="scroll-mt-24 text-2xl font-bold tracking-tight text-heading md:text-3xl">
-          Scientific direction stays with the community
-        </h2>
-        <p class="mt-4 text-lg text-default">
-          The Program Committee leads scientific priorities, program decisions and publications. Partners support the
-          work. The Sponsors Committee, forming in early 2027, will guide fundraising and partner relationships.
-        </p>
-      </div>
     </div>
   </section>
 
@@ -117,23 +90,66 @@ const supportOptions = [
 
   <PartnershipFinder />
 
-  <section class="bg-mist py-16 md:py-20" aria-labelledby="contact-partnerships">
-    <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 md:flex-row md:items-center md:justify-between lg:px-6">
-      <div class="max-w-2xl">
-        <h2 id="contact-partnerships" class="text-3xl font-bold tracking-tight text-heading md:text-4xl">
-          Start a funding conversation
-        </h2>
-        <p class="mt-4 text-lg text-muted">
-          Tell the OceanObs’29 Coordination Team which part of the work interests you. We’ll follow up to discuss the
-          scope, what your support could make possible and how we’d report progress.
-        </p>
+  <!-- Needs and benefits [brief] -->
+  <section class="pb-16 md:pb-20" aria-labelledby="needs">
+    <h2 id="needs" class="sr-only">Needs and benefits</h2>
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 lg:px-6">
+      <div class="border-t-4 border-primary pt-6">
+        <h3 class="text-2xl font-bold tracking-tight text-heading">What partners can help with</h3>
+        <ul class="mt-4 space-y-3">
+          {
+            helpWith.map((item) => (
+              <li class="flex gap-3 text-lg text-default">
+                <Icon name="tabler:point-filled" class="mt-1.5 h-4 w-4 shrink-0 text-link" aria-hidden="true" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
       </div>
-      <div class="flex shrink-0 flex-col items-start gap-2 md:items-end">
-        <a href={fundingContact.href} class="btn-site-primary">
-          <Icon name="tabler:mail" class="size-4" aria-hidden="true" />
-          {fundingContact.label}
-        </a>
-        <p class="text-sm text-muted">{fundingContact.email}</p>
+      <div class="border-t-4 border-primary pt-6">
+        <h3 class="text-2xl font-bold tracking-tight text-heading">What we can discuss</h3>
+        <ul class="mt-4 space-y-3">
+          {
+            discuss.map((item) => (
+              <li class="flex gap-3 text-lg text-default">
+                <Icon name="tabler:point-filled" class="mt-1.5 h-4 w-4 shrink-0 text-link" aria-hidden="true" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-6 text-muted">The Coordination Team can confirm specifics as part of an inquiry.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scientific direction and contact [brief] -->
+  <section class="bg-mist py-16 md:py-20" aria-labelledby="contact-partnerships">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-12 lg:px-6">
+      <div class="lg:col-span-7">
+        <h2 id="contact-partnerships" class="text-3xl font-bold tracking-tight text-heading md:text-4xl">
+          Start a partnership conversation
+        </h2>
+        <p class="mt-4 text-lg text-default">
+          Tell the OceanObs’29 Coordination Team what you would like to support and what your organization could
+          contribute. We’ll discuss the scope, what the support could make possible and how progress could be shared.
+        </p>
+        <div class="mt-6 flex flex-col items-start gap-2">
+          <a href={partnershipContact.href} class="btn-site-primary">
+            <Icon name="tabler:mail" class="size-4" aria-hidden="true" />
+            {partnershipContact.label}
+          </a>
+          <p class="text-sm text-muted">{partnershipContact.email}</p>
+        </div>
+      </div>
+      <div class="self-start border-l-4 border-primary bg-white p-6 lg:col-span-5">
+        <h3 id="integrity" class="scroll-mt-24 text-xl font-bold text-heading">
+          Scientific direction stays with the community
+        </h3>
+        <p class="mt-3 text-default">
+          The Program Committee leads scientific and program decisions. Partners support agreed activities.
+        </p>
       </div>
     </div>
   </section>

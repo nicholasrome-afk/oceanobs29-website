@@ -1,0 +1,63 @@
+---
+// The shared Upcoming Events list (Home and News & Events read the same data: src/data/events).
+// Upcoming/past is worked out at build time; the script hides any row whose event has ended since the
+// last build and, if none are left, shows the empty message ("Check back for upcoming events").
+import { Icon } from 'astro-icon/components';
+import EventRow from '~/components/site/EventRow.astro';
+import type { DcoEvent } from '~/utils/events';
+import { getPermalink } from '~/utils/permalinks';
+
+export interface Props {
+  events: DcoEvent[];
+  compact?: boolean;
+  limit?: number;
+}
+
+const { events, compact = false, limit } = Astro.props;
+// Render one spare row beyond the limit, so a row hidden after it ends is replaced by the next one.
+const shown = limit ? events.slice(0, limit + 1) : events;
+---
+
+<div data-upcoming-list data-limit={limit}>
+  {
+    shown.length > 0 && (
+      <ul class="border-b border-line">
+        {shown.map((event, i) => (
+          <li hidden={limit !== undefined && i >= limit ? true : undefined}>
+            <EventRow event={event} compact={compact} upcoming />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <div
+    class="flex flex-col gap-4 rounded-[4px] border border-dashed border-line bg-mist p-6 md:flex-row md:items-center md:justify-between md:p-8"
+    hidden={shown.length > 0 ? true : undefined}
+    data-upcoming-empty
+  >
+    <p class="text-lg text-default">Check back for upcoming events.</p>
+    <a href={getPermalink('/get-involved')} class="btn-site-outline shrink-0">
+      Ways to get involved <Icon name="tabler:arrow-right" class="h-4 w-4" aria-hidden="true" />
+    </a>
+  </div>
+</div>
+
+<script>
+  const guard = () => {
+    document.querySelectorAll<HTMLElement>('[data-upcoming-list]').forEach((list) => {
+      const now = Date.now();
+      const limit = Number(list.dataset.limit) || Infinity;
+      const items = [...list.querySelectorAll<HTMLLIElement>('li')];
+      const live = items.filter((li) => {
+        const ends = li.querySelector<HTMLElement>('[data-ends]')?.dataset.ends;
+        return !ends || Date.parse(ends) > now;
+      });
+      items.forEach((li) => (li.hidden = !live.slice(0, limit).includes(li)));
+      const empty = list.querySelector<HTMLElement>('[data-upcoming-empty]');
+      if (empty) empty.hidden = live.length > 0;
+      const ul = list.querySelector('ul');
+      if (ul) ul.hidden = live.length === 0;
+    });
+  };
+  document.addEventListener('astro:page-load', guard);
+</script>

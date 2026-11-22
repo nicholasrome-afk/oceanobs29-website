@@ -1,139 +1,164 @@
 ---
-// Publications & Resources. Sources: [deck] Planning update, Oct 2026 (slides 2, 9).
-// White papers, reports and outcomes are added here as they are published.
+// Publications & Resources, rewritten 2026-11-22 per the website update brief: usable OceanObs’19 resources
+// first, then a short OceanObs’29 status note. The proposed publication types, counts, timeline and
+// publishing-model discussion were removed; the series history moved to /conference#series.
+// Copy: [brief] unless marked [draft] (written by Claude for review). Links checked 2026-11-22.
 import { Icon } from 'astro-icon/components';
 
 import Layout from '~/layouts/PageLayout.astro';
 import PageHeader from '~/components/site/PageHeader.astro';
 import SectionHead from '~/components/site/SectionHead.astro';
 
-import { HOME } from '~/config/home';
-
 const metadata = {
   title: 'Publications & Resources',
   description:
-    'Topical papers, community papers, policy briefs and synthesis papers from OceanObs’29, and the legacy of the decadal series.',
+    'Read OceanObs’19 community white papers, synthesis and conference outcomes, and find updates on OceanObs’29 publications.',
 };
 
-// [deck: slide 9] Four publication types proposed by the Community Publications working group (July 2026).
-const publications = [
+const CWP_ARCHIVE = 'https://oceanobs19.net/outcomes/community-white-papers';
+
+const core = [
   {
-    when: 'Before the conference',
-    title: 'Topical papers',
-    count: 'About 150 papers',
-    text: 'Bottom-up updates and outlooks from observing networks, regional systems, modeling and forecasting, users, and emerging technologies, including the observing components of Ocean Decade Actions.',
+    title: 'OceanObs’19 Community White Papers',
+    text: 'Browse the published community recommendations on observing priorities, integration and the needs of people who use ocean data.',
+    link: { text: 'Browse the white papers', href: CWP_ARCHIVE },
   },
   {
-    when: 'Before the conference',
-    title: 'Community papers',
-    count: 'About 20 papers',
-    text: 'Top-down, review-style papers on shared priorities, cross-cutting challenges, and collaboration needs, with themes set by the Program Committee.',
+    title: 'OceanObs’19 synthesis',
+    // The archive's direct "CWP Synthesis" link (a Google Doc) returned "Page Not Found" signed out on
+    // 2026-11-22, so this points to the archive page and says where to look (brief's fallback).
+    text: 'See the Program Committee’s summary of the needs and recommendations raised by white paper authors. On the archive page, look under “Synthesis.”',
+    link: { text: 'White papers and synthesis archive', href: CWP_ARCHIVE },
   },
   {
-    when: 'After the conference',
-    title: 'Policy briefs',
-    count: 'Post-conference',
-    text: 'Concise summaries for policymakers and public audiences.',
+    title: 'OceanObs’19 Conference Statement',
+    text: 'Read the conference’s shared priorities for sustained ocean observations and the use of ocean information.',
+    link: {
+      text: 'Read the conference statement (PDF)',
+      href: 'https://oceanobs19.net/sites/default/files/2023-03/OO19-Conference-Statement_online.pdf',
+    },
   },
   {
-    when: 'After the conference',
-    title: 'Synthesis papers',
-    count: 'Post-conference',
-    text: 'A high-level record of conference outcomes: key achievements, agreed actions, and strategic directions.',
+    title: 'Aha Honua declaration',
+    text: 'Read the Coastal Indigenous Peoples’ Declaration shared at OceanObs’19.',
+    link: {
+      text: 'Conference statements archive',
+      href: 'https://oceanobs19.net/conference-archive/conference-statements',
+    },
   },
 ];
 
-// [deck: slide 9]
-const schedule = [
-  { when: 'Early 2027', text: 'Abstract call opens (dates to be confirmed)' },
-  { when: 'Late 2028', text: 'Drafting complete' },
-  { when: 'October 2029', text: 'OceanObs’29' },
-  { when: 'After', text: 'Policy briefs and synthesis papers' },
+const examples = [
+  {
+    title: 'Gliders and storm forecasting',
+    text: 'Temperature profiles from autonomous gliders help forecasters account for the heat stored below the surface. In 2025, a Caribbean observing team used a glider to collect temperature and salinity measurements around Barbados, Trinidad and Tobago, and Guyana for hurricane modeling and research.',
+    links: [
+      {
+        text: 'OceanGliders Community White Paper',
+        href: 'https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2019.00422/full',
+      },
+      {
+        text: 'GOOS Caribbean pilot account',
+        href: 'https://goosocean.org/co-design-news/caribbean-ocean-glider-completes-mission-advancing-hurricane-forecasting-and-climate-science/',
+      },
+    ],
+  },
+  {
+    title: 'Combining data from different observing networks',
+    text: 'Common data formats and consistent descriptions of measurements make it easier to combine observations from different platforms and use them in forecasts and other services.',
+    links: [
+      {
+        text: 'Data interoperability Community White Paper',
+        href: 'https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2019.00442/full',
+      },
+    ],
+  },
+  {
+    title: 'Tracking marine life over time',
+    text: 'Sustained, comparable measurements of marine life help establish baselines and show how ecosystems respond to warming, acidification and other pressures.',
+    links: [
+      {
+        text: 'Marine biological observations Community White Paper',
+        href: 'https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2019.00395/full',
+      },
+    ],
+  },
 ];
+
+const linkClass = 'inline-flex items-center gap-1.5 font-semibold text-link underline-offset-4 hover:underline';
 ---
 
 <Layout metadata={metadata}>
   <PageHeader
     eyebrow="Publications & Resources"
-    title="Community publications"
-    intro="OceanObs’29 publications connect bottom-up community input to the conference and its outcomes. White papers, reports and conference outcomes will be collected here as they are published."
+    title="Publications & Resources"
+    intro="Read the community white papers, synthesis and conference statements from OceanObs’19, and find updates on OceanObs’29 publications."
   />
 
-  <section class="py-16 md:py-24" aria-labelledby="publications">
+  <!-- OceanObs’19 publications and outcomes [brief] -->
+  <section class="py-16 md:py-24" aria-labelledby="archives">
     <div class="mx-auto max-w-7xl px-4 lg:px-6">
-      <SectionHead
-        id="publications"
-        eyebrow="Proposed publications"
-        title="Four kinds of contribution"
-        intro="As proposed by the Community Publications working group (July 2026)."
-      />
-      <ul class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <SectionHead id="archives" eyebrow="OceanObs’19" title="OceanObs’19 publications and outcomes" />
+      <ul class="mt-8 max-w-4xl border-b border-line">
         {
-          publications.map(({ when, title, count, text }) => (
-            <li class="flex flex-col rounded-[4px] border border-line p-6">
-              <p class="eyebrow text-link">{when}</p>
-              <h3 class="mt-3 text-xl font-bold text-heading">{title}</h3>
-              <p class="mt-1 font-heading text-sm font-bold text-muted">{count}</p>
-              <p class="mt-4 text-muted">{text}</p>
+          core.map(({ title, text, link }) => (
+            <li class="grid gap-x-8 gap-y-2 border-t border-line py-6 md:grid-cols-[1fr_auto]">
+              <div>
+                <h3 class="text-xl font-bold text-heading">{title}</h3>
+                <p class="mt-2 text-default">{text}</p>
+              </div>
+              <a href={link.href} class:list={[linkClass, 'self-start md:pt-1']}>
+                {link.text} <Icon name="tabler:arrow-up-right" class="h-4 w-4 shrink-0" aria-hidden="true" />
+              </a>
             </li>
           ))
         }
       </ul>
 
-      <h3 class="mt-16 text-xl font-bold text-heading">Timeline</h3>
-      <ol
-        class="mt-6 grid gap-6 border-l-2 border-line pl-6 md:grid-cols-4 md:border-t-2 md:border-l-0 md:pt-6 md:pl-0"
-      >
+      <h3 id="white-paper-examples" class="mt-14 scroll-mt-28 text-2xl font-bold tracking-tight text-heading">
+        Examples from the white papers
+      </h3>
+      <ul class="mt-6 grid max-w-5xl gap-8 md:grid-cols-3">
         {
-          schedule.map(({ when, text }) => (
+          examples.map(({ title, text, links }) => (
             <li>
-              <p class="font-heading text-lg font-extrabold text-primary">{when}</p>
-              <p class="mt-1 text-muted">{text}</p>
+              <h4 class="font-bold text-heading">{title}</h4>
+              <p class="mt-2 text-sm text-default">{text}</p>
+              <ul class="mt-3 space-y-1.5 text-sm">
+                {links.map(({ text, href }) => (
+                  <li>
+                    <a href={href} class={linkClass}>
+                      {text} <Icon name="tabler:arrow-up-right" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))
         }
-      </ol>
-      <p class="mt-10 max-w-3xl text-muted">
-        Still to be decided: a single journal special issue or a multi-journal virtual issue. Publisher criteria include
-        open access, open review, and fee waivers for authors from the Global South and other underrepresented regions.
-      </p>
+      </ul>
     </div>
   </section>
 
-  <!-- Historical archives [deck: slide 2] -->
-  <section class="bg-ink py-16 md:py-24" aria-labelledby="archives">
-    <div class="mx-auto max-w-7xl px-4 lg:px-6">
-      <SectionHead
-        id="archives"
-        dark
-        eyebrow="Historical archives"
-        title="Three decades of agenda-setting"
-        intro="Each OceanObs conference has helped reset priorities for the global ocean observing enterprise."
-      />
-      <ol class="mt-12 grid gap-px bg-white/10 md:grid-cols-3">
-        {
-          HOME.vision.series
-            .filter((c) => !c.current)
-            .map(({ name, place, size, legacy, url }) => (
-              <li class="flex flex-col bg-ink p-6 md:p-8">
-                <p class="font-heading text-4xl font-extrabold text-white/80">{name.replace('OceanObs', '')}</p>
-                <h3 class="mt-2 font-semibold text-on-dark">{name}</h3>
-                <p class="text-sm text-on-dark-muted">
-                  {place} · {size}
-                </p>
-                <p class="mt-4 text-on-dark">{legacy}</p>
-                {url && (
-                  <a
-                    href={url}
-                    class="mt-6 inline-flex items-center gap-1 self-start font-semibold text-on-dark-link hover:underline"
-                  >
-                    Visit the {name} website <Icon name="tabler:arrow-up-right" class="h-4 w-4" aria-hidden="true" />
-                  </a>
-                )}
-              </li>
-            ))
-        }
-      </ol>
+  <!-- OceanObs’29 publication updates [brief] -->
+  <section class="bg-mist py-16 md:py-20" aria-labelledby="publications">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-12 lg:px-6">
+      <div class="lg:col-span-5">
+        <p class="eyebrow-bar text-muted">OceanObs’29</p>
+        <h2 id="publications" class="mt-3 scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
+          OceanObs’29 publication updates
+        </h2>
+      </div>
+      <p class="text-lg text-default lg:col-span-7">
+        The OceanObs’29 publications process is still being developed. We’ll post confirmed opportunities to contribute
+        here.
+      </p>
+      <!--
+        PENDING (Hong Kong assembly summary): once the Coordination Team clears the official summary of the first
+        Program Committee assembly for public release, add an "OceanObs’29 planning resources" list here with its
+        title, public URL and a description such as "Read the summary of the first Program Committee assembly in
+        Hong Kong and the planning topics discussed." (check what the document covers first).
+      -->
     </div>
   </section>
 </Layout>

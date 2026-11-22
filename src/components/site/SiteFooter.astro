@@ -62,7 +62,10 @@ const year = new Date().getFullYear();
                   <li>
                     {name}
                     {role && `, ${role}`},{' '}
-                    <a class="text-on-dark-link underline-offset-2 hover:underline" href={`mailto:${email}`}>
+                    <a
+                      class="text-on-dark-link underline underline-offset-2 hover:no-underline"
+                      href={`mailto:${email}`}
+                    >
                       {email}
                     </a>
                   </li>

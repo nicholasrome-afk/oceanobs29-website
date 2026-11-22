@@ -32,7 +32,7 @@ export const ORG = {
   /** Links on the right of the utility bar, besides the newsletter button. */
   utilityLinks: [] as { text: string; href: string }[],
   /** People listed in the footer (and on the Contact page). */
-  contacts: [{ name: 'General inquiries', email: 'info@oceanobs29.net' }] as {
+  contacts: [{ name: 'OceanObs’29 Coordination Team', email: 'info@oceanobs29.net' }] as {
     name: string;
     role?: string;
     email: string;

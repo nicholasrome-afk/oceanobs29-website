@@ -1,66 +1,31 @@
-// Roadmap to OceanObs’29, from the Program Committee's "Planning update" deck
-// (20261011_OceanObs29_General.pptx, slide 7). Used by the homepage timeline
-// and the News & Events page. Mark items done as they happen: review this file
-// whenever a milestone passes (the site shows these flags as written).
+// Selected planning updates for News & Events (#milestones): completed, public milestones only.
+// Trimmed 2026-11-22 per the website update brief: internal meeting schedules, draft publication
+// dates, pending committee dates and proposed outcomes were removed; the Rio conference moved to the
+// shared event data (src/data/events). The ECOP workshop in Xiamen (Dec 2026) is left out until the
+// organizers confirm a public listing. Sources: Planning update deck (Oct 2026, slide 7) and the
+// ECOP Committee minutes (29 Oct 2026). Add new entries only once they have happened and are public.
 
-export interface Milestone {
-  /** Shown as written: "Feb", "Early", "First half", "Apr 7–9". */
+export interface PlanningUpdate {
+  /** Shown as written, e.g. "May 2026". */
   when: string;
   text: string;
-  done: boolean;
+  /** Optional link to more on this site. */
+  link?: { text: string; href: string };
 }
 
-export const ROADMAP: { year: string; items: Milestone[] }[] = [
+export const PLANNING_UPDATES: PlanningUpdate[] = [
   {
-    year: '2026',
-    items: [
-      {
-        when: 'Feb',
-        text: 'Ocean Sciences Meeting 2026, Glasgow: OceanObs’29 town hall; Program Committee members meet in person',
-        done: true,
-      },
-      { when: 'Mar', text: 'Program Committee kick-off (virtual)', done: true },
-      { when: 'Apr', text: 'International Advisory Committee kick-off (virtual)', done: true },
-      { when: 'May', text: 'Hong Kong: first Program Committee meeting; six working groups launched', done: true },
-      { when: 'Jul', text: 'Program Committee meeting: draft Terms of Reference and working group plans', done: true },
-      { when: 'Aug', text: 'Early Career Ocean Professionals (ECOP) Committee established', done: true },
-      // Dates and venue confirmed in the ECOP Committee minutes, 29 Oct 2026.
-      { when: 'Dec 14–18', text: 'ECOP leadership training workshop and committee meeting, Xiamen', done: false },
-    ],
+    when: 'Mar–Apr 2026',
+    text: 'The Program Committee and International Advisory Committee began their work.',
+    link: { text: 'Committee members', href: '/about#program-committee' },
   },
   {
-    year: '2027',
-    items: [
-      { when: 'Early', text: 'Sponsors Committee formalized (planned)', done: false },
-      { when: 'Early', text: 'Topical paper abstract call opens (dates to be confirmed)', done: false },
-      {
-        when: 'Apr 7–9',
-        // ECOP input: [ECOP minutes, 29 Oct 2026].
-        text: 'UN Ocean Decade Conference, Rio de Janeiro: engagement opportunity, with ECOP input planned',
-        done: false,
-      },
-      { when: 'Second half', text: 'Second Program Committee meeting, Europe or North America', done: false },
-    ],
+    when: 'May 2026',
+    text: 'The Program Committee held its first assembly, in Hong Kong.',
   },
   {
-    year: '2028',
-    items: [
-      { when: 'First half', text: 'Third Program Committee meeting, Africa or South America', done: false },
-      {
-        when: 'First half',
-        text: 'Local Organizing Committee formalized, with a professional conference organizer (planned)',
-        done: false,
-      },
-      { when: 'Aug', text: 'UN Ocean Conference, Republic of Korea: planned OceanObs’29 side event', done: false },
-      { when: 'Late', text: 'Topical and community paper drafting complete', done: false },
-    ],
-  },
-  {
-    year: '2029',
-    items: [
-      { when: 'First half', text: 'Fourth Program Committee meeting and site visits, Qingdao', done: false },
-      { when: 'Oct', text: 'OceanObs’29 Conference, Qingdao, China', done: false },
-      { when: 'After', text: 'Policy briefs and synthesis papers', done: false },
-    ],
+    when: 'Aug 2026',
+    text: 'The Early Career Ocean Professionals Committee was established.',
+    link: { text: 'How OceanObs’29 is organized', href: '/about#governance' },
   },
 ];

@@ -75,3 +75,15 @@ Always confirm the terms on the specific image's own page: individual images can
 >
 > Thank you,
 > [name], [organization]
+
+## Documentary photo register (from the 2026-11-22 website update brief)
+
+The NASA photo (Partners hero) and the OOI glider photo (About) were removed on 2026-11-22. Don't replace them with generic photos. Add a real documentary photo only after it has a row here.
+
+| Event or activity | Date | Location | Region | Contributor | Usage rights | Consent (people shown) | Credit | Candidate page | Approved caption | Approved alt text |
+| ----------------- | ---- | -------- | ------ | ----------- | ------------ | ---------------------- | ------ | -------------- | ---------------- | ----------------- |
+|                   |      |          |        |             |              |                        |        |                |                  |                   |
+
+- **Wanted first:** a working-session photo from the 2026 Hong Kong assembly or the Glasgow town hall, for About (one slot beside the organization summary). Later, an approved photo of researchers, operators and local collaborators doing the measuring described in the Home science feature (gliders and storm forecasting).
+- **Coverage:** across the register, aim for a mix of geographic regions, institution types, operational and research roles, and career stages.
+- **Captions:** name the actual event and date. Use names and affiliations only when the image and caption details support them. Alt text describes what is visible.

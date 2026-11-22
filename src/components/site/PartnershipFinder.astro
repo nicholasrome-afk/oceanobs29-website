@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 
 import SectionHead from '~/components/site/SectionHead.astro';
-import { fundingContact, opportunities, profiles } from '~/config/partnerships';
+import { partnershipContact, opportunities, profiles } from '~/config/partnerships';
 
 const fieldClass =
   'mt-2 block min-h-11 w-full rounded-sm border border-line bg-page px-3 py-2 text-base font-normal text-default';
@@ -15,12 +15,12 @@ const initial = opportunities.outreach;
       id="partner-fit-heading"
       eyebrow="Explore options"
       title="Find your partnership fit"
-      intro="Choose what you’d like to support and what matters most to your organization."
+      intro="Choose your organization type, what you’d like to support and what matters most to you. If your organization isn’t listed, use the contact route below."
     />
 
-    <aw-partnership-finder class="mt-8 block" data-email={fundingContact.email} hidden>
+    <aw-partnership-finder class="mt-8 block" data-email={partnershipContact.email} hidden>
       <form>
-        <fieldset class="grid min-w-0 grid-cols-2 overflow-hidden rounded-sm border border-line md:grid-cols-4">
+        <fieldset class="grid min-w-0 grid-cols-3 overflow-hidden rounded-sm border border-line">
           <legend class="sr-only">Partner type</legend>
           {
             Object.entries(profiles).map(([key, profile]) => (
@@ -55,7 +55,7 @@ const initial = opportunities.outreach;
               <p class="eyebrow-bar text-muted" data-support>{initial.support}</p>
               <h3 class="mt-3 text-2xl font-bold tracking-tight text-heading" data-title>{initial.title}</h3>
               <p class="mt-2 text-muted" data-description>{initial.description}</p>
-              <h4 class="mt-5 border-t border-line pt-4 font-bold text-heading">What we can discuss</h4>
+              <h4 class="mt-5 border-t border-line pt-4 font-bold text-heading">For your priority, we could discuss</h4>
               <p class="mt-1 text-muted" data-benefit>{profiles.sponsor.goals['Public recognition']}</p>
             </div>
 
@@ -69,7 +69,7 @@ const initial = opportunities.outreach;
                 <textarea name="inquiry" class={fieldClass} rows="7" readonly></textarea>
               </label>
               <div class="mt-3 flex flex-wrap gap-2">
-                <a href={fundingContact.href} class="btn-site-primary" data-email-draft>Open email draft</a>
+                <a href={partnershipContact.href} class="btn-site-primary" data-email-draft>Open email draft</a>
                 <button class="btn-site-outline" type="button" data-select-inquiry>Select inquiry text</button>
               </div>
             </details>
@@ -80,8 +80,8 @@ const initial = opportunities.outreach;
 
     <noscript>
       <p class="mt-6 text-muted">
-        <a class="font-semibold text-link underline" href={fundingContact.href}>Email the Coordination Team</a> to discuss
-        opportunities for your organization.
+        <a class="font-semibold text-link underline" href={partnershipContact.href}>Email the Coordination Team</a> to discuss
+        what your organization would like to support.
       </p>
     </noscript>
   </div>
@@ -112,7 +112,7 @@ const initial = opportunities.outreach;
         this.querySelector('[data-description]')!.textContent = selected.description;
         this.querySelector('[data-benefit]')!.textContent = goals[priority.value];
 
-        const body = `Hello OceanObs’29 team,\n\nWe’re reaching out as ${audience.name} to discuss ${selected.support.toLowerCase()} for ${selected.title.toLowerCase()}.\n\nOur priority is ${priority.value.toLowerCase()}. Could we arrange a short briefing to discuss what a partnership might involve?\n\nThank you,\n[Name and organization]`;
+        const body = `Hello OceanObs’29 team,\n\nWe’re reaching out as ${audience.name} interested in ${selected.support.toLowerCase()} for ${selected.title.toLowerCase()}.\n\nWhat matters most to us is ${priority.value.toLowerCase()}. Could we arrange a short conversation about what a partnership might involve?\n\nThank you,\n[Name and organization]`;
         draft.value = `Subject: ${subject}\n\n${body}`;
         emailDraft.href = `mailto:${this.dataset.email}?${new URLSearchParams({ subject, body: body.replaceAll('\n', '\r\n') }).toString().replaceAll('+', '%20')}`;
         selections.set(profile, { opportunity: opportunity.value, priority: priority.value });

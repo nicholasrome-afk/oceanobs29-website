@@ -5,6 +5,8 @@ date: 2026-02-27
 startTime: '12:45'
 endTime: '13:45'
 timezone: Europe/London
+kind: hosted
+label: 'OceanObs’29 town hall at Ocean Sciences Meeting 2026'
 formats: ['Town Hall']
 location: 'Forth (SEC), Glasgow, Scotland'
 organizers: ['OceanObs’29']
