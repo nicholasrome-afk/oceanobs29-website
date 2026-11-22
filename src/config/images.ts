@@ -101,6 +101,10 @@ export const EVENT_LOGOS = {
    * (UNESCO-IOC, 2024, p. 19). Toolkit rules: full colour, no borders or effects, never altered, on white,
    * with a clear margin the height of the "0" in "2030" (about 11% of the logo height). Non-UN use needs
    * UNESCO-IOC approval or an endorsed Decade Action, and the logo may only identify Decade-related events.
+   * APPROVAL: the Ocean Decade Coordination Team (UNESCO-IOC) approved OceanObs’29's use of the logo on
+   * related promotional materials by email on 15 April 2025, as the conference is part of the Decade
+   * Implementation Plan (DIP) mandate, and asked that the Branding Guidelines be followed. The approval
+   * email is held by the project lead.
    */
   'ocean-decade': {
     src: oceanDecadeLogo,
