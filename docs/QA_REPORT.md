@@ -81,3 +81,15 @@ The tools were installed in a temporary folder outside the repo (Lighthouse 13.5
   section was removed.
 - All four source links return 200 (2026-11-22). The OceanObs’09 Framework PDF is only served over http.
 - axe: 0 violations on the homepage at 1440px and 390px; no horizontal overflow; headings H1 → H2 → H3.
+
+## Homepage, Conference, and About revision (2026-11-23)
+
+- Homepage: the intro is reframed as a decade-long process (new heading, one added sentence, and a
+  before / at / after the conference line), and "Why ocean observing matters" is rewritten as a lead line,
+  three icon cards, and a closing paragraph with the GOOS report link. Draft copy is marked [draft] in
+  src/config/home.ts.
+- "What a global conference makes possible" moved to /conference, replacing "The OceanObs conference
+  series" (the #series anchor is kept).
+- About: the Ocean Decade logo (approval of 15 Apr 2025) is shown in the UN Ocean Decade section; the
+  series sentence is replaced by a paragraph on planning to 2040 and beyond.
+- axe: 0 violations on Home, Conference, and About at 1440px and 390px; no overflow; no skipped headings.

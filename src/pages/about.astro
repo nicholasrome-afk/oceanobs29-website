@@ -1,10 +1,11 @@
 ---
 // About, reorganized 2026-11-22 per the website update brief: About OceanObs’29 → OceanObs’29 and the UN
 // Ocean Decade → How OceanObs’29 is organized → committees and Coordination Team. The OOI photo, the
-// objectives grid, the series history (now /conference#series), the working-group inventory and draft
+// objectives grid, the series history (now on /conference), the working-group inventory and draft
 // committee schedules were removed. Words: [old site] oceanobs29.net; [brief] the update brief;
 // [draft] written by Claude for review. Committee lists live in src/data/committees.ts.
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
 import Layout from '~/layouts/PageLayout.astro';
 import PageHeader from '~/components/site/PageHeader.astro';
@@ -12,7 +13,7 @@ import SectionHead from '~/components/site/SectionHead.astro';
 import PersonCard from '~/components/site/PersonCard.astro';
 
 import { ORG } from '~/config/org';
-import { getPermalink } from '~/utils/permalinks';
+import { EVENT_LOGOS } from '~/config/images';
 import { ADVISORY_COMMITTEE, PROGRAM_COMMITTEE, COORDINATION_TEAM } from '~/data/committees';
 
 const metadata = {
@@ -50,6 +51,7 @@ const structure = [
 ] as { name: string; text: string; href?: string; id?: string }[];
 
 const email = ORG.contacts[0].email;
+const decadeLogo = EVENT_LOGOS['ocean-decade'];
 const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no-underline';
 ---
 
@@ -77,11 +79,12 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
   </PageHeader>
 
   <!--
-    OceanObs’29 and the UN Ocean Decade [brief]. Thematic link only (UNESCO-IOC Challenge 7 materials).
-    PENDING (endorsement): once the exact endorsed entity and approved wording are confirmed in organizer
-    materials, add the endorsement sentence, a link to the official record and the authorized mark here,
-    following the Ocean Decade logo terms (https://oceandecade.org/legal/). Keep the mark away from partner
-    lists, funding asks and external event entries. Keeps the old #vision anchor.
+    OceanObs’29 and the UN Ocean Decade [brief]. Thematic link (UNESCO-IOC Challenge 7 materials) and the Ocean
+    Decade logo, used with the Ocean Decade Coordination Team's approval of 15 Apr 2025 (see EVENT_LOGOS in
+    src/config/images.ts): full colour, unaltered, on white, with clear space. The 2040 paragraph was added
+    2026-11-23 at the project lead's request [lead, worded by Claude]; the series sentence was removed.
+    PENDING (endorsement): once the exact endorsed entity and approved wording are confirmed, add the
+    endorsement sentence and a link to the official record here. Keeps the old #vision anchor.
   -->
   <section id="vision" class="scroll-mt-28 py-16 md:py-20" aria-labelledby="ocean-decade">
     <div class="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-12 lg:px-6">
@@ -89,6 +92,17 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
         <h2 id="ocean-decade" class="scroll-mt-28 text-3xl font-bold tracking-tight text-heading md:text-4xl">
           OceanObs’29 and the UN Ocean Decade
         </h2>
+        <div class="mt-8 inline-block bg-white" style={`padding: ${decadeLogo.padding}px`}>
+          <Image
+            src={decadeLogo.src}
+            alt={decadeLogo.alt}
+            height={decadeLogo.height}
+            width={Math.round((decadeLogo.src.width / decadeLogo.src.height) * decadeLogo.height)}
+            densities={[1, 2]}
+            class="block w-auto"
+            style={`height: ${decadeLogo.height}px`}
+          />
+        </div>
       </div>
       <div class="lg:col-span-7">
         <p class="text-lg text-default">
@@ -100,11 +114,9 @@ const linkClass = 'font-semibold text-link underline underline-offset-4 hover:no
             >Ocean Decade Challenge 7</a
           >
         </p>
-        <p class="mt-6 text-muted">
-          OceanObs’29 continues a conference series that began in 1999. <a
-            class={linkClass}
-            href={`${getPermalink('/conference')}#series`}>About the OceanObs conference series</a
-          >
+        <p class="mt-6 text-lg text-default">
+          The Ocean Decade runs from 2021 to 2030. OceanObs’29 is an opportunity to plan which observing programs and
+          activities should be carried forward after the Decade ends, to 2040 and beyond.
         </p>
       </div>
     </div>
